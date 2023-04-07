@@ -96,7 +96,7 @@ String dateOfBirth;
 
 
 ## 6.2. _Get / View Profile_
-* Accepts 'GET' RQs to /profile/friendsList/:userId
+* Accepts 'GET' RQs to /profile/:userId
 * Accepts an userId and returns a list of friends created by that user.
     * if the given user has not created any list -> empty list will be returned;
 * Accepts an userId and returns a list of events created by that user.
@@ -124,10 +124,6 @@ String dateOfBirth;
   list of Events.
     * if userId or eventId do not exist - EventNotFoundException will be thrown;
 
-## 6.6 _Delete Profile
-* Accepts 'DELETE' RQs to /profile/deleteProfile/:userId
-* Accepts data to delete a profile returns the confirmation boolean = true that the profile has been deleted
-
 ## 6.7 Get EventInfo
 * Accepts 'GET' requests to /events/:eventId
 * Accepts an eventId and Returns the corresponding Event details : eventName, address, type,
@@ -139,7 +135,7 @@ String dateOfBirth;
 * Accepts data to create a new Event, with a provided name, address, type, date and time.
   Returns the new Event, with a unique eventID
 
-## 6.9 Add to 'Following/friends' List
+## 6.9 Add to 'Following/ List
 * Accepts PUT requests to /profile/addFollowing/:userId
 * Accepts a userId to add a user to the current user profile's list of users they follow.
   Returns the updated following list.
