@@ -1,75 +1,207 @@
-# Design Document
-
-## Instructions
-
-_Replace italicized text (including this text!) with details of the design you are proposing for your team project. (Your replacement text shouldn't be in italics)._
-
-_You should take a look at the [example design document](example-design-document.md) in the same folder as this template for more guidance on the types of information to capture, and the level of detail to aim for._
-
-## _Project Title_ Design
+# Project Design Document - Event Social Media Web - Application
 
 ## 1. Problem Statement
 
-_Explain clearly what problem you are trying to solve._
+Event driven social media app. Drive in person connections through local event discovery.
 
 ## 2. Top Questions to Resolve in Review
 
-_List the most important questions you have about your design, or things that you are still debating internally that you might like help working through._
+Things that we are still debating:
 
-1.
+1. Are we allowing users to post an event; or we steal an info on the events happening;
 2.
 3.
 
 ## 3. Use Cases
 
-_This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
+_This is where we work backwards from the customer and define what our customers would like to do (and why).
+You may also include use cases for yourselves (as developers), or for the organization providing the product
+to customers._
 
-U1. _As a [product] customer, I want to `<result>` when I `<action>`_
+U1. _As a user, I want to create a profile;
+U1.1. _As a user, I want to delete a profile;
+U1.2. _As a user, I want to update a profile;
+U1.2. As a user, I want to view a profile; (with update & delete buttons);
 
-U2. _As a [product] customer, I want to view my grocery list when I log into the grocery list page_
+U2. _As a user, I want to retrieve all the events;
 
-U3. ...
+U3. _As a user, I want to retrieve the events, that I chose (personal events); (RSVP - can attend/ unable);
+U3.1. _As a user, I want to remove an event, that I chose/shortlisted (personal events);
+U3.1. _As a user, I want to create a personal event;
+U3.1. _As a user, I want to delete the event that user(that the same user) posted;
+
+U4. _As a user, I want to filter events by location/ indoor and outdoor / by date / by event type; (global/personal use cases)
+
+U5. _As a user, I want to see the peoples' profiles who are attending the event; (event details call)
+
+(extension) U 5.1. As a user, I do not want to see the events that people from my blocked list attending;
+
+U6. (extension) _As a user, I want to block the users (block people lists);
+
+U**. (extension) _As a user, I want to create friends list;
+
+U**. (extension) _As a user, I want to add a picture to my profile;
 
 ## 4. Project Scope
 
-_Clarify which parts of the problem you intend to solve. It helps reviewers know what questions to ask to make sure you are solving for what you say and stops discussions from getting sidetracked by aspects you do not intend to handle in your design._
-
 ### 4.1. In Scope
 
-_Which parts of the problem defined in Sections 1 and 2 will you solve with this design? This should include the base functionality of your product. What pieces are required for your product to work?_
+Creating, deleting, updating and viewing a user's profile;
+Creating, deleting, updating, viewing, and filtering and the ability to add events to user's list;
+Ability to view peoples' profiles who are attending the event, RSVP and not RSVP;
+Ability to filter events by location/ indoor and outdoor / by date / by event type;
 
-_The functionality described above should be what your design is focused on. You do not need to include the design for any out of scope features or expansions._
 
 ### 4.2. Out of Scope
 
-_Based on your problem description in Sections 1 and 2, are there any aspects you are not planning to solve? Do potential expansions or related problems occur to you that you want to explicitly say you are not worrying about now? Feel free to put anything here that you think your team can't accomplish in the unit, but would love to do with more time._
+Ability to not see the list of events which is attended by people from my blocked list;
+Ability to block the users I had bad experience with (do not like);
+Ability to create a friends list;
+Ability to research events by friends who are in my friends list;
+GoogleMaps from profile's user call GoogleMap of the event to give an estimated time you need to commute;
+Recommendations of another profiles who viewed the event, events that you might be interested, and events based on my friend's list;
 
-_The functionality here does not need to be accounted for in your design._
 
 # 5. Proposed Architecture Overview
 
-_Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include class diagram(s) showing what components you are planning to build. You should argue why this architecture (organization of components) is reasonable. That is, why it represents a good data flow and a good separation of concerns. Where applicable, argue why this architecture satisfies the stated requirements._
+![](images/diagram.png)
 
 # 6. API
 
 ## 6.1. Public Models
 
-_Define the data models your service will expose in its responses via your *`-Model`* package. These will be equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
+// ProfileModel
 
-## 6.2. _First Endpoint_
+String userId;
+Set <String> friends;
+Set <String> events;
 
-_Describe the behavior of the first endpoint you will build into your service API. This should include what data it requires, what data it returns, and how it will handle any known failure cases. You should also include a sequence diagram showing how a user interaction goes from user to website to service to database, and back. This first endpoint can serve as a template for subsequent endpoints. (If there is a significant difference on a subsequent endpoint, review that with your team before building it!)_
 
-_(You should have a separate section for each of the endpoints you are expecting to build...)_
+//EventsModel
 
-## 6.3 _Second Endpoint_
+String eventName;
+String eventAddress;
+String eventType;
+ZonedDateTime date;
+ZonedDateTime time;
+Set <String> attendees;
 
-_(repeat, but you can use shorthand here, indicating what is different, likely primarily the data in/out and error conditions. If the sequence diagram is nearly identical, you can say in a few words how it is the same/different from the first endpoint)_
+
+//UserModel
+
+String fullName;
+String emailAddress;
+String gender;
+String dateOfBirth;
+
+
+## 6.2. _Get / View Profile_
+* Accepts 'GET' RQs to /profile/friendsList/:userId
+* Accepts an userId and returns a list of friends created by that user.
+    * if the given user has not created any list -> empty list will be returned;
+* Accepts an userId and returns a list of events created by that user.
+    * if the given user has not created any list of events -> empty list will be returned;
+
+## 6.3 _Create Profile_
+* Accepts 'POST' RQs to /profile/
+* Accepts data to create a new profile with user details such as fullName,
+  emailAddress, gender, dateOfBirth. Returns a new profile with a unique userId;
+
+## 6.3 _Update Profile
+* Accepts 'PUT' RQs to /profile/:?userId=userId&isNew=false
+* Accepts data to update a profile. Returns the updated
+  profile.
+
+## 6.4 _Update Profile_Friends List
+* Accepts 'PUT' RQs to /profile/addFriend/:?userId=userId&friendId=fiendsId=friendsId
+* Accepts data to update a list of friends. Returns the updated
+  list of friends.
+    * if userId or friendsId do not exist - UserNotFoundException will be thrown;
+
+## 6.5 _Update Profile_Events List
+* Accepts 'PUT' RQs to /profile/addEvent/:?userId=userId&eventId=eventId
+* Accepts data to update an event list. Returns the updated
+  list of Events.
+    * if userId or eventId do not exist - EventNotFoundException will be thrown;
+
+## 6.6 _Delete Profile
+* Accepts 'DELETE' RQs to /profile/deleteProfile/:userId
+* Accepts data to delete a profile returns the confirmation boolean = true that the profile has been deleted
+
+## 6.7 Get EventInfo
+* Accepts 'GET' requests to /events/:eventId
+* Accepts an eventId and Returns the corresponding Event details : eventName, address, type,
+  date, time and list of attendees.
+    * If the event is not found, will throw an 'EventNotFoundException'
+
+## 6.8 Create Event
+* Accepts a 'POST' request to /events/createEvent/
+* Accepts data to create a new Event, with a provided name, address, type, date and time.
+  Returns the new Event, with a unique eventID
+
+## 6.9 Add to 'Following/friends' List
+* Accepts PUT requests to /profile/addFollowing/:userId
+* Accepts a userId to add a user to the current user profile's list of users they follow.
+  Returns the updated following list.
+* ![](images/FollowUser.png)
+
+## 6.10 RSVP to Event Endpoint
+
+* Accepts PUT requests to /Profile/events/:eventId
+* Accepts an eventId to add an event to the current user profile's list of events they plan to attend.
+  Returns the updated user profile's event list.
+*  ![](images/RSVP.png)
+
+## 6.11 Get User Endpoint
+
+* Accepts GET requests to /User/:?userId=userId&email=email&dob=dob
+* Accept userId,email, and Date of Birth then return the User information.
+
+## 6. Create User Endpoint
+* Accepts 'POST' requests to '/User/createUser/:?userId=userId&email=email&dob=dob
+* Accept userId,email, and Date of Birth then create the User with given info.
+
+
+## SQ diagram
+
+ ![](http://cdn-0.plantuml.com/plantuml/png/RP4zJiKm3CTtdy8NwCB8W1vG14zYU5GTkY6tiI0eJKhYKlNsX5P1AM6BV_v_MCef27cPHmEYnJ0-VB4Lc2BJWvx82juR_HVTNiwF9BpG-lfCOw_eQF0SbsNGHcfoe4Yefy1OhvP6Lzy1x2LOtPJPU8rFRNl1vWNANJHaTL6QJmr_pXm488FHa5gZ-erbesS5lxGgCZtBx2toDhh-WmU1N57zVtRoPT9qKQ7UMuq-55vrNNo6oTd0k6XvFqIbXI8XW1DRzVEBtm00)
 
 # 7. Tables
 
-_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what objects your service will need, then translate that to a table structure, like with the *`Playlist` POJO* versus the `playlists` table in the Unit 3 project._
+_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to
+first think of what objects your service will need, then translate that to a table structure,
+like with the *`Playlist` POJO* versus the `playlists` table in the Unit 3 project._
+
+`Event`
+``` 
+eventId // partition key, string;
+eventName // string;
+eventAddress // string;
+eventType // string;
+date // ZonedDateTime;
+time // ZonedDateTime;
+attendees // Set<String>;
+```
+`User`
+```
+userId // partition key, string
+fullName// string;
+emailAddress // string;
+gender // string;
+dateOfBirth // LocalDate;
+```
+`Profile`
+```
+userId // partition key, string;
+followers // Set <String>;
+events // Set <String>;
+```
 
 # 8. Pages
 
-_Include mock-ups of the web pages you expect to build. These can be as sophisticated as mockups/wireframes using drawing software, or as simple as hand-drawn pictures that represent the key customer-facing components of the pages. It should be clear what the interactions will be on the page, especially where customers enter and submit data. You may want to accompany the mockups with some description of behaviors of the page (e.g. “When customer submits the submit-dog-photo button, the customer is sent to the doggie detail page”)_
+_Include mock-ups of the web pages you expect to build. These can be as sophisticated as
+mockups/wireframes using drawing software, or as simple as hand-drawn pictures that represent
+the key customer-facing components of the pages. It should be clear what the interactions will
+be on the page, especially where customers enter and submit data. You may want to accompany the
+mockups with some description of behaviors of the page (e.g. "When customer submits the submit-dog-photo
+button, the customer is sent to the doggie detail page")_

@@ -186,6 +186,30 @@ database.](images/example_design_document/AddSongSD.png)
   empty
 * If the playlist ID is not found, will throw a `PlaylistNotFoundException`
 
+
+
+//EventsModel
+
+String eventName;
+String eventAddress;
+String eventType;
+ZonedDateTime date;
+ZonedDateTime time;
+Set <String> attendees;
+### 6. Get EventInfo Endpoint
+
+* Accepts 'GET' requests to '/events/eventId
+* Accepts an eventId and Returns the corresponding Event details : eventName, address, type, 
+  date, time and list of attendees.
+  *If the event is not found, will throw an 'EventNotFoundException'
+
+### 6. Create Event Endpoint
+
+* Accepts a 'POST' request to '/events/
+* Accepts data to create a new Event, with a provided name, address, type, date and time.
+  Returns the new Event, with a unique eventId 
+
+
 ![The client visits the playlist page of the Website Playlist. The Website
 playlist page sends a get song request to the GetPlaylistSongsActivity. The
 GetPlaylistSongsActivity calls the playlists database to load the playlist. The
