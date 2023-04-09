@@ -1,6 +1,6 @@
 ## Profile
 POST Create a new profile accepts all profile information needed to create a Profile object 
-GET accepts email of current user and returns all of the profile information to include:
+GET endpoint uses email (id) and returns all of the profile information to include:
     User Name for profile
     User Age
     User Gender
@@ -13,15 +13,15 @@ PUT  all profile fields to edit the Profile information of age Gender location
 
 
 ## Event
--Make sure there is a string for event description in the event model
+-Make sure there is a string for event description in the Event/ Event model
+- Make sure there is a string for event createdBy in the Event/Event model
 POST accepts all event information needed to create a new event by user (make sure to add createdBy for a parameter)
 GET ALL EVENTS with the eventId, name, date/time, location, createdBy
 GET Event Details accepts eventid for a single page view all event info all model parameters
 POST to add event to Profile needs to accept the eventId and add to current users email
 PUT Edit event details accepts all event fields to edit the Event information
 DELETE remove event from Profile
-PUT Create an event accepts all event details neccessary 
 
 ## MISC
-POST accepts a email of the person you want to add to the current session users email list of follower
+POST accepts an email of the person you want to add to the current session users email list of follower
 DELETE remove by email of the person you want to remove from the current sessions email list of following
