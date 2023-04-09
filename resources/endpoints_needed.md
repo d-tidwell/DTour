@@ -1,27 +1,51 @@
 ## Profile
+
 POST Create a new profile accepts all profile information needed to create a Profile object 
+    endpoint: profile/${id}/createProfile/
+    data: id, fname, lname, location, gender, dob
+    response: all of the new created profile object data
 GET endpoint uses email (id) and returns all of the profile information to include:
-    User Name for profile
-    User Age
-    User Gender
-    User Location
-    List of all events RSVP'd to (the ones in the ProfileModel list of events they RSVP's)
-    List of all the events that were created by user (this will be events createdBy parameter)
-    List of all followers from Profile Model
+    endpoint: profile/${id}
+    data: none
+    response: all of the associated data
 PUT  all profile fields to edit the Profile information of age Gender location
-
-
+    endpoint: profile/${id}/update
+    data: id, fname, lname, location, gender,dob
+    response: the updated profile data
 
 ## Event
 -Make sure there is a string for event description in the Event/ Event model
 - Make sure there is a string for event createdBy in the Event/Event model
 POST accepts all event information needed to create a new event by user (make sure to add createdBy for a parameter)
+    endpoint:event/create
+    data: name, date, time, address, category, description
+    response:the new event data
 GET ALL EVENTS with the eventId, name, date/time, location, createdBy
+    endpoint:events/all/
+    data: no data
+    response: all results from dynamo
 GET Event Details accepts eventid for a single page view all event info all model parameters
-POST to add event to Profile needs to accept the eventId and add to current users email
+    endpoint: events/${id}
+    data: no data
+    response: all the event objects parameters
+PUT to add event to Profile needs to accept the eventId and add to current users email
+    endpoint: profile/${id}/addEvent
+    data: event id
+    response: updated list of the profile events
 PUT Edit event details accepts all event fields to edit the Event information
-DELETE remove event from Profile
-
+    endpoint: event/${id}/update
+    data: name, date, time, address, category, description
+    response: updated event object all parameters
+PUT remove event from Profile
+    endpoint: profile/${id}/removeEvent
+    data: event id to remove
+    response: updated list of all events from profile
 ## MISC
-POST accepts an email of the person you want to add to the current session users email list of follower
-DELETE remove by email of the person you want to remove from the current sessions email list of following
+PUT accepts an email of the person you want to add to the current session users email list of follower
+    endpoint: profile/${id}/addFollowing
+    data: profileId of the person to add to this profiles list
+    response: updated profiles following list
+PUT remove by email of the person you want to remove from the current sessions email list of following
+    endpoint: profile/${id}/removeFollowing
+    data: profileId of the person to remove from this profiles list
+    response: updated profiles following list

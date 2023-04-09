@@ -1,7 +1,7 @@
 /* Where to change site colors */
 :root {
     --headerbarColor: #212524;
-    --pageBackgroundColor:linear-gradient(-45deg, rgb(247, 195, 97),  rgb(242, 191, 53), rgb(243, 174, 71), rgb(239, 223, 185));
+    --pageBackgroundColor:linear-gradient(-45deg, rgb(247, 195, 97),  rgb(242, 191, 53), rgb(243, 174, 71), rgb(238, 226, 199));
     --navbarColor:  ;
     --textColor: rgb(247, 207, 135);;
     --hoverColor:rgb(252, 231, 174);
