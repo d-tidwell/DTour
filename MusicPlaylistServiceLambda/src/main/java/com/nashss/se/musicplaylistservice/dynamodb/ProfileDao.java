@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
@@ -25,10 +26,17 @@ public class ProfileDao {
 
         if(profile == null){
             metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 1);
-//            throw new
+            throw new ProfileNotFoundException("Could not find profile with profileId " + id);
         }
+        metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 0);
 
-        return null;
+        return profile;
+    }
+
+    public Profile saveProfile(Profile profile){
+
+        this.dynamoDbMapper.save(profile);
+        return profile;
     }
 
 
