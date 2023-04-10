@@ -21,14 +21,17 @@ POST Create a new profile accepts all profile information needed to create a Pro
     endpoint: profile/createProfile/
     data: fname, lname, location, gender, dob
     response: all of the new created profile object data
+    (use for returning data from createProfile.html,createProfile.js)
 GET endpoint uses email (id) and returns all of the profile information to include:
     endpoint: profile/${id}
     data: none
     response: all of the associated data
-PUT  all profile fields to edit the Profile information of age Gender location
-    endpoint: profile/update
+    (use for viewing profile.html & .js, foreignProfile.html & .js)
+PUT  all profile fields to edit the Profile information of age Gender location etc
+    endpoint: profile/${id}
     data: fname, lname, location, gender,dob
     response: the updated profile data
+    (use for updateProfile.html, updateProfile.js)
 
 ## Event
 -Make sure there is a string for event description in the Event/ Event model
@@ -50,7 +53,7 @@ PUT to add event to Profile needs to accept the eventId and add to current users
     data: event id
     response: updated list of the profile events
 PUT Edit event details accepts all event fields to edit the Event information
-    endpoint: event/update
+    endpoint: event/${id}
     data: id, name, date, time, address, category, description
     response: updated event object all parameters
 PUT remove event from Profile

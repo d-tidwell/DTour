@@ -16,19 +16,12 @@ tags:
 
 paths:
 
-  /profiles/{id}/createProfile:
+  /profiles/createProfile:
     post:
       tags:
         - Profiles
       summary: Create a new profile (CreateProfileLambda)
       operationId: createProfile
-      parameters:
-      - name: id
-        in: path
-        description: ID of the profile to create
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -76,7 +69,7 @@ paths:
         "500":
           description: "Invalid input parameters"
 
-  /playlists/{id}:
+  /profiles/{id}:
     get:
       tags:
         - Profiles
@@ -108,6 +101,10 @@ paths:
                   type: string
                 dob:
                   type: string
+                following:
+                  type: array
+                  items:
+                    type: string
                 events:
                   type: array
                   items:
@@ -117,48 +114,60 @@ paths:
 
     put:
       tags:
-        - Playlists
-      summary: Update the name of an existing playlist (UpdatePlaylistLambda)
+        - Profiles
+      summary: Update the info of an existing profile (UpdateProfileLambda)
       parameters:
         - name: id
           in: path
-          description: ID of playlist to retrieve
+          description: ID of profile to retrieve
           required: true
           schema:
             type: string
-      requestBody:
+       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                id:
+                fname:
                   type: string
-                name:
+                lname:
                   type: string
-                customerId:
+                location:
+                  type: string
+                gender:
+                  type: string
+                gender:
+                  type: string
+                dob:
                   type: string
 
       responses:
         "200":
-          description: PlaylistResponse
+          description: A profile object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                location:
+                  type: string
+                gender:
+                  type: string
+                dob:
+                  type: string
+                following:
+                  type: array
+                  items:
                     type: string
-                  name:
+                events:
+                  type: array
+                  items:
                     type: string
-                  customerId:
-                    type: string
-                  songCount:
-                    type: integer
-                  tags:
-                    type: array
-                    items:
-                      type: string
         "500":
           description: "Invalid input parameters"
 
