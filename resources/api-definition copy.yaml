@@ -183,9 +183,9 @@ paths:
         - Profiles
       summary: addEvent to the list of events of an existing profile (addEventToProfileLambda)
       parameters:
-        - name: id
+        - name: eventId
           in: path
-          description: ID of profile to retrieve
+          description: ID of the event to add to the profiles set of events
           required: true
           schema:
             type: string
@@ -220,9 +220,9 @@ paths:
         - Profiles
       summary: Remove event from the list of events of an existing profile (removeEventFromProfileLambda)
       parameters:
-        - name: id
+        - name: eventId
           in: path
-          description: ID of profile to retrieve
+          description: ID of event to remove from profiles set of events
           required: true
           schema:
             type: string
@@ -354,7 +354,7 @@ paths:
                   type: string
                 location:
                   type: string
-                createdBy:
+                event_creator:
                   type: string
                 description:
                   type: string
@@ -374,7 +374,7 @@ paths:
         - Events
       summary: Get an existing event (GetEventLambda)
       parameters:
-        - name: id
+        - name: eventId
           in: path
           description: ID of event to retrieve
           required: true
@@ -396,7 +396,7 @@ paths:
                   type: string
                 location:
                   type: string
-                createdBy:
+                event_creator:
                   type: string
                 description:
                   type: string
@@ -412,10 +412,10 @@ paths:
 
     put:
       tags:
-        - Profiles
-      summary: Update the info of an existing profile (UpdateProfileLambda)
+        - Events
+      summary: Update the info of an existing event (UpdateEventLambda)
       parameters:
-        - name: id
+        - name: eventId
           in: path
           description: ID of profile to retrieve
           required: true
@@ -456,7 +456,7 @@ paths:
                   type: string
                 location:
                   type: string
-                createdBy:
+                event_creator:
                   type: string
                 description:
                   type: string
