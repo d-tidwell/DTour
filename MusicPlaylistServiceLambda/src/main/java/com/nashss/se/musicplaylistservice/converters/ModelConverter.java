@@ -15,11 +15,16 @@ public class ModelConverter {
     public ProfileModel toProfileModel(Profile profile){
 
        return ProfileModel.builder()
-       .withUserId(profile.getUserId())
+       .withFirstName(profile.getFirstName())
+       .withLastName(profile.getLastName())
+       .withLocation(profile.getLocation())
+       .withGender(profile.getGender())
+       .withDateOfBirth(profile.getDateOfBirth())
        .withFollowers(profile.getFollowers())
        .withEvents(profile.getEvents())
        .build();
     }
+   
     /**
      * Converts a provided {@link Event} into a {@link EventModel} representation.
      *
@@ -37,22 +42,6 @@ public class ModelConverter {
         .withEventDate(event.getEventDate())
         .withEventTime(event.getEventTime())
         .withAttendees(event.getAttendees())
-        .build();
-    }
-    /**
-     * Converts a provided {@link User} into a {@link UserModel} representation.
-     *
-     * @param user the User to convert
-     * @return the converted UserModel
-     */
-    public UserModel toUserModel(User user){
-
-        return UserModel.builder()
-        .withUserId(user.getUserId())
-        .withFullName(user.getFullName())
-        .withEmailAddress(user.getEmailAddress())
-        .withGender(user.getGender())
-        .withDateOfBirth(user.getDateOfBirth())
         .build();
     }
 
