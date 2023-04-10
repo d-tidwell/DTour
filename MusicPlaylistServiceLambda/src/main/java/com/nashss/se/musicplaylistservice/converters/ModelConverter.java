@@ -15,6 +15,7 @@ public class ModelConverter {
     public ProfileModel toProfileModel(Profile profile){
 
        return ProfileModel.builder()
+       .withEmailAddress(profile.getEmailAddress())
        .withFirstName(profile.getFirstName())
        .withLastName(profile.getLastName())
        .withLocation(profile.getLocation())
