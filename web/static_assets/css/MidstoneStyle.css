@@ -1,0 +1,221 @@
+/* Where to change site colors */
+:root {
+    --headerbarColor: #212524;
+    --pageBackgroundColor:linear-gradient(-45deg, rgb(247, 195, 97),  rgb(242, 191, 53), rgb(243, 174, 71), rgb(238, 226, 199));
+    --navbarColor:  ;
+    --textColor: rgb(247, 207, 135);;
+    --hoverColor:rgb(252, 231, 174);
+}
+
+.header {
+    background-color: var(--headerbarColor);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+body{
+    overflow:hidden;
+}
+.page-body-background {
+    background: var(--pageBackgroundColor);
+	background-size: 400% 400%;
+	animation: gradient 45s ease infinite;
+	height: 100vh;    
+}
+.page-body-background-landing {
+    position:relative;
+    background: var(--pageBackgroundColor);
+	background-size: 400% 400%;
+	animation: gradient 45s ease infinite;
+	height: 100vh;    
+}
+.page-body-background-landing .blurb-landing-pitch {
+    padding-top: 10%;
+    padding-left:10%;
+}
+.page-body-background-landing .overlayBox {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+}
+.page-body-background-landing .overlayBox .landing-icon{
+    font-size: 3rem;
+}
+.blurb-landing-pitch-2 {
+    padding-top: 5%;
+}
+.cellphone {
+    padding-top:5%;
+}
+.logo {
+    color: var(--textColor);
+    text-decoration: none;
+}
+.logo .logoDANNA:hover{
+    color:var(--hoverColor);
+}
+.logo .logoDANNA {
+    font-family: 'Righteous', cursive;
+    display: flex;
+    padding-left: 200px;
+    justify-content: center;
+    align-content: center;
+    font-size: 3rem; 
+}
+.logo .logoLanding {
+    display:inline-block;
+    font-family: 'Righteous', cursive;
+    font-size: 3rem;
+    padding-top: 2%;
+    padding-left:1%;
+}
+.logo .logoLanding:hover{
+    color:var(--hoverColor);
+}
+.text-righteous {
+    font-family: 'Righteous', cursive;
+}
+.blurb-text-paragraph {
+    max-width: 600px;
+}
+.tooltip {
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    font-size: 14px;
+    background: transparent;
+    border-radius: 5px;
+  }
+.btn-light-custom {
+    background-color: var(--textColor);
+    color: var(--headerbarColor);
+    display: inline-block;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 10px;
+  }
+.btn-light-custom:hover{
+color:white;
+}
+.btn-dark {
+    color: var(--textColor);
+}
+.nav-item {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.nav-link .names {
+    font-family: 'Righteous', cursive;
+}
+.nav-link .nav-profile-icon {
+    color: var(--textColor);
+    font-size: 10rem;
+}
+.nav-link .nav-profile-icon:hover {
+    color:var(--hoverColor);
+}
+.nav-link .nav-custom-icon {
+    color: var(--textColor);
+    font-size: 3rem;
+}
+.nav-link .nav-custom-icon:hover {
+    color: var(--hoverColor);
+    font-size: 4rem;
+}
+.nav-link:hover .tooltip {
+    color: var(--hoverColor);
+    display:block;
+    visibility: visible;
+    opacity: 1;
+}
+.d-sm-inline {
+    color: var(--textColor);
+}
+
+/* navbar mobile compatibility settings */
+@media (max-width: 767px) {
+    /* Styles for smaller screens */
+
+    .logo .logoDANNA {
+        font-size: 1.5rem;
+        padding-bottom: 0;
+    }
+    html, body {
+        overflow: visible;
+        height: 100%;
+        margin:0;
+    }
+    .page-body-background-landing .overlayBox {
+        position: absolute;
+        top: 65%;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        text-align: center;
+    }
+    .nav-item {
+        height: 20%; /* Adjust this value to change the height of the nav items */
+    }
+    .nav-link .nav-profile-icon {
+        color: var(--textColor);
+        font-size: 1.5rem;
+    }
+    .nav-link .nav-custom-icon {
+        color: var(--textColor);
+        font-size: 1rem;
+    }
+    .col-auto {
+        max-width: 60px; /* Adjust this value to scale the nav bar width */
+      }
+    
+    .nav-custom-icon {
+    margin-left: 0;
+    }
+
+    .tooltip {
+    display: none;
+    }
+
+    .names {
+    display: none;
+    }
+    #menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(80vh - 40px); /* Adjust for any additional elements (e.g., padding) within the nav bar */
+      }
+
+  }
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 25%;
+    }
+    25% {
+        background-position: 25% 50%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    75% {
+        background-position: 25% 50%;
+    }
+    100% {
+        background-position: 25% 0%;
+    }
+    
+}

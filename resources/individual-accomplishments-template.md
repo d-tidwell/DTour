@@ -32,7 +32,7 @@ _You will submit your completed Accomplishment Tracking Document to your instruc
 
 **Important Docs, Commits, or Pull Requests**:
 
-**Things learned:**
+**Things learned:** Moqups, Cognito for (basic email, name, password login), 
 
 ## Week 2
 

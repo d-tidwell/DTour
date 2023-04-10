@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: Music Playlist Service
+  description: "This is the API definition for the Music Playlist Service."
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+tags:
+  - name: Profiles
+    description: Create, view, and update profiles or add and remove other profiles and events
+
+  - name: Events
+    description: Create, view, and update events
+
+paths:
+
+  /profiles/createProfile:
+    post:
+      tags:
+        - Profiles
+      summary: Create a new profile (CreateProfileLambda)
+      operationId: createProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                location:
+                  type: string
+                gender:
+                  type: string
+                gender:
+                  type: string
+                dob:
+                  type: string
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                location:
+                  type: string
+                gender:
+                  type: string
+                dob:
+                  type: string
+                following:
+                  type: array
+                  items:
+                    type: string
+                events:
+                  type: array
+                  items:
+                    type: string
+        "500":
+          description: "Invalid input parameters"
+
+  /profiles/{id}:
+    get:
+      tags:
+        - Profiles
+      summary: Get an existing profile (GetProfileLambda)
+      parameters:
+        - name: id
+          in: path
+          description: ID of profile to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                location:
+                  type: string
+                gender:
+                  type: string
+                gender:
+                  type: string
+                dob:
+                  type: string
+                following:
+                  type: array
+                  items:
+                    type: string
+                events:
+                  type: array
+                  items:
+                    type: string
+        "500":
+          description: "Invalid input parameters"
+
+    put:
+      tags:
+        - Profiles
+      summary: Update the info of an existing profile (UpdateProfileLambda)
+      parameters:
+        - name: id
+          in: path
+          description: ID of profile to retrieve
+          required: true
+          schema:
+            type: string
+       requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                location:
+                  type: string
+                gender:
+                  type: string
+                gender:
+                  type: string
+                dob:
+                  type: string
+
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                location:
+                  type: string
+                gender:
+                  type: string
+                dob:
+                  type: string
+                following:
+                  type: array
+                  items:
+                    type: string
+                events:
+                  type: array
+                  items:
+                    type: string
+        "500":
+          description: "Invalid input parameters"
+
+  /playlists/{id}/songs:
+    get:
+      tags:
+        - Songs
+      summary: Retrieves a list of all songs in a playlist (GetPlaylistSongsLambda)
+      operationId: getSongs
+      parameters:
+        - name: id
+          in: path
+          description: ID of playlist to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A playlist object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  songList:
+                    type: array
+                    items:
+                      properties:
+                        asin:
+                          type: string
+                        title:
+                          type: string
+                        album:
+                          type: string
+                        trackNumber:
+                          type: integer
+
+    post:
+      tags:
+        - Songs
+      summary: Add a song to a playlist (AddSongToPlaylistLambda)
+      operationId: addSong
+      parameters:
+        - name: id
+          in: path
+          description: ID of playlist to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asin:
+                  type: string
+                trackNumber:
+                  type: integer
+                id:
+                  type: string
+
+      responses:
+        "200":
+          description: the song
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  songList:
+                    type: array
+                    items:
+                      properties:
+                        asin:
+                          type: string
+                        title:
+                          type: string
+                        album:
+                          type: string
+                        trackNumber:
+                          type: integer
