@@ -225,10 +225,10 @@ export default class DannaClient extends BindingClass {
      * @param  errorCallback 
      * @returns the event
      */
-    async updateEvent(id, name, date, time, address, category, description, errorCallback) {
+    async updateEvent(name, date, time, address, category, description, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can update events.");
-            const response = await this.axiosClient.put(`event/${id}/update`, {
+            const response = await this.axiosClient.put(`event/update`, {
                 name: name,
                 date: date,
                 time: time,
@@ -253,10 +253,10 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async addEventToProfile(id, eventId, errorCallback) {
+    async addEventToProfile(eventId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/${id}/addEvent`, {
+            const response = await this.axiosClient.put(`profile/addEvent`, {
                 eventId:eventId
             }, {
                 headers: {
@@ -276,10 +276,10 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async removeEventFromProfile(id, eventId, errorCallback) {
+    async removeEventFromProfile(eventId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/${id}/removeEvent`, {
+            const response = await this.axiosClient.put(`profile/removeEvent`, {
                 eventId:eventId
             }, {
                 headers: {
@@ -299,10 +299,10 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async addToFollowing(id, profileId, errorCallback) {
+    async addToFollowing(profileId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/${id}/addFollowing`, {
+            const response = await this.axiosClient.put(`profile/addFollowing`, {
                 profileId:profileId
             }, {
                 headers: {
