@@ -2,7 +2,7 @@
 :root {
     --headerbarColor: #212524;
     --pageBackgroundColor:linear-gradient(-45deg, rgb(247, 195, 97),  rgb(242, 191, 53), rgb(243, 174, 71), rgb(238, 226, 199));
-    --navbarColor:  ;
+    --navbarColor:  #212524;
     --textColor: rgb(247, 207, 135);;
     --hoverColor:rgb(252, 231, 174);
 }
@@ -155,6 +155,7 @@ color:white;
     html, body {
         overflow: visible;
         height: 100%;
+        width: 100%;
         margin:0;
     }
     .page-body-background-landing .overlayBox {
