@@ -1,7 +1,9 @@
 package com.nashss.se.musicplaylistservice.converters;
 
 
+import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.models.EventModel;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
 /**
@@ -16,17 +18,19 @@ public class ModelConverter {
      */
 
     public ProfileModel toProfileModel(Profile profile){
+        return ProfileModel.builder()
+                .withProfileId(profile.getId())
+                .withFirstName(profile.getFirstName())
+                .withLastName(profile.getLastName())
+                .withLocation(profile.getLocation())
+                .withGender(profile.getGender())
+                .withDateOfBirth(profile.getDateOfBirth())
+                .withFollowing(profile.getFollowing())
+                .withEvents(profile.getEvents())
+                .build();
 
-       return ProfileModel.builder()
-               .withProfileId(profile.getProfileId())
-               .withFirstName(profile.getFirstName())
-               .withLastName(profile.getLastName())
-               .withGender(profile.getGender())
-               .withLocation(profile.getLocation())
-               .withDateOfBirth(profile.getDateOfBirth())
-               .withFollowing(profile.getFollowing())
-               .withEvents(profile.getEvents())
-               .build();
+
+
     }
    
     /**
@@ -43,7 +47,7 @@ public class ModelConverter {
         .withName(event.getName())
         .withEventCreator(event.getCreatedBy())
         .withEventAddress(event.getAddress())
-        .withDescription(event.getDescription())
+        .withDescription(event.getDesciption())
         .withDateTime(event.getDateTime())
         .withCategory(event.getCategory())
         .withAttendees(event.getAttendees())

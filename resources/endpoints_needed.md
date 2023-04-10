@@ -1,4 +1,5 @@
 ## Profile
+
 Profile & ProfileModel
 -id (String (email from authentication))
 -fname (String)
@@ -17,6 +18,7 @@ Event & EventModel
 -datetime (DateTime)
 -category (set of strings)
 -description (string)
+-attendees (set of string)
 
 POST Create a new profile accepts all profile information needed to create a Profile object 
     endpoint: profile/create
@@ -38,6 +40,34 @@ PUT  all profile fields to edit the Profile information of age Gender location e
 -Make sure there is a string for event description in the Event/ Event model
 - Make sure there is a string for event createdBy in the Event/Event model
 POST accepts all event information needed to create a new event by user (make sure to add createdBy for a parameter)
+<<<<<<< HEAD
+        endpoint:  /events
+
+GET ALL EVENTS with the eventId, name, date/time, location, createdBy
+        endpoint:  /events
+
+GET Event Details accepts eventId for a single page view all event info all model parameters
+        endpoint:   /events/eventId
+
+POST to add event to Profile needs to accept the eventId and add to current users email
+        endpoint: /profiles/emailAddress/events
+
+PUT Edit event details accepts all event fields to edit the Event information
+        /events/eventId
+
+DELETE remove event from Profile
+        /profiles/emailAddress/events/eventId
+
+PUT Create an event accepts all event details neccessary 
+        /events
+
+## MISC
+POST accepts an email of the person you want to add to the current session users email list of follower
+        misc/follower
+
+DELETE remove by email of the person you want to remove from the current sessions email list of following
+        misc/follower/emailAddressFollower
+=======
     endpoint:event/create
     data: name, date, time, address, category, description
     response:the new event data
@@ -70,3 +100,4 @@ PUT remove by email of the person you want to remove from the current sessions e
     endpoint: profile/removeFollowing
     data: profileId of the person to remove from this profiles list
     response: updated profiles following list
+>>>>>>> 9523d40f3ccebe70c2a4cc9e09df6d90b43f8561
