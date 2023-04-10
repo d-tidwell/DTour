@@ -21,7 +21,10 @@ Your team’s charter captures the ways in which your team will commit to provid
 The following guide might be helpful as you work through your teams charter:
 
 * [Discussion Guide to the qualities above](https://docs.google.com/document/d/1lgiz6mwZeyWEaJxN_NMI-tI5Qijv2BHh27DPLeSLE40)
+* 
+![A test image](e1c.jpg)
 
+C:\Users\Noah Cain\Pictures\e1c.jpg
 ## Charter
 
 ### Team Members

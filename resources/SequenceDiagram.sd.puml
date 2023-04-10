@@ -1,0 +1,17 @@
+@startuml
+title Event
+participant Client
+participant APIGateway_Lambda
+participant CreateEvent
+participant EventDao
+database DynamoDB
+
+Client -> APIGateway_Lambda : HTTP RQ
+APIGateway_Lambda -> CreateEvent : CreateEvent Request
+
+CreateEvent-> DynamoDB : getEventId
+DynamoDB --> CreateEvent : return event object
+CreateEvent --> APIGateway_Lambda : return CreateEventRequest
+APIGateway_Lambda --> Client : return 2XX response with CreateEventResponse data
+
+@enduml
