@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 
 @JsonDeserialize(builder = CreateProfileRequest.Builder.class)
 public class CreateProfileRequest {
@@ -82,6 +83,9 @@ public class CreateProfileRequest {
         this.eventList = eventList;
         this.followerList = followerList;
     }
+    public static Builder builder() {
+        return new Builder();
+    }
 @JsonPOJOBuilder
     public static class Builder{
     private  boolean isNew;
@@ -92,6 +96,7 @@ public class CreateProfileRequest {
     private  String gender;
     private  ZonedDateTime dateOfBirth;
     private  Set<Event> eventList;
+    private Set<String> follwerList;
 
     public Builder withFirstName(String firstName){
         this.firstName = firstName;
@@ -120,6 +125,9 @@ public class CreateProfileRequest {
     public Builder withEvents(Set<Event> eventList){
         this.eventList = eventList;
         return this;
+    }
+    public CreateProfileRequest build(){
+        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth,eventList,follwerList);
     }
 
 
