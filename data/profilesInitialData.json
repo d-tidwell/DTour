@@ -1,0 +1,68 @@
+{
+  "profiles": [
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": {
+            "S": "15"
+          },
+          "following": {
+            "SS": [
+              "Noah Cain",
+              "Ashley Gilday"
+            ]
+          },
+          "events": {
+            "SS": [
+              "Game, Grill and Chill",
+              "Little Explorers"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": {
+            "S": "11"
+          },
+          "following": {
+            "SS": [
+              "Ashley Gilday",
+              "Andres A"
+            ]
+          },
+          "events": {
+            "SS": [
+              "Little Explorers",
+              "Dino Discovery Day"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": {
+            "S": "7"
+          },
+          "following": {
+            "SS": [
+              "Noah Cain",
+              "Andres A"
+            ]
+          },
+          "events": {
+            "SS": [
+              "Dino Discovery Day",
+              "Game, Grill and Chill"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+
