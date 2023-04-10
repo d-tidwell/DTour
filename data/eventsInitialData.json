@@ -3,17 +3,20 @@
       {
         "PutRequest": {
           "Item": {
-            "eventId": { "S": "001NASH" },
+            "id": { "S": "001NASH" },
+            "createdBy": {"S": "KypKremenskiyTestEmailAddress@gmail.com"},
             "name": { "N": "Game, Grill and Chill" },
             "address": { "S": "Centennial Park, 2500 W End Ave Nashville, TN 37203 Midtown" },
-            "type": { "N": "Outdoor social" },
+            "dateTime": { "S": "05.12.2023 11:00:00" },
+            "category": {
+              "SS": [
+              "Outdoor Social"
+            ]},
             "description": { "S": "\"Game, Grill and Chill\" is an outdoor social event that combines food, games, and relaxation. Participants gather to enjoy grilled food and refreshments while engaging in various recreational activities such as board games, card games, sports, or other forms of entertainment. This event provides an opportunity for people to connect with friends, family, or new acquaintances in a fun and casual environment."},
-            "date": { "S": "05.12.2023" },
-            "time": { "S": "11:00:00" },
             "attendees": {
               "SS": [
-                "Marina Mororzova",
-                "Sophia Perez"
+                "MarinaMororzovaTestEmailAddress@gmail.com",
+                "SophiaPerezTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -23,54 +26,47 @@
       {
         "PutRequest": {
           "Item": {
-            "eventId": { "S": "002NASH" },
+            "id": { "S": "002NASH" },
+            "createdBy": {"S": "SashaMersTestEmailAddress@gmail.com"},
             "name": { "N": "Little Explorers" },
             "address": { "S": "Billy Dunlop Park, 1930 E Boy Scout Rd, Clarksville, TN 37040" },
-            "type": { "N": "Children educational" },
+            "dateTime": { "S": "04.15.2023 11:30:00" },
+            "category": {
+              "SS": [
+                "Children educational"
+              ]},
             "description": { "S": "\"Little Explorers\" is an exciting and educational event designed for young children to explore the world around them. This event aims to encourage kids to discover and learn about science, nature, and the environment in a fun and interactive way. The event includes various activity stations such as animal encounters, interactive science experiments, plant identification, and guided nature walks."},
-            "date": { "S": "04.15.2023" },
-            "time": { "S": "11:30:00" },
             "attendees": {
               "SS": [
-                "Charlotte Davis",
-                "Hillarry Champ",
-                "Isabella Martinez",
-                "Marina Mororzova",
-                "Sophia Garcia"
+                "CharlotteDavisTestEmailAddress@gmail.com",
+                "HillarryChampTestEmailAddress@gmail.com",
+                "IsabellaMartinezTestEmailAddress@gmail.com",
+                "MarinaMororzovaTestEmailAddress@gmail.com",
+                "SophiaGarciaTestEmailAddress@gmail.com"
               ]
             }
           }
         }
-      },
+      }
+    ,
       {
         "PutRequest": {
           "Item": {
-            "eventId": {
-              "S": "003NASH"
-            },
-            "name": {
-              "N": "Dino Discovery Day"
-            },
-            "address": {
-              "S": "Cedars Of Lebanon State Park, 328 Cedar Forest Rd Lebanon, TN 37090"
-            },
-            "type": {
-              "N": "Educational"
-            },
-            "description": {
-              "S": "\"Dino Discovery Day\" is an exciting and educational event that takes visitors on a journey back in time to explore the world of dinosaurs. The event is designed to be interactive and engaging, allowing attendees of all ages to learn about these fascinating creatures through a range of activities and exhibits."
-            },
-            "date": {
-              "S": "06.30.2023"
-            },
-            "time": {
-              "S": "10:30:00"
-            },
+            "id": {"S": "003NASH"},
+            "createdBy": {"S": "KolyaMaxTestEmailAddress@gmail.com"},
+            "name": {"N": "Dino Discovery Day"},
+            "address": {"S": "Cedars Of Lebanon State Park, 328 Cedar Forest Rd Lebanon, TN 37090"},
+            "dateTime": { "S": "06.30.2023 10:30:00" },
+            "category": {
+              "SS": [
+                "Educational"
+              ]},
+            "description": {"S": "\"Dino Discovery Day\" is an exciting and educational event that takes visitors on a journey back in time to explore the world of dinosaurs. The event is designed to be interactive and engaging, allowing attendees of all ages to learn about these fascinating creatures through a range of activities and exhibits."},
             "attendees": {
               "SS": [
-                "Marina Goroshko",
-                "Sophia Garcia",
-                "Sveta Luneva"
+                "MarinaGoroshkoTestEmailAddress@gmail.com",
+                "SophiaGarciaTestEmailAddress@gmail.com",
+                "SvetaLunevaTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -78,7 +74,6 @@
       }
     ]
   }
-
 
 
 
