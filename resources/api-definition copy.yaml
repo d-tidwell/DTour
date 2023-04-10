@@ -455,6 +455,10 @@ paths:
                   type: string
                 category:
                   type: string
+                attendees: array
+                  items:
+                    type: string
+                  uniqueness: true
         "500":
           description: "Invalid input parameters"
 
