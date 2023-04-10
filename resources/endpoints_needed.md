@@ -17,6 +17,7 @@ Event & EventModel
 -datetime (DateTime)
 -category (set of strings)
 -description (string)
+-attendees(set string)
 
 POST Create a new profile accepts all profile information needed to create a Profile object 
     endpoint: profile/create
