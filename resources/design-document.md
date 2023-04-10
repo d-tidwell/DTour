@@ -172,6 +172,7 @@ like with the *`Playlist` POJO* versus the `playlists` table in the Unit 3 proje
 ``` 
 eventId // partition key, string;
 eventName // string;
+eventDescription // string
 eventAddress // string;
 eventType // string;
 date // ZonedDateTime;
