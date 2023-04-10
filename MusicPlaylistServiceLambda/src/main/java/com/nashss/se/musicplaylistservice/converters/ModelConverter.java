@@ -1,83 +1,59 @@
 package com.nashss.se.musicplaylistservice.converters;
 
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.models.PlaylistModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Converts between Data and API models.
  */
 public class ModelConverter {
     /**
-     * Converts a provided {@link Playlist} into a {@link PlaylistModel} representation.
+     * Converts a provided {@link Profile} into a {@link ProfileModel} representation.
      *
-     * @param playlist the playlist to convert
-     * @return the converted playlist
+     * @param profile the Profile to convert
+     * @return the converted ProfileModel
      */
-    public PlaylistModel toPlaylistModel(Playlist playlist) {
-        List<String> tags = null;
-        if (playlist.getTags() != null) {
-            tags = new ArrayList<>(playlist.getTags());
-        }
 
-        return PlaylistModel.builder()
-                .withId(playlist.getId())
-                .withName(playlist.getName())
-                .withCustomerId(playlist.getCustomerId())
-                .withCustomerName(playlist.getCustomerName())
-                .withSongCount(playlist.getSongCount())
-                .withTags(tags)
-                .build();
+    public ProfileModel toProfileModel(Profile profile){
+
+       return ProfileModel.builder()
+       .withUserId(profile.getUserId())
+       .withFollowers(profile.getFollowers())
+       .withEvents(profile.getEvents())
+       .build();
     }
-
     /**
-     * Converts a provided AlbumTrack into a SongModel representation.
+     * Converts a provided {@link Event} into a {@link EventModel} representation.
      *
-     * @param albumTrack the AlbumTrack to convert to SongModel
-     * @return the converted SongModel with fields mapped from albumTrack
+     * @param event the Event to convert
+     * @return the converted EventModel
      */
-    public SongModel toSongModel(AlbumTrack albumTrack) {
-        return SongModel.builder()
-                .withAsin(albumTrack.getAsin())
-                .withTrackNumber(albumTrack.getTrackNumber())
-                .withAlbum(albumTrack.getAlbumName())
-                .withTitle(albumTrack.getSongTitle())
-                .build();
-    }
+    
+    public EventModel toEventModel(Event event){
 
+        return EventModel.builder()
+        .withEventId(event.getEventId())
+        .withEventName(event.getEventName())
+        .withEventAddress(event.getEventAddress())
+        .withEventType(event.getEventType())
+        .withEventDate(event.getEventDate())
+        .withEventTime(event.getEventTime())
+        .withAttendees(event.getAttendees())
+        .build();
+    }
     /**
-     * Converts a list of AlbumTracks to a list of SongModels.
+     * Converts a provided {@link User} into a {@link UserModel} representation.
      *
-     * @param albumTracks The AlbumTracks to convert to SongModels
-     * @return The converted list of SongModels
+     * @param user the User to convert
+     * @return the converted UserModel
      */
-    public List<SongModel> toSongModelList(List<AlbumTrack> albumTracks) {
-        List<SongModel> songModels = new ArrayList<>();
+    public UserModel toUserModel(User user){
 
-        for (AlbumTrack albumTrack : albumTracks) {
-            songModels.add(toSongModel(albumTrack));
-        }
-
-        return songModels;
+        return UserModel.builder()
+        .withUserId(user.getUserId())
+        .withFullName(user.getFullName())
+        .withEmailAddress(user.getEmailAddress())
+        .withGender(user.getGender())
+        .withDateOfBirth(user.getDateOfBirth())
+        .build();
     }
 
-    /**
-     * Converts a list of Playlists to a list of PlaylistModels.
-     *
-     * @param playlists The Playlists to convert to PlaylistModels
-     * @return The converted list of PlaylistModels
-     */
-    public List<PlaylistModel> toPlaylistModelList(List<Playlist> playlists) {
-        List<PlaylistModel> playlistModels = new ArrayList<>();
-
-        for (Playlist playlist : playlists) {
-            playlistModels.add(toPlaylistModel(playlist));
-        }
-
-        return playlistModels;
-    }
 }
