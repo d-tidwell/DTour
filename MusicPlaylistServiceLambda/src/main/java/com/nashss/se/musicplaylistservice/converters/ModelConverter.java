@@ -40,12 +40,12 @@ public class ModelConverter {
 
         return EventModel.builder()
         .withEventId(event.getEventId())
-        .withEventName(event.getEventName())
-        .withEventCreator(event.getEventCreator())
-        .withEventAddress(event.getEventAddress())
+        .withName(event.getName())
+        .withEventCreator(event.getCreatedBy())
+        .withEventAddress(event.getAddress())
         .withDescription(event.getDescription())
-        .withEventDateTime(event.getEventDateTime())
-        .withEventCategory(event.getEventCategory())
+        .withDateTime(event.getDateTime())
+        .withCategory(event.getCategory())
         .withAttendees(event.getAttendees())
         .build();
     }
