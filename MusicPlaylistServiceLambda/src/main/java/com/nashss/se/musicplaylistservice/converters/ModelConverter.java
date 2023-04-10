@@ -15,14 +15,14 @@ public class ModelConverter {
     public ProfileModel toProfileModel(Profile profile){
 
        return ProfileModel.builder()
-       .withEmailAddress(profile.getEmailAddress())
+       .withProfileId(profile.getProfileId())
        .withFirstName(profile.getFirstName())
        .withLastName(profile.getLastName())
        .withLocation(profile.getLocation())
        .withGender(profile.getGender())
        .withDateOfBirth(profile.getDateOfBirth())
-       .withFollowers(profile.getFollowers())
        .withEvents(profile.getEvents())
+       .withFollowingList(profile.getFollowingList())
        .build();
     }
    
@@ -38,10 +38,11 @@ public class ModelConverter {
         return EventModel.builder()
         .withEventId(event.getEventId())
         .withEventName(event.getEventName())
+        .withEventCreator(event.getEventCreator())
         .withEventAddress(event.getEventAddress())
-        .withEventType(event.getEventType())
-        .withEventDate(event.getEventDate())
-        .withEventTime(event.getEventTime())
+        .withDescription(event.getDescription())
+        .withEventDateTime(event.getEventDateTime())
+        .withEventCategory(event.getEventCategory())
         .withAttendees(event.getAttendees())
         .build();
     }
