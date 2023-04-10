@@ -62,10 +62,12 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
                 events:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -105,10 +107,12 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
                 events:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -164,10 +168,12 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
                 events:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -204,6 +210,7 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
   
@@ -227,6 +234,7 @@ paths:
               properties:
                 eventId:
                   type: string
+                uniqueItems: true
 
       responses:
         "200":
@@ -240,6 +248,7 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -248,20 +257,13 @@ paths:
       tags:
         - Profiles
       summary: add profile id to the list of following of an existing profile (addFollowingToProfileLambda)
-      parameters:
-        - name: id
-          in: path
-          description: ID of profile to retrieve
-          required: true
-          schema:
-            type: string
        requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                eventId:
+                id:
                   type: string
 
       responses:
@@ -276,6 +278,7 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
   
@@ -284,20 +287,13 @@ paths:
       tags:
         - Profiles
       summary: Remove profile from the list of events of an existing profile (removeFollowingFromProfileLambda)
-      parameters:
-        - name: id
-          in: path
-          description: ID of profile to retrieve
-          required: true
-          schema:
-            type: string
        requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                eventId:
+                id:
                   type: string
 
       responses:
@@ -312,6 +308,7 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -363,6 +360,11 @@ paths:
                   type: string
                 category:
                   type: string
+                attendees:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -400,6 +402,11 @@ paths:
                   type: string
                 category:
                   type: string
+                attendees:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -455,6 +462,11 @@ paths:
                   type: string
                 category:
                   type: string
+                attendees:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -475,6 +487,7 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
