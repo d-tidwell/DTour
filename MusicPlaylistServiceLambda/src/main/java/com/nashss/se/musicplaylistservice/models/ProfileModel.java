@@ -87,8 +87,8 @@ public class ProfileModel {
         private List<String> following;
         private List<String> events;
 
-        public Builder withProfileId(String id){
-            this.userId = id;
+        public Builder withProfileId(String userId){
+            this.userId = userId;
             return this;
         }
 
@@ -117,12 +117,12 @@ public class ProfileModel {
             return this;
         }
 
-        public Builder withFollowing(List following){
+        public Builder withFollowing(List<String> following){
             this.following = following;
             return this;
         }
 
-        public Builder withEvents(List events){
+        public Builder withEvents(List<String> events){
             this.events = events;
             return this;
         }

@@ -1,6 +1,9 @@
 package com.nashss.se.musicplaylistservice.converters;
 
 
+import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.models.ProfileModel;
+
 /**
  * Converts between Data and API models.
  */
@@ -15,15 +18,15 @@ public class ModelConverter {
     public ProfileModel toProfileModel(Profile profile){
 
        return ProfileModel.builder()
-       .withProfileId(profile.getProfileId())
-       .withFirstName(profile.getFirstName())
-       .withLastName(profile.getLastName())
-       .withLocation(profile.getLocation())
-       .withGender(profile.getGender())
-       .withDateOfBirth(profile.getDateOfBirth())
-       .withEvents(profile.getEvents())
-       .withFollowingList(profile.getFollowingList())
-       .build();
+               .withProfileId(profile.getProfileId())
+               .withFirstName(profile.getFirstName())
+               .withLastName(profile.getLastName())
+               .withGender(profile.getGender())
+               .withLocation(profile.getLocation())
+               .withDateOfBirth(profile.getDateOfBirth())
+               .withFollowing(profile.getFollowing())
+               .withEvents(profile.getEvents())
+               .build();
     }
    
     /**
