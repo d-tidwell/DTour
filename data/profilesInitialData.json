@@ -3,12 +3,12 @@
     {
       "PutRequest": {
         "Item": {
-          "userId": {"S": "KirillZininTestEmailAddress@gmail.com"},
-          "fname": {"S": "Kirill"},
-          "lname": {"S": "Zinin"},
+          "id": {"S": "KirillZininTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Kirill"},
+          "lastName": {"S": "Zinin"},
           "location": {"S": "Mount Juliet"},
           "gender": {"S": "male"},
-          "dob": {"S": "09.18.1985"},
+          "dateOfBirth": {"S": "09.18.1985"},
           "following": {
             "SS": [
               "NoahCainTestEmailAddress@gmail.com",
@@ -27,12 +27,12 @@
     {
       "PutRequest": {
         "Item": {
-          "userId": {"S": "SvetlanaLuntikTestEmailAddress@gmail.com"},
-          "fname": {"S": "Svetlana"},
-          "lname": {"S": "Luntik"},
+          "id": {"S": "SvetlanaLuntikTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Svetlana"},
+          "lastName": {"S": "Luntik"},
           "location": {"S": "Nashville"},
           "gender": {"S": "female"},
-          "dob": {"S": "12.25.1983"},
+          "dateOfBirth": {"S": "12.25.1983"},
           "following": {
             "SS": [
               "AshleyGildayTestEmailAddress@gmail.com",
@@ -51,12 +51,12 @@
     {
       "PutRequest": {
         "Item": {
-          "userId": {"S": "AndrewAdamsTestEmailAddress@gmail.com"},
-          "fname": {"S": "Andrew"},
-          "lname": {"S": "Adams"},
+          "id": {"S": "AndrewAdamsTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Andrew"},
+          "lastName": {"S": "Adams"},
           "location": {"S": "Knoxville"},
           "gender": {"S": "male"},
-          "dob": {"S": "04.05.1990"},
+          "dateOfBirth": {"S": "04.05.1990"},
           "following": {
             "SS": [
               "NoahCainTestEmailAddress@gmail.com",
