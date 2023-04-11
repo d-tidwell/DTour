@@ -15,8 +15,9 @@ public class CreateProfileRequest {
     private final String emailAddress;
     private final String location;
     private final String gender;
-    private final ZonedDateTime dateOfBirth;
-    private final Set<Event> eventList;
+    private final String dateOfBirth;
+    private final Set<String> eventList;
+    private final Set<String> followerList;
 
     public boolean isNew() {
         return isNew;
@@ -42,11 +43,11 @@ public class CreateProfileRequest {
         return gender;
     }
 
-    public ZonedDateTime getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public Set<Event> getEventList() {
+    public Set<String> getEventList() {
         return eventList;
     }
 
@@ -54,7 +55,7 @@ public class CreateProfileRequest {
         return followerList;
     }
 
-    private final Set<String> followerList;
+
 
     @Override
     public String toString() {
@@ -72,7 +73,7 @@ public class CreateProfileRequest {
     }
 
     private CreateProfileRequest(boolean isNew, String firstName, String lastName, String emailAddress, String location,
-                                 String gender, ZonedDateTime dateOfBirth, Set<Event> eventList, Set<String> followerList){
+                                 String gender, String dateOfBirth, Set<String> eventList, Set<String> followerList){
         this.isNew = isNew;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -94,9 +95,9 @@ public class CreateProfileRequest {
     private  String emailAddress;
     private  String location;
     private  String gender;
-    private  ZonedDateTime dateOfBirth;
-    private  Set<Event> eventList;
-    private Set<String> follwerList;
+    private  String dateOfBirth;
+    private  Set<String> eventList;
+    private Set<String> followerList;
 
     public Builder withFirstName(String firstName){
         this.firstName = firstName;
@@ -118,20 +119,20 @@ public class CreateProfileRequest {
         this.gender = gender;
         return this;
     }
-    public Builder withDateOfBirth(ZonedDateTime dateOfBirth){
+    public Builder withDateOfBirth(String dateOfBirth){
         this.dateOfBirth = dateOfBirth;
         return this;
     }
     public Builder withFollowing(Set<String> followerList){
-        this.follwerList = followerList;
+        this.followerList = followerList;
         return this;
     }
-    public Builder withEvents(Set<Event> eventList){
+    public Builder withEvents(Set<String> eventList){
         this.eventList = eventList;
         return this;
     }
     public CreateProfileRequest build(){
-        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth,eventList,follwerList);
+        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth,eventList,followerList);
     }
 
 

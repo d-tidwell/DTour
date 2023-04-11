@@ -3,6 +3,7 @@ package com.nashss.se.musicplaylistservice.dynamodb.models;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.xspec.S;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class Profile {
     private String gender;
     private ZonedDateTime dateOfBirth;
     private Set<String> following;
-    private Set<Event> events;
+    private Set<String> events;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
@@ -84,11 +85,11 @@ public class Profile {
     }
 
     @DynamoDBAttribute(attributeName = "events")
-    public Set<Event> getEvents() {
+    public Set<String> getEvents() {
         return events;
     }
 
-    public void setEvents(Set<Event> events) {
+    public void setEvents(Set<String> events) {
         this.events = events;
     }
 
