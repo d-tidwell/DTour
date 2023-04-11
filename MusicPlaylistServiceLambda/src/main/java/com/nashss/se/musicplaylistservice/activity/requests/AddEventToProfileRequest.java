@@ -2,30 +2,34 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResult;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-@JsonDeserialize(builder = UpdateEventRequest.Builder.class)
-public class UpdateEventRequest {
+@JsonDeserialize(builder = AddEventToProfileRequest.Builder.class)
+public class AddEventToProfileRequest {
     private final String eventId;
     private final String name;
-    private final String eventCreator;
     private final String address;
+    private final String eventCreator;
     private final String description;
     private final ZonedDateTime dateTime;
-    private final Set<String> category;
-    private final Set<String> attendees;
+    private Set<String> category;
+    private Set<String> attendees;
+    private String profileId;
 
-    private UpdateEventRequest(String eventId, String name, String eventCreator, String address, String description, ZonedDateTime dateTime, Set<String> category,Set<String> attendees) {
+    private AddEventToProfileRequest(String eventId, String name, String address, String eventCreator,
+                                     String description, ZonedDateTime dateTime, Set<String> category, Set<String> attendees, String profileId) {
         this.eventId = eventId;
         this.name = name;
-        this.eventCreator = eventCreator;
         this.address = address;
+        this.eventCreator = eventCreator;
         this.description = description;
         this.dateTime = dateTime;
         this.category = category;
         this.attendees = attendees;
+        this.profileId = profileId;
     }
 
     public String getEventId() {
@@ -36,12 +40,12 @@ public class UpdateEventRequest {
         return name;
     }
 
-    public String getEventCreator() {
-        return eventCreator;
-    }
-
     public String getAddress() {
         return address;
+    }
+
+    public String getEventCreator() {
+        return eventCreator;
     }
 
     public String getDescription() {
@@ -60,17 +64,22 @@ public class UpdateEventRequest {
         return attendees;
     }
 
+    public String getProfileId() {
+        return profileId;
+    }
+
     @Override
     public String toString() {
-        return "UpdateEventRequest{" +
+        return "AddEventToProfileRequest{" +
                 "eventId='" + eventId + '\'' +
                 ", name='" + name + '\'' +
-                ", eventCreator='" + eventCreator + '\'' +
-                ", address='" + address + '\'' +
-                ", description='" + description + '\'' +
+                ", address=" + address + + '\'' +
+                ", eventCreator=" + eventCreator + + '\'' +
+                ", description=" + description + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", category='" + category + '\'' +
                 ", attendees='" + attendees + '\'' +
+                ", profileId='" + profileId + '\'' +
                 '}';
     }
 
@@ -83,12 +92,15 @@ public class UpdateEventRequest {
     public static class Builder {
         private String eventId;
         private String name;
-        private String eventCreator;
         private String address;
+        private String eventCreator;
         private String description;
         private ZonedDateTime dateTime;
         private Set<String> category;
         private Set<String> attendees;
+        private String profileId;
+
+
 
         public Builder withEventId(String eventId) {
             this.eventId = eventId;
@@ -100,13 +112,13 @@ public class UpdateEventRequest {
             return this;
         }
 
-        public Builder withEventCreator(String eventCreator) {
-            this.eventCreator = eventCreator;
+        public Builder withAddress(String address) {
+            this.address = address;
             return this;
         }
 
-        public Builder withAddress(String address) {
-            this.address = address;
+        public Builder withEventCreator(String eventCreator) {
+            this.eventCreator = eventCreator;
             return this;
         }
 
@@ -130,8 +142,14 @@ public class UpdateEventRequest {
             return this;
         }
 
-        public UpdateEventRequest build() {
-            return new UpdateEventRequest(eventId, name, eventCreator, address, description, dateTime, category, attendees);
+        public Builder withProfileId(String profileId) {
+            this.profileId = profileId;
         }
+
+        public AddEventToProfileRequest build() {
+            return new AddEventToProfileRequest(eventId, name, address, eventCreator, description, dateTime, category, attendees, profileId);
+        }
+
+
     }
 }
