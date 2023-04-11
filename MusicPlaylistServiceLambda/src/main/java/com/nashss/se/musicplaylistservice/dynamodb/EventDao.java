@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
@@ -15,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,7 +30,7 @@ public class EventDao {
     private final MetricsPublisher metricsPublisher;
 
     /**
-     * Instantiates a PlaylistDao object.
+     * Instantiates an EventDao object.
      *
      * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the playlists table
      * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
@@ -49,10 +51,10 @@ public class EventDao {
         Event event = this.dynamoDbMapper.load(Event.class, eventId);
 
         if (event == null) {
-            metricsPublisher.addCount(MetricsConstants.GETEVENT_PLAYLISTNOTFOUND_COUNT, 1);
-            throw new PlaylistNotFoundException("Could not find event with id " + eventId);
+            metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 1);
+            throw new EventNotFoundException("Could not find event with id " + eventId);
         }
-        metricsPublisher.addCount(MetricsConstants.GETEVENT_PLAYLISTNOTFOUND_COUNT, 0);
+        metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 0);
         return event;
     }
 
@@ -63,18 +65,36 @@ public class EventDao {
      * @return The Event object that was saved
      */
     public Event saveEvent(Event event) {
-        LocalDateTime now = LocalDateTime.now();
-        if (event.getDateTime().toLocalDateTime().isAfter(now)) {
+        ZonedDateTime now = ZonedDateTime.now();
+        if (event.getDateTime().isAfter(now)) {
             this.dynamoDbMapper.save(event);
         }
         return event;
     }
 
     /**
+     * Adds an event to the user's profile.
+     *
+     * @param event The event to add
+     * @Return the updated event list
+     */
+
+    public Set<String> addEventToProfile(String event, String profileId) {
+        getEvent(event);
+        Profile profile = profileDao.getProfile(profileId);
+        Set<String> events = profile.getEvents();
+        events.add(event);
+        this.dynamoDbMapper.save(profile);
+
+        return events;
+
+    }
+
+    /**
      * Perform a search (via a "scan") of the events table for events matching the given criteria.
      *
      * Both "name" and "category" attributes are searched.
-     * The criteria are an arrayt of Strings. Each element of the array is search individually.
+     * The criteria are an array of Strings. Each element of the array is search individually.
      * ALL elements of the criteria array must appear in the eventName or the categories (or both).
      * Searches are CASE SENSITIVE.
      *
