@@ -15,10 +15,18 @@ import javax.inject.Singleton;
 @Component(modules = {DaoModule.class, MetricsModule.class})
 public interface ServiceComponent {
 
+    /**
+     * Provides the relevant activity.
+     * @return UpdatePlaylistActivity
+     */
+     UpdateEventActivity provideUpdateEventActivity();
 
-    UpdateEventActivity provideUpdateEventActivity();
+    UpdatePlaylistActivity provideUpdatePlaylistActivity();
+    
+    CreateProfileActivity provideCreateProfileActivity();
 
     AddEventToProfileActivity provideAddEventToProfileActivity();
+
 
     CreateEventActivity provideCreateEventActivity();
 }

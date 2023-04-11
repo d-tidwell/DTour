@@ -1,13 +1,16 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +35,22 @@ public class ProfileDao {
         }
         metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 0);
 
+        return profile;
+    }
+
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth, Set<String> events, Set<String> following ) {
+        Profile profile = new Profile();
+
+        if(profileId.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || location.isEmpty() || gender.isEmpty() || dateOfBirth==null){
+            throw new InvalidAttributeValueException("Arguments can not be empty, please try again.");
+        }
+
+        if(events == null){
+            events = new HashSet<>();
+        }
+        if(following == null){
+            following = new HashSet<>();
+        }
 
         return profile;
     }
@@ -70,4 +89,3 @@ public class ProfileDao {
     }
 
 }
-

@@ -447,14 +447,14 @@ Resources:
   ProfilesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      AttributeDefinitions:
+       AttributeDefinitions:
         - AttributeName: "id"
           AttributeType: "S"
-      KeySchema:
+    KeySchema:
         - AttributeName: "id"
           KeyType: "HASH"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "profiles"
+    BillingMode: "PAY_PER_REQUEST"
+    TableName: "profiles"
 
   EventsTable:
     Type: AWS::DynamoDB::Table
