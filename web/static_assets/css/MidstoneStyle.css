@@ -2,7 +2,7 @@
 :root {
     --headerbarColor: #212524;
     --pageBackgroundColor:linear-gradient(-45deg, rgb(247, 195, 97),  rgb(242, 191, 53), rgb(243, 174, 71), rgb(238, 226, 199));
-    --navbarColor:  ;
+    --navbarColor:  #212524;
     --textColor: rgb(247, 207, 135);;
     --hoverColor:rgb(252, 231, 174);
 }
@@ -61,7 +61,7 @@ body{
 .logo .logoDANNA {
     font-family: 'Righteous', cursive;
     display: flex;
-    padding-left: 200px;
+    padding-left: 2%;
     justify-content: center;
     align-content: center;
     font-size: 3rem; 
@@ -110,6 +110,9 @@ color:white;
 .btn-dark {
     color: var(--textColor);
 }
+.card {
+    background-color: var(--textColor);
+}
 .nav-item {
     flex-grow: 1;
     display: flex;
@@ -144,7 +147,7 @@ color:white;
     color: var(--textColor);
 }
 
-/* navbar mobile compatibility settings */
+/* mobile compatibility settings */
 @media (max-width: 767px) {
     /* Styles for smaller screens */
 
@@ -152,11 +155,14 @@ color:white;
         font-size: 1.5rem;
         padding-bottom: 0;
     }
+
     html, body {
         overflow: visible;
         height: 100%;
+        width: 100%;
         margin:0;
     }
+
     .page-body-background-landing .overlayBox {
         position: absolute;
         top: 65%;
@@ -200,7 +206,7 @@ color:white;
 
   }
 
-
+/* animation settings */
 @keyframes gradient {
     0% {
         background-position: 0% 25%;

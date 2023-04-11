@@ -1,4 +1,5 @@
 ## Profile
+
 Profile & ProfileModel
 -id (String (email from authentication))
 -fname (String)
@@ -16,9 +17,11 @@ Event & EventModel
 -address (String)
 -datetime (DateTime)
 -category (set of strings)
+-description (string)
+-attendees (set of string)
 
 POST Create a new profile accepts all profile information needed to create a Profile object 
-    endpoint: profile/createProfile/
+    endpoint: profile/create
     data: fname, lname, location, gender, dob
     response: all of the new created profile object data
     (use for returning data from createProfile.html,createProfile.js)

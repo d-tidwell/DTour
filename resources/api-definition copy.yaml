@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Music Playlist Service
-  description: "This is the API definition for the Music Playlist Service."
+  title: DANNA Service
+  description: "This is the API definition for the DANNA Service."
   version: 1.0.0
 
 servers:
@@ -16,7 +16,7 @@ tags:
 
 paths:
 
-  /profiles/createProfile:
+  /profiles/create:
     post:
       tags:
         - Profiles
@@ -62,10 +62,12 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
                 events:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -105,10 +107,12 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
                 events:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
@@ -164,89 +168,326 @@ paths:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
                 events:
                   type: array
                   items:
                     type: string
+                  uniqueItems: true
         "500":
           description: "Invalid input parameters"
 
-  /playlists/{id}/songs:
-    get:
+  /profiles/addEvent:
+  put:
       tags:
-        - Songs
-      summary: Retrieves a list of all songs in a playlist (GetPlaylistSongsLambda)
-      operationId: getSongs
+        - Profiles
+      summary: addEvent to the list of events of an existing profile (addEventToProfileLambda)
       parameters:
         - name: id
           in: path
-          description: ID of playlist to return
+          description: ID of profile to retrieve
           required: true
           schema:
             type: string
+       requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+
       responses:
         "200":
-          description: A playlist object
+          description: A profile object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  songList:
-                    type: array
-                    items:
-                      properties:
-                        asin:
-                          type: string
-                        title:
-                          type: string
-                        album:
-                          type: string
-                        trackNumber:
-                          type: integer
-
-    post:
+                events:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+  
+  /profiles/removeEvent:
+  put:
       tags:
-        - Songs
-      summary: Add a song to a playlist (AddSongToPlaylistLambda)
-      operationId: addSong
+        - Profiles
+      summary: Remove event from the list of events of an existing profile (removeEventFromProfileLambda)
       parameters:
         - name: id
           in: path
-          description: ID of playlist to return
+          description: ID of profile to retrieve
           required: true
           schema:
             type: string
+       requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+                uniqueItems: true
+
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                events:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+
+  /profiles/addFollowing:
+  put:
+      tags:
+        - Profiles
+      summary: add profile id to the list of following of an existing profile (addFollowingToProfileLambda)
+       requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                following:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+  
+  /profiles/removeFollowing:
+  put:
+      tags:
+        - Profiles
+      summary: Remove profile from the list of events of an existing profile (removeFollowingFromProfileLambda)
+       requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                following:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+
+  /events/create:
+    post:
+      tags:
+        - Events
+      summary: Create a new event (CreateEventLambda)
+      operationId: createEvent
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                asin:
+                name:
                   type: string
-                trackNumber:
-                  type: integer
-                id:
+                date:
                   type: string
-
+                time:
+                  type: string
+                location:
+                  type: string
+                createdBy:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
       responses:
         "200":
-          description: the song
+          description: A profile object
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  songList:
-                    type: array
-                    items:
-                      properties:
-                        asin:
-                          type: string
-                        title:
-                          type: string
-                        album:
-                          type: string
-                        trackNumber:
-                          type: integer
+                name:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                location:
+                  type: string
+                createdBy:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                attendees:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+
+  /events/${id}:
+  get:
+      tags:
+        - Events
+      summary: Get an existing event (GetEventLambda)
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                name:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                location:
+                  type: string
+                createdBy:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                attendees:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+
+    put:
+      tags:
+        - Profiles
+      summary: Update the info of an existing profile (UpdateProfileLambda)
+      parameters:
+        - name: id
+          in: path
+          description: ID of profile to retrieve
+          required: true
+          schema:
+            type: string
+       requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                location:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                name:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                location:
+                  type: string
+                createdBy:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                attendees:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+
+  /events/all:
+  get:
+      tags:
+        - Events
+      summary: Get an existing event (GetEventLambda)
+      responses:
+        "200":
+          description: A profile object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                events:
+                  type: array
+                  items:
+                    type: string
+                  uniqueItems: true
+        "500":
+          description: "Invalid input parameters"
+
