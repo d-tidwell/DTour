@@ -8,6 +8,7 @@ import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
+import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
@@ -69,7 +70,7 @@ public class AddEventToProfileActivity {
 
         Set<String> events = eventDao.addEventToProfile(eventId, profile);
 
-        List<EventModel> eventModels = new ModelConverter().toEventModelList(events);
+        List<String> eventModels = new ModelConverter().toEventModelList(events);
         return AddEventToProfileResult.builder()
                 .withEventList(eventModels)
                 .build();
