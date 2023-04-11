@@ -265,7 +265,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.CreatePrfileLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.CreateProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
