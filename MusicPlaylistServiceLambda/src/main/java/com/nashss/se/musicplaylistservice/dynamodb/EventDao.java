@@ -3,6 +3,7 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.exceptions.EventNotFoundException;
 import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
@@ -80,6 +81,7 @@ public class EventDao {
      */
 
     public Set<String> addEventToProfile(String event, String profileId) {
+        ProfileDao profileDao = new ProfileDao(dynamoDbMapper, metricsPublisher);
         getEvent(event);
         Profile profile = profileDao.getProfile(profileId);
         Set<String> events = profile.getEvents();
@@ -88,6 +90,26 @@ public class EventDao {
 
         return events;
 
+    }
+
+    /**
+     * Creates a new Event object.
+     *
+     */
+
+    public Event createEvent(String name, String eventCreator, String address, String description,
+                             ZonedDateTime dateTime, Set<String> category) {
+        Event event = new Event();
+        event.setEventId();
+        event.setName(name);
+        event.setEventCreator(eventCreator);
+        event.setAddress(address);
+        event.setDescription(description);
+        event.setDateTime(dateTime);
+        event.setCategory(category);
+        saveEvent(event);
+
+        return event;
     }
 
     /**
