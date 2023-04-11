@@ -122,6 +122,10 @@ public class CreateProfileRequest {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
+    public Builder withFollowing(Set<String> followerList){
+        this.follwerList = followerList;
+        return this;
+    }
     public Builder withEvents(Set<Event> eventList){
         this.eventList = eventList;
         return this;
