@@ -29,15 +29,15 @@ public class ProfileDao {
         if(profile == null){
             metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 1);
             throw new ProfileNotFoundException("Could not find profile with profileId " + id);
-
-        } else {
-            metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 0);
         }
+        metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 0);
+
 
         return profile;
     }
 
-    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events) {
+
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events, Set<String> following) {
         Profile profile = new Profile();
         profile.setId(profileId);
         profile.setFirstName(firstName);
@@ -45,16 +45,12 @@ public class ProfileDao {
         profile.setLocation(location);
         profile.setGender(gender);
         profile.setDateOfBirth(dateOfBirth);
+        profile.setFollowing(following);
         profile.setEvents(events);
         this.dynamoDbMapper.save(profile);
         return profile;
     }
 
-    /**
-     *
-     * @param id - that is emailAddress
-     * @return
-     */
     public void addProfileToFollowersList(String id) {
         if (id.isEmpty() || id == null) {
             throw new ProfileNotFoundException("The entered email address is invalid. Please try again.");
@@ -64,14 +60,14 @@ public class ProfileDao {
             throw new ProfileNotFoundException("Profile does not exist. Please enter another emailAddress.");
         }
         Set<String> following = profile.getFollowing();
-        if(following == null) {
+        if (following == null) {
             following = new HashSet<>();
         }
         following.add(id);
         profile.setFollowing(following);
         saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
-                profile.getGender(), profile.getDateOfBirth(), profile.getEvents());
-
+                profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
     }
+
 }
 

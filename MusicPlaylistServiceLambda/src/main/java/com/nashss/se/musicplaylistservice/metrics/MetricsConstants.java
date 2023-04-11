@@ -5,9 +5,7 @@ package com.nashss.se.musicplaylistservice.metrics;
  */
 public class MetricsConstants {
     public static final String GETPROFILE_PROFILENOTFOUND_COUNT = "GetProfile.ProfileNotFoundException.Count";
-
-
-
+    
     public static final String GETPLAYLIST_PLAYLISTNOTFOUND_COUNT = "GetPlaylist.PlaylistNotFoundException.Count";
     public static final String UPDATEPLAYLIST_INVALIDATTRIBUTEVALUE_COUNT =
         "UpdatePlaylist.InvalidAttributeValueException.Count";
