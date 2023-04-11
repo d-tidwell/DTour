@@ -36,7 +36,7 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events, Set<String> following ) {
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<Event> events, Set<String> following ) {
         Profile profile = new Profile();
 
         if(profileId.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || location.isEmpty() || gender.isEmpty() || dateOfBirth.isEmpty()){
@@ -78,7 +78,7 @@ public class ProfileDao {
         following.add(id);
         profile.setFollowing(following);
         saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
-                profile.getGender(), profile.getDateOfBirth(), profile.getFollowing(), profile.getEvents());
+                profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
     }
 
 }
