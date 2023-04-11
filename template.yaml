@@ -201,32 +201,31 @@ Resources:
                 - logs:PutLogEvents
                 - cloudwatch:PutMetricData
               Resource: '*'
-        - PolicyName: 'AccessPlaylistsTable'
+        - PolicyName: 'AccessProfilesTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
             - Effect: Allow
               Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/playlists"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/profiles"
                 
-        - PolicyName: 'AccessAlbumTracksTable'
+        - PolicyName: 'AccessEventsTable'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
             - Effect: Allow
               Action: dynamodb:*
-              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/album_tracks"
+              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/events"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
   #-----------------------------------------------------
-
-  GetPlaylistLambda:
+  GetProfileLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.GetPlaylistLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.GetProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -238,17 +237,15 @@ Resources:
         MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /playlists/{id}
+            Path: /profiles/{id}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
-
-  SearchPlaylistsLambda:
+  
+  UpdateProfileLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.SearchPlaylistsLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.UpdateProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -260,79 +257,15 @@ Resources:
         MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /playlists/search
-            Method: get
-            Auth:
-              Authorizer: 'NONE'
-
-  GetPlaylistSongsLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.GetPlaylistSongsLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        MusicPlaylistService:
-          Type: Api
-          Properties:
-            Path: /playlists/{id}/songs
-            Method: get
-            Auth:
-              Authorizer: 'NONE'
-
-  CreatePlaylistLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.CreatePlaylistLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        MusicPlaylistService:
-          Type: Api
-          Properties:
-            Path: /playlists
-            Method: post
-
-  UpdatePlaylistLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.UpdatePlaylistLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        MusicPlaylistService:
-          Type: Api
-          Properties:
-            Path: /playlists/{id}
+            Path: /profiles/{id}
             Method: put
 
-  AddSongToPlaylistLambda:
+  CreateProfileLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.AddSongToPlaylistLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.CreateProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -344,13 +277,201 @@ Resources:
         MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /playlists/{id}/songs
+            Path: /profiles/create
             Method: post
+
+  AddEventToProfileLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.AddEventToProfileLambda:handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /profiles/addEvent
+            Method: put
+  
+  RemoveEventToProfileLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveEventFromProfileLambda:handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /profiles/removeEvent
+            Method: put
+
+  AddFollowingToProfileLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.AddFollowingToProfileLambda:handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /profiles/addFollowing
+            Method: put
+  
+  RemoveFollowingFromProfileLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveFollowingFromProfileLambda:handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /profiles/removeFollowing
+            Method: put
+
+  GetEventLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.GetEventLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /events/{id}
+            Method: get
+
+  GetAllEventsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.GetAllEventsLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /events/all
+            Method: get
+
+  CreateEventLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.CreateEventLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /events
+            Method: post
+
+  UpdateEventLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: MusicPlaylistServiceLambda
+      Handler: com.nashss.se.musicplaylistservice.lambda.UpdateEventLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /events/{id}
+            Method: put
+
 
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
-  
+  ProfilesTable:
+  Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      BillingMode: "PAY_PER_REQUEST"
+      TableName: "profiles"
+
+  EventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "eventId"
+          AttributeType: "S"
+        - AttributeName: "date_time"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "eventId"
+          KeyType: "HASH"
+        - AttributeName: "date_time"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
+      TableName: "album_tracks"
+
   PlaylistsTable:
     Type: AWS::DynamoDB::Table
     Properties:

@@ -81,7 +81,7 @@ export default class DannaClient extends BindingClass {
      */
     async getProfile(id, errorCallback) {
         try {
-            const response = await this.axiosClient.get(`profile/${id}`);
+            const response = await this.axiosClient.get(`profiles/${id}`);
             return response.data.profile;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -130,7 +130,7 @@ export default class DannaClient extends BindingClass {
     async createProfile(id, fname, lname, location, gender, dob, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.post(`profile/${id}/createProfile/`, {
+            const response = await this.axiosClient.post(`profiles/createProfile`, {
                 fname: fname,
                 lname: lname,
                 location: location,
@@ -163,7 +163,7 @@ export default class DannaClient extends BindingClass {
     async updateProfile(id, fname, lname, location, gender,dob, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/${id}/update`, {
+            const response = await this.axiosClient.put(`profiles/${id}`, {
                 fname: fname,
                 lname: lname,
                 location: location,
@@ -194,7 +194,7 @@ export default class DannaClient extends BindingClass {
     async createEvent(name, date, time, address, category, description, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create an event.");
-            const response = await this.axiosClient.post(`event/create`, {
+            const response = await this.axiosClient.post(`events/create`, {
                 name: name,
                 date: date,
                 time: time,
@@ -228,7 +228,7 @@ export default class DannaClient extends BindingClass {
     async updateEvent(name, date, time, address, category, description, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can update events.");
-            const response = await this.axiosClient.put(`event/update`, {
+            const response = await this.axiosClient.put(`events/${id}`, {
                 name: name,
                 date: date,
                 time: time,
@@ -256,7 +256,7 @@ export default class DannaClient extends BindingClass {
     async addEventToProfile(eventId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/addEvent`, {
+            const response = await this.axiosClient.put(`profiles/addEvent`, {
                 eventId:eventId
             }, {
                 headers: {
@@ -279,7 +279,7 @@ export default class DannaClient extends BindingClass {
     async removeEventFromProfile(eventId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/removeEvent`, {
+            const response = await this.axiosClient.put(`profiles/removeEvent`, {
                 eventId:eventId
             }, {
                 headers: {
@@ -302,7 +302,7 @@ export default class DannaClient extends BindingClass {
     async addToFollowing(profileId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/addFollowing`, {
+            const response = await this.axiosClient.put(`profiles/addFollowing`, {
                 profileId:profileId
             }, {
                 headers: {
@@ -325,7 +325,7 @@ export default class DannaClient extends BindingClass {
     async removeFromFollowing(id, profileId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.put(`profile/${id}/removeFollowing`, {
+            const response = await this.axiosClient.put(`profiles/removeFollowing`, {
                 profileId:profileId
             }, {
                 headers: {
