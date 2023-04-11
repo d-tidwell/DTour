@@ -41,4 +41,8 @@ public class GetProfileResult {
 
     }
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
 }
