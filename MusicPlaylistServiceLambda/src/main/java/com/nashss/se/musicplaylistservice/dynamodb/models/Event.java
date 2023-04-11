@@ -70,7 +70,7 @@ public class Event {
         this.description = description;
     }
 
-    @DynamoDBAttribute(attributeName = "date_time")
+    @DynamoDBRangeKey(attributeName = "date_time")
     public ZonedDateTime getDateTime() {
         return dateTime;
     }

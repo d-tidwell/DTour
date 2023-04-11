@@ -28,9 +28,6 @@ public class ModelConverter {
                 .withFollowing(profile.getFollowing())
                 .withEvents(profile.getEvents())
                 .build();
-
-
-
     }
    
     /**
@@ -41,7 +38,6 @@ public class ModelConverter {
      */
     
     public EventModel toEventModel(Event event){
-
         return EventModel.builder()
         .withEventId(event.getEventId())
         .withName(event.getName())
