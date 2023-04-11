@@ -14,11 +14,7 @@ public class AddProfileToFollowingLambda extends LambdaActivityRunner<AddProfile
                     AddProfileToFollowingRequest unauthenticatedRequest = input.fromBody(AddProfileToFollowingRequest.class);
                     return input.fromUserClaims(claims ->
                             AddProfileToFollowingRequest.builder()
-                                    .withFirstName(unauthenticatedRequest.getFirstName())
-                                    .withLastName(unauthenticatedRequest.getLastName())
-                                    .withLocation(unauthenticatedRequest.getLocation())
-                                    .withGender(unauthenticatedRequest.getGender())
-                                    .withDateOfBirth(unauthenticatedRequest.getDateOfBirth())
+                                    .withId(unauthenticatedRequest.getId())
                                     .withId(claims.get("email"))
                                     .build());
                 },

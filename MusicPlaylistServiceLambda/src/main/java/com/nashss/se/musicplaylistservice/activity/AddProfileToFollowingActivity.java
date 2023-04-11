@@ -7,14 +7,14 @@ import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
-import com.nashss.se.musicplaylistservice.utils.CollectionUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Implementation of the AddSongToPlaylistActivity for the MusicPlaylistService's AddSongToPlaylist API.
@@ -52,19 +52,11 @@ public class AddProfileToFollowingActivity {
         if (profile == null) {
             throw new ProfileNotFoundException("Profile does not exist, please try again with another id.");
         }
-//        String profileId = profile.getId();
-//        String firstName = profile.getFirstName();
-//        String lastName = profile.getLastName();
-//        String location = profile.getLocation();
-//        String gender = profile.getGender();
-//        String dateOfBirth = profile.getDateOfBirth();
-//        Set<String> events = profile.getEvents();
-//
-//        profileDao.saveProfile(profileId, firstName, lastName, location, gender, dateOfBirth, events);
 
         profileDao.addProfileToFollowersList(id);
 
         List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
+
         return AddProfileToFollowingResult.builder()
                 .withProfileModelListList(profileModel)
                 .build();
