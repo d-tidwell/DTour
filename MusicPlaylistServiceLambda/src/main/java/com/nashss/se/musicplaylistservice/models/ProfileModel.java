@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.models;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class ProfileModel {
 
@@ -11,13 +12,13 @@ public class ProfileModel {
     private final String location;
     private final String gender;
     private final String dateOfBirth;
-    private final List<String> following;
-    private final List<String> events;
+    private final Set<String> following;
+    private final Set<String> events;
 
     public ProfileModel(String profileId, String firstName,
                         String lastName, String location,
                         String gender, String dateOfBirth,
-                        List<String> following, List<String> events) {
+                        Set<String> following, Set<String> events) {
         this.profileId = profileId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,11 +53,11 @@ public class ProfileModel {
         return dateOfBirth;
     }
 
-    public List<String> getFollowing() {
+    public Set<String> getFollowing() {
         return following;
     }
 
-    public List<String> getEvents() {
+    public Set<String> getEvents() {
         return events;
     }
 
@@ -73,8 +74,8 @@ public class ProfileModel {
         return Objects.hash(profileId, following, events);
     }
 
-    public static PlaylistModel.Builder builder() {
-        return new PlaylistModel.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder{
@@ -84,11 +85,11 @@ public class ProfileModel {
         private String location;
         private String gender;
         private String dateOfBirth;
-        private List<String> following;
-        private List<String> events;
+        private Set<String> following;
+        private Set<String> events;
 
-        public Builder withProfileId(String id){
-            this.userId = id;
+        public Builder withProfileId(String userId){
+            this.userId = userId;
             return this;
         }
 
@@ -117,12 +118,12 @@ public class ProfileModel {
             return this;
         }
 
-        public Builder withFollowing(List following){
+        public Builder withFollowing(Set<String> following){
             this.following = following;
             return this;
         }
 
-        public Builder withEvents(List events){
+        public Builder withEvents(Set<String> events){
             this.events = events;
             return this;
         }
