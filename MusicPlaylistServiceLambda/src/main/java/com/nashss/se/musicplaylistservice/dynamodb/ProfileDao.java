@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
@@ -35,14 +36,28 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events) {
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events, Set<String> following ) {
         Profile profile = new Profile();
+
+        if(profileId.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || location.isEmpty() || gender.isEmpty() || dateOfBirth.isEmpty()){
+            throw new InvalidAttributeValueException("Arguments can not be empty, please try again.");
+        }
+
+        if(events == null){
+            events = new HashSet<>();
+        }
+        if(following == null){
+            following = new HashSet<>();
+        }
+
+
         profile.setId(profileId);
         profile.setFirstName(firstName);
         profile.setLastName(lastName);
         profile.setLocation(location);
         profile.setGender(gender);
         profile.setDateOfBirth(dateOfBirth);
+        profile.setFollowing(following);
         profile.setEvents(events);
         this.dynamoDbMapper.save(profile);
         return profile;
@@ -63,7 +78,7 @@ public class ProfileDao {
         following.add(id);
         profile.setFollowing(following);
         saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
-                profile.getGender(), profile.getDateOfBirth(), profile.getEvents());
+                profile.getGender(), profile.getDateOfBirth(), profile.getFollowing(), profile.getEvents());
     }
 
 }
