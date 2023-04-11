@@ -8,6 +8,8 @@ import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.HashSet;
+import java.util.Set;
 
 @Singleton
 public class ProfileDao {
@@ -33,11 +35,35 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile saveProfile(Profile profile){
-
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events) {
+        Profile profile = new Profile();
+        profile.setId(profileId);
+        profile.setFirstName(firstName);
+        profile.setLastName(lastName);
+        profile.setLocation(location);
+        profile.setGender(gender);
+        profile.setDateOfBirth(dateOfBirth);
+        profile.setEvents(events);
         this.dynamoDbMapper.save(profile);
         return profile;
     }
 
+    public void addProfileToFollowersList(String id) {
+        if (id.isEmpty() || id == null) {
+            throw new ProfileNotFoundException("The entered email address is invalid. Please try again.");
+        }
+        Profile profile = getProfile(id);
+        if (profile == null) {
+            throw new ProfileNotFoundException("Profile does not exist. Please enter another emailAddress.");
+        }
+        Set<String> following = profile.getFollowing();
+        if (following == null) {
+            following = new HashSet<>();
+        }
+        following.add(id);
+        profile.setFollowing(following);
+        saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
+                profile.getGender(), profile.getDateOfBirth(), profile.getEvents());
+    }
 
 }
