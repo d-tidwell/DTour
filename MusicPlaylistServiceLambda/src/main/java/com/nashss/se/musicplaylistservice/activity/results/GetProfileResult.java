@@ -27,11 +27,8 @@ public class GetProfileResult {
     public static class Builder{
         private ProfileModel profileModel;
 
-        public GetProfileResult.Builder withProfileModel(String profileId, String firstName,
-                                                         String lastName, String location,
-                                                         String gender, String dateOfBirth,
-                                                         Set<String> following, Set<String> events){
-            this.profileModel = new ProfileModel(profileId, firstName, lastName, location, gender, dateOfBirth, following, events);
+        public GetProfileResult.Builder withProfileModel(ProfileModel profileModel){
+            this.profileModel = profileModel;
             return this;
         }
 
