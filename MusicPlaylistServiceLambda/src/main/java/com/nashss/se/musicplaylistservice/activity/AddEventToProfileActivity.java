@@ -8,6 +8,7 @@ import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
 import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
+import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;

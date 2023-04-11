@@ -69,5 +69,21 @@ public class ProfileDao {
                 profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
     }
 
+    public void removeProfileFromFollowing(String id) {
+        Profile profile = getProfile(id);
+        if (profile == null) {
+            throw new ProfileNotFoundException("Unable to retrieve the profile with the given id.");
+        }
+        Set<String> following = profile.getFollowing();
+        if (following == null || !(following.contains(id))) {
+            throw new ProfileNotFoundException("Profile with the given id is not your following.");
+        }
+        following.remove(id);
+        following.remove(id);
+        profile.setFollowing(following);
+        saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
+                profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing());
+    }
+
 }
 

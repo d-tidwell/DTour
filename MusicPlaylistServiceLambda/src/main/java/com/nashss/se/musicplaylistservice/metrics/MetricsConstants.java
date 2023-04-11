@@ -5,6 +5,8 @@ package com.nashss.se.musicplaylistservice.metrics;
  */
 public class MetricsConstants {
     public static final String GETEVENT_PLAYLISTNOTFOUND_COUNT = "GetEvent.EventNotFoundException.Count";
+
+    public static final String GETPROFILE_PROFILENOTFOUND_COUNT = "GetProfile.ProfileNotFoundException.Count";
     public static final String UPDATEEVENT_INVALIDATTRIBUTEVALUE_COUNT =
         "UpdateEvent.InvalidAttributeValueException.Count";
     public static final String UPDATEEVENT_INVALIDATTRIBUTECHANGE_COUNT =
