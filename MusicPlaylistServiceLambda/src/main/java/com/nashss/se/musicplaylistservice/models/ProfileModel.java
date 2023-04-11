@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 public class ProfileModel {
-
     private final String profileId;
     private final String firstName;
     private final String lastName;
@@ -75,11 +74,12 @@ public class ProfileModel {
         return Objects.hash(profileId, following, events);
     }
 
-    public static Builder builder() {
-        return new Builder();
+
+    public static ProfileModel.Builder builder() {
+        return new ProfileModel.Builder();
     }
 
-    public static class Builder{
+    public static class Builder {
         private String userId;
         private String firstName;
         private String lastName;
@@ -89,47 +89,51 @@ public class ProfileModel {
         private Set<String> following;
         private Set<String> events;
 
-        public Builder withProfileId(String userId){
+        public Builder withProfileId(String userId) {
             this.userId = userId;
             return this;
         }
 
-        public Builder withFirstName(String firstName){
+        public Builder withFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public Builder withLastName(String lastName){
+        public Builder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public Builder withLocation(String location){
+        public Builder withLocation(String location) {
             this.location = location;
             return this;
         }
 
-        public Builder withGender(String gender){
+        public Builder withGender(String gender) {
             this.gender = gender;
             return this;
         }
 
-        public Builder withDateOfBirth(String dateOfBirth){
-            this.dateOfBirth= dateOfBirth;
+        public Builder withDateOfBirth(String dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public Builder withFollowing(Set<String> following){
+        public Builder withFollowing(Set<String> following) {
             this.following = following;
             return this;
         }
 
-        public Builder withEvents(Set<String> events){
+        public Builder withEvents(Set<String> events) {
             this.events = events;
             return this;
         }
 
-        public ProfileModel build() {return new ProfileModel(userId, firstName,
-                lastName, location,gender, dateOfBirth, following, events);}
+        public ProfileModel build() {
+            return new ProfileModel(userId, firstName,
+                    lastName, location, gender, dateOfBirth, following, events);
+        }
     }
 }
+
+

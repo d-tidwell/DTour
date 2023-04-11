@@ -4,7 +4,7 @@
         "PutRequest": {
           "Item": {
             "eventId": { "S": "001NASH" },
-            "name": { "N": "Game, Grill and Chill" },
+            "name": { "S": "Game, Grill and Chill" },
             "eventCreator": {"S": "KypKremenskiyTestEmailAddress@gmail.com"},
             "address": { "S": "Centennial Park, 2500 W End Ave Nashville, TN 37203 Midtown" },
             "description": { "S": "\"Game, Grill and Chill\" is an outdoor social event that combines food, games, and relaxation. Participants gather to enjoy grilled food and refreshments while engaging in various recreational activities such as board games, card games, sports, or other forms of entertainment. This event provides an opportunity for people to connect with friends, family, or new acquaintances in a fun and casual environment."},
@@ -27,7 +27,7 @@
         "PutRequest": {
           "Item": {
             "eventId": { "S": "002NASH" },
-            "name": { "N": "Little Explorers" },
+            "name": { "S": "Little Explorers" },
             "eventCreator": {"S": "SashaMersTestEmailAddress@gmail.com"},
             "address": { "S": "Billy Dunlop Park, 1930 E Boy Scout Rd, Clarksville, TN 37040" },
             "description": { "S": "\"Little Explorers\" is an exciting and educational event designed for young children to explore the world around them. This event aims to encourage kids to discover and learn about science, nature, and the environment in a fun and interactive way. The event includes various activity stations such as animal encounters, interactive science experiments, plant identification, and guided nature walks."},
@@ -53,7 +53,7 @@
         "PutRequest": {
           "Item": {
             "eventId": {"S": "003NASH"},
-            "name": {"N": "Dino Discovery Day"},
+            "name": {"S": "Dino Discovery Day"},
             "eventCreator": {"S": "KolyaMaxTestEmailAddress@gmail.com"},
             "address": {"S": "Cedars Of Lebanon State Park, 328 Cedar Forest Rd Lebanon, TN 37090"},
             "description": {"S": "\"Dino Discovery Day\" is an exciting and educational event that takes visitors on a journey back in time to explore the world of dinosaurs. The event is designed to be interactive and engaging, allowing attendees of all ages to learn about these fascinating creatures through a range of activities and exhibits."},

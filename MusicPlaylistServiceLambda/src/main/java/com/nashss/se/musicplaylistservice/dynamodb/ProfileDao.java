@@ -52,7 +52,12 @@ public class ProfileDao {
             following = new HashSet<>();
         }
 
+        return profile;
+    }
 
+
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events, Set<String> following) {
+        Profile profile = new Profile();
         profile.setId(profileId);
         profile.setFirstName(firstName);
         profile.setLastName(lastName);

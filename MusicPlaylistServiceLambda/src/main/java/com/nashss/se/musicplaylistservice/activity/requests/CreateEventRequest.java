@@ -4,32 +4,29 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Set;
 
-@JsonDeserialize(builder = UpdateEventRequest.Builder.class)
-public class UpdateEventRequest {
-    private final String eventId;
+import static com.nashss.se.musicplaylistservice.utils.CollectionUtils.copyToList;
+
+@JsonDeserialize(builder = CreateEventRequest.Builder.class)
+public class CreateEventRequest {
+
     private final String name;
     private final String eventCreator;
     private final String address;
     private final String description;
     private final ZonedDateTime dateTime;
     private final Set<String> category;
-    private final Set<String> attendees;
 
-    private UpdateEventRequest(String eventId, String name, String eventCreator, String address, String description, ZonedDateTime dateTime, Set<String> category,Set<String> attendees) {
-        this.eventId = eventId;
+    private CreateEventRequest(String name, String eventCreator, String address,
+                               String description, ZonedDateTime dateTime, Set<String> category) {
         this.name = name;
         this.eventCreator = eventCreator;
         this.address = address;
         this.description = description;
         this.dateTime = dateTime;
         this.category = category;
-        this.attendees = attendees;
-    }
-
-    public String getEventId() {
-        return eventId;
     }
 
     public String getName() {
@@ -56,21 +53,15 @@ public class UpdateEventRequest {
         return category;
     }
 
-    public Set<String> getAttendees() {
-        return attendees;
-    }
-
     @Override
     public String toString() {
-        return "UpdateEventRequest{" +
-                "eventId='" + eventId + '\'' +
-                ", name='" + name + '\'' +
+        return "CreateEventRequest{" +
+                "name='" + name + '\'' +
                 ", eventCreator='" + eventCreator + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
-                ", dateTime='" + dateTime + '\'' +
-                ", category='" + category + '\'' +
-                ", attendees='" + attendees + '\'' +
+                ", dateTime=" + dateTime +
+                ", category=" + category +
                 '}';
     }
 
@@ -81,19 +72,12 @@ public class UpdateEventRequest {
 
     @JsonPOJOBuilder
     public static class Builder {
-        private String eventId;
         private String name;
         private String eventCreator;
         private String address;
         private String description;
         private ZonedDateTime dateTime;
         private Set<String> category;
-        private Set<String> attendees;
-
-        public Builder withEventId(String eventId) {
-            this.eventId = eventId;
-            return this;
-        }
 
         public Builder withName(String name) {
             this.name = name;
@@ -105,17 +89,17 @@ public class UpdateEventRequest {
             return this;
         }
 
-        public Builder withAddress(String address) {
+        public Builder withAddress (String address) {
             this.address = address;
             return this;
         }
 
-        public Builder withDescription(String description) {
+        public Builder withDescription (String description) {
             this.description = description;
             return this;
         }
 
-        public Builder withDateTime(ZonedDateTime dateTime) {
+        public Builder withDateTime (ZonedDateTime dateTime) {
             this.dateTime = dateTime;
             return this;
         }
@@ -125,13 +109,9 @@ public class UpdateEventRequest {
             return this;
         }
 
-        public Builder withAttendees(Set<String> attendees) {
-            this.attendees = attendees;
-            return this;
-        }
-
-        public UpdateEventRequest build() {
-            return new UpdateEventRequest(eventId, name, eventCreator, address, description, dateTime, category, attendees);
+        public CreateEventRequest build() {
+            return new CreateEventRequest(name, eventCreator, address, description, dateTime, category);
         }
     }
 }
+
