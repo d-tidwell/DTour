@@ -144,6 +144,7 @@ public class AddEventToProfileRequest {
 
         public Builder withProfileId(String profileId) {
             this.profileId = profileId;
+            return this;
         }
 
         public AddEventToProfileRequest build() {

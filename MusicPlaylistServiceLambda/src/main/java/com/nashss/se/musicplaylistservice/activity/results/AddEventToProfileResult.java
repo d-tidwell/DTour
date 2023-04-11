@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddEventToProfileResult {
-    private final List<EventModel> eventList;
+    private final List<String> eventList;
 
-    private AddEventToProfileResult(List<EventModel> eventList) {
+    private AddEventToProfileResult(List<String> eventList) {
         this.eventList = eventList;
     }
 
-    public List<EventModel> getEventList() {
+    public List<String> getEventList() {
         return new ArrayList<>(eventList);
     }
 
@@ -30,9 +30,9 @@ public class AddEventToProfileResult {
     }
 
     public static class Builder {
-        private List<EventModel> eventList;
+        private List<String> eventList;
 
-        public Builder withEventList(List<EventModel> eventList) {
+        public Builder withEventList(List<String> eventList) {
             this.eventList = new ArrayList<>(eventList);
             return this;
         }
