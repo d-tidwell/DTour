@@ -2,11 +2,15 @@ package com.nashss.se.musicplaylistservice.converters;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.models.PlaylistModel;
+import com.nashss.se.musicplaylistservice.models.ProfileModel;
 import com.nashss.se.musicplaylistservice.models.SongModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Converts between Data and API models.
@@ -49,6 +53,21 @@ public class ModelConverter {
                 .build();
     }
 
+    public ProfileModel toProfileModel(Profile profile) {
+        return ProfileModel.builder()
+                .withProfileId(profile.getId())
+                .withFirstName(profile.getFirstName())
+                .withLastName(profile.getLastName())
+                .withLocation(profile.getLocation())
+                .withGender(profile.getGender())
+                .withDateOfBirth(profile.getDateOfBirth())
+                .withEvents(profile.getEvents())
+                .withFollowing(profile.getFollowing())
+                .build();
+    }
+
+
+
     /**
      * Converts a list of AlbumTracks to a list of SongModels.
      *
@@ -80,4 +99,15 @@ public class ModelConverter {
 
         return playlistModels;
     }
+
+    public List<ProfileModel> toProfileModelList(List<Profile> profiles) {
+        List<ProfileModel> profileModels = new ArrayList<>();
+
+        for (Profile p : profiles) {
+            profileModels.add(toProfileModel(p));
+        }
+
+        return profileModels;
+    }
+
 }
