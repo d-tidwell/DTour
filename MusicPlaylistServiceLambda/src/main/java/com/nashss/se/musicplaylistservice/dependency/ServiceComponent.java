@@ -1,11 +1,6 @@
 package com.nashss.se.musicplaylistservice.dependency;
 
-import com.nashss.se.musicplaylistservice.activity.AddSongToPlaylistActivity;
-import com.nashss.se.musicplaylistservice.activity.CreatePlaylistActivity;
-import com.nashss.se.musicplaylistservice.activity.GetPlaylistActivity;
-import com.nashss.se.musicplaylistservice.activity.GetPlaylistSongsActivity;
-import com.nashss.se.musicplaylistservice.activity.SearchPlaylistsActivity;
-import com.nashss.se.musicplaylistservice.activity.UpdatePlaylistActivity;
+import com.nashss.se.musicplaylistservice.activity.*;
 
 import dagger.Component;
 
@@ -53,5 +48,7 @@ public interface ServiceComponent {
      * @return UpdatePlaylistActivity
      */
     UpdatePlaylistActivity provideUpdatePlaylistActivity();
+
+    AddProfileToFollowingActivity provideAddProfileToFollowingActivity();
 
 }

@@ -1,10 +1,13 @@
 package com.nashss.se.musicplaylistservice.converters;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.models.EventModel;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
+
 
 /**
  * Converts between Data and API models.
@@ -12,7 +15,6 @@ import com.nashss.se.musicplaylistservice.models.ProfileModel;
 public class ModelConverter {
     /**
      * Converts a provided {@link Profile} into a {@link ProfileModel} representation.
-     *
      * @param profile the Profile to convert
      * @return the converted ProfileModel
      */
@@ -28,9 +30,6 @@ public class ModelConverter {
                 .withFollowing(profile.getFollowing())
                 .withEvents(profile.getEvents())
                 .build();
-
-
-
     }
    
     /**
@@ -41,7 +40,6 @@ public class ModelConverter {
      */
     
     public EventModel toEventModel(Event event){
-
         return EventModel.builder()
         .withEventId(event.getEventId())
         .withName(event.getName())
@@ -54,4 +52,11 @@ public class ModelConverter {
         .build();
     }
 
+    public List<ProfileModel> toProfileModelList(List<Profile> profiles) {
+        List<ProfileModel> profileModels = new ArrayList<>();
+        for (Profile p : profiles) {
+            profileModels.add(toProfileModel(p));
+        }
+        return profileModels;
+    }
 }

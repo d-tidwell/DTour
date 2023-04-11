@@ -445,7 +445,7 @@ Resources:
   # DynamoDB Configuration
   #-----------------------------------------------------
   ProfilesTable:
-  Type: AWS::DynamoDB::Table
+    Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
         - AttributeName: "id"
