@@ -19,13 +19,6 @@ public class AddEventToProfileLambda
                     return input.fromUserClaims(claims ->
                             AddEventToProfileRequest.builder()
                                     .withEventId(unauthenticatedRequest.getEventId())
-                                    .withName(unauthenticatedRequest.getName())
-                                    .withAddress(unauthenticatedRequest.getAddress())
-                                    .withEventCreator(unauthenticatedRequest.getEventCreator())
-                                    .withDescription(unauthenticatedRequest.getDescription())
-                                    .withDateTime(unauthenticatedRequest.getDateTime())
-                                    .withCategory(unauthenticatedRequest.getCategory())
-                                    .withAttendees(unauthenticatedRequest.getAttendees())
                                     .withProfileId(claims.get("email"))
                                     .build());
                 },
