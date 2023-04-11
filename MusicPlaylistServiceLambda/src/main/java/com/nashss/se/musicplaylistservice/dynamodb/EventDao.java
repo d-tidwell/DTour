@@ -1,10 +1,8 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.EventNotFoundException;
-import com.nashss.se.musicplaylistservice.exceptions.PlaylistNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
