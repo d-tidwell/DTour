@@ -5,14 +5,12 @@ import com.nashss.se.musicplaylistservice.activity.results.AddProfileToFollowing
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
-import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -48,48 +46,19 @@ public class AddProfileToFollowingActivity {
         log.info("Received AddProfileToFollowingRequest {} ", addProfileToFollowingRequest);
 
         String id = addProfileToFollowingRequest.getId();
-        Profile profile = profileDao.getProfile(id);
-        if (profile == null) {
-            throw new ProfileNotFoundException("Profile does not exist, please try again with another id.");
-        }
+        String idToAdd = addProfileToFollowingRequest.getIdToAdd();
 
-        profileDao.addProfileToFollowersList(id);
+        profileDao.getProfile(id);
 
-        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
+        profileDao.getProfile(idToAdd);
+
+        List<String> updatedListProfiles = profileDao.addProfileToFollowersList(id, idToAdd);
+
+        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
 
         return AddProfileToFollowingResult.builder()
                 .withProfileModelListList(profileModel)
                 .build();
     }
-
-//    public AddToFollowingResult handleRequest(final AddToFollowingRequest addToFollowingRequest) {
-//        log.info("Received AddToFollowingRequest {} ", addToFollowingRequest);
-//
-//        String profileId = addToFollowingRequest.getProfileId();
-//        String idToAdd = addToFollowingRequest.getIdToAdd();
-//
-//        Profile profile = profileDao.getProfile(profileId);
-//        if (profile == null) {
-//            throw new ProfileNotFoundException("Profile does not exist, please try again with another profileId.");
-//        }
-//
-//        Profile profileToAdd = profileDao.getProfile(idToAdd);
-//        if (profileToAdd == null) {
-//            throw new ProfileNotFoundException("Profile to add does not exist, please try again with another idToAdd.");
-//        }
-//
-//        profileDao.addToFollowing(profileId, idToAdd);
-//
-//        List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
-//
-//        return AddToFollowingResult.builder()
-//                .withProfileModelList(profileModel)
-//                .build();
-//    }
-
-
-
-
-
 }
 

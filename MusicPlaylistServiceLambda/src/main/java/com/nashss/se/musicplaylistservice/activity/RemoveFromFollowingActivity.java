@@ -4,14 +4,12 @@ import com.nashss.se.musicplaylistservice.activity.requests.RemoveFromFollowingR
 import com.nashss.se.musicplaylistservice.activity.results.RemoveFromFollowingResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
-import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 
 public class RemoveFromFollowingActivity {
@@ -43,16 +41,13 @@ public class RemoveFromFollowingActivity {
         String id = removeFromFollowingRequest.getId();
         String profileIdToRemove = removeFromFollowingRequest.getProfileIdToRemove();
 
-        Profile profile = profileDao.getProfile(id);
+        profileDao.getProfile(id);
 
-        Profile profileToRemove = profileDao.getProfile(profileIdToRemove);
-        if (profileToRemove == null) {
-            throw new ProfileNotFoundException("Profile to remove does not exist.");
-        }
+        profileDao.getProfile(profileIdToRemove);
 
-        profileDao.removeProfileFromFollowing(id, profileIdToRemove);
+        List<String> updatedListProfiles =  profileDao.removeProfileFromFollowing(id, profileIdToRemove);
 
-        List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
+        List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
 
         return RemoveFromFollowingResult.builder()
                 .withProfileModelList(profileModel)

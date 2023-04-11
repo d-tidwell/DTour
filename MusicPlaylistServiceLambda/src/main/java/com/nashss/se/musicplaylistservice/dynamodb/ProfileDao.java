@@ -8,7 +8,9 @@ import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Singleton
@@ -37,7 +39,8 @@ public class ProfileDao {
     }
 
 
-    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, String dateOfBirth, Set<String> events, Set<String> following) {
+    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender,
+                               String dateOfBirth, Set<String> events, Set<String> following) {
         Profile profile = new Profile();
         profile.setId(profileId);
         profile.setFirstName(firstName);
@@ -51,7 +54,8 @@ public class ProfileDao {
         return profile;
     }
 
-    public void addProfileToFollowersList(String id) {
+    public List<String>  addProfileToFollowersList(String id, String profileToAdd) {
+        List<String> updatedListAfterAdding = new ArrayList<>();
         if (id.isEmpty() || id == null) {
             throw new ProfileNotFoundException("The entered email address is invalid. Please try again.");
         }
@@ -63,13 +67,18 @@ public class ProfileDao {
         if (following == null) {
             following = new HashSet<>();
         }
-        following.add(id);
+        following.add(profileToAdd);
         profile.setFollowing(following);
         saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
                 profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
+
+        updatedListAfterAdding.addAll(following);
+
+        return updatedListAfterAdding;
     }
 
-    public void removeProfileFromFollowing(String id, String profileIdToRemove) {
+    public List<String> removeProfileFromFollowing(String id, String profileIdToRemove) {
+        List<String> updatedList = new ArrayList<>();
         Profile profile = getProfile(id);
         if (profile == null) {
             throw new ProfileNotFoundException("Unable to retrieve the profile with the given id.");
@@ -78,11 +87,15 @@ public class ProfileDao {
         if (following == null || !(following.contains(id))) {
             throw new ProfileNotFoundException("Profile with the given id is not your following.");
         }
-        following.remove(id);
-        following.remove(id);
+
+        following.remove(profileIdToRemove);
         profile.setFollowing(following);
         saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
                 profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing());
+
+        updatedList.addAll(following);
+
+        return updatedList;
     }
 
 }
