@@ -69,7 +69,7 @@ public class ProfileDao {
                 profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
     }
 
-    public void removeProfileFromFollowing(String id) {
+    public void removeProfileFromFollowing(String id, String profileIdToRemove) {
         Profile profile = getProfile(id);
         if (profile == null) {
             throw new ProfileNotFoundException("Unable to retrieve the profile with the given id.");

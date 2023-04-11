@@ -61,5 +61,35 @@ public class AddProfileToFollowingActivity {
                 .withProfileModelListList(profileModel)
                 .build();
     }
+
+//    public AddToFollowingResult handleRequest(final AddToFollowingRequest addToFollowingRequest) {
+//        log.info("Received AddToFollowingRequest {} ", addToFollowingRequest);
+//
+//        String profileId = addToFollowingRequest.getProfileId();
+//        String idToAdd = addToFollowingRequest.getIdToAdd();
+//
+//        Profile profile = profileDao.getProfile(profileId);
+//        if (profile == null) {
+//            throw new ProfileNotFoundException("Profile does not exist, please try again with another profileId.");
+//        }
+//
+//        Profile profileToAdd = profileDao.getProfile(idToAdd);
+//        if (profileToAdd == null) {
+//            throw new ProfileNotFoundException("Profile to add does not exist, please try again with another idToAdd.");
+//        }
+//
+//        profileDao.addToFollowing(profileId, idToAdd);
+//
+//        List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
+//
+//        return AddToFollowingResult.builder()
+//                .withProfileModelList(profileModel)
+//                .build();
+//    }
+
+
+
+
+
 }
 

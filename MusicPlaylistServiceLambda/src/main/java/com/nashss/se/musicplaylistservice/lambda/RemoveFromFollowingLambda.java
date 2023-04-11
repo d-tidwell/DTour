@@ -14,7 +14,7 @@ public class RemoveFromFollowingLambda extends LambdaActivityRunner<RemoveFromFo
                     RemoveFromFollowingRequest unauthenticatedRequest = input.fromBody(RemoveFromFollowingRequest.class);
                     return input.fromUserClaims(claims ->
                             RemoveFromFollowingRequest.builder()
-                                    .withId(unauthenticatedRequest.getId())
+                                    .withProfileIdToRemove(unauthenticatedRequest.getProfileIdToRemove())
                                     .withId(claims.get("email"))
                                     .build());
                 },

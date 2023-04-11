@@ -41,11 +41,17 @@ public class RemoveFromFollowingActivity {
         log.info("Received RemoveFromFollowingRequest {} ", removeFromFollowingRequest);
 
         String id = removeFromFollowingRequest.getId();
+        String profileIdToRemove = removeFromFollowingRequest.getProfileIdToRemove();
+
         Profile profile = profileDao.getProfile(id);
-        if (profile == null) {
-            throw new ProfileNotFoundException("Profile does not exist, please try again with another id.");
+
+        Profile profileToRemove = profileDao.getProfile(profileIdToRemove);
+        if (profileToRemove == null) {
+            throw new ProfileNotFoundException("Profile to remove does not exist.");
         }
-        profileDao.removeProfileFromFollowing(id);
+
+        profileDao.removeProfileFromFollowing(id, profileIdToRemove);
+
         List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
 
         return RemoveFromFollowingResult.builder()
@@ -53,5 +59,6 @@ public class RemoveFromFollowingActivity {
                 .build();
     }
 }
+
 
 
