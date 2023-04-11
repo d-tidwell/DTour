@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import java.util.Objects;
 import java.util.Set;
 
-@DynamoDBTable(tableName = "Profile")
+@DynamoDBTable(tableName = "profiles")
 public class Profile {
 
     private String id;
