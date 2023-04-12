@@ -24,7 +24,6 @@ implements RequestHandler<AuthenticatedLambdaRequest<GetProfileRequest>, LambdaR
                              .withId(path.get("id"))
                              .build()),
                 (request,serviceComponent)->
-                        //you need to set the service component here so it knows what to call to handle the request
                         serviceComponent.provideGetProfileActivity().handleRequest(request));
         }
     }
