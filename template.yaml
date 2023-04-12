@@ -300,7 +300,7 @@ Resources:
             Path: /profiles/addEvent
             Method: put
   
-  RemoveEventToProfileLambda:
+  RemoveEventFromProfileLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = AddEventToProfileRequest.Builder.class)
 public class AddEventToProfileRequest {
     private final String eventId;
+
     private String profileId;
 
     private AddEventToProfileRequest(String eventId,  String profileId) {
