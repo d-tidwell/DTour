@@ -26,14 +26,10 @@ public class UpdateProfileActivity {
         this.metricsPublisher = metricsPublisher;
     }
 
-    public UpdateProfileResult handleRequest(final UpdateProfileRequest updateProfileRequest) throws InvalidAttributeValueException {
+    public UpdateProfileResult handleRequest(final UpdateProfileRequest updateProfileRequest)  {
         log.info("Received UpdateProfileRequest{}", updateProfileRequest);
 
-        if(!MusicPlaylistServiceUtils.isValidString(updateProfileRequest.getFirstName())){
-            publishExceptionMetrics(true,false);
-            throw new InvalidAttributeValueException("Profile Name" + updateProfileRequest.getFirstName() +
-                    "cannot contain illegal characters");
-        }
+
         Profile profile = profileDao.saveProfile(false, updateProfileRequest.getProfileId(),
                updateProfileRequest.getFirstName(), updateProfileRequest.getLastName(), updateProfileRequest.getLocation(),
                updateProfileRequest.getGender(), ZonedDateTime.parse(updateProfileRequest.getDateOfBirth()));
