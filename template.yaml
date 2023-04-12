@@ -469,7 +469,7 @@ Resources:
         - AttributeName: "date_time"
           KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
-      TableName: "album_tracks"
+      TableName: "events"
 
   PlaylistsTable:
     Type: AWS::DynamoDB::Table
