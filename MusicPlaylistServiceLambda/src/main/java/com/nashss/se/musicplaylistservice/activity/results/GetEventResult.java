@@ -7,37 +7,37 @@ public class GetEventResult {
 
     private final EventModel eventModel;
 
-    public GetProfileResult(ProfileModel profileModel) {
-        this.profileModel = profileModel;
+    public GetEventResult(EventModel eventModel) {
+        this.eventModel = eventModel;
     }
 
-    public ProfileModel getProfileModel() {
-        return profileModel;
+    public EventModel getEventModel() {
+        return eventModel;
     }
 
     @Override
     public String toString() {
-        return "GetProfileResult{" +
-                "profileModel=" + profileModel +
+        return "GetEventResult{" +
+                "eventModel=" + eventModel +
                 '}';
     }
 
     public static class Builder{
-        private ProfileModel profileModel;
+        private EventModel eventModel;
 
-        public GetProfileResult.Builder withProfileModel(ProfileModel profileModel){
-            this.profileModel = profileModel;
+        public GetEventResult.Builder withEventModel(EventModel eventModel){
+            this.eventModel = eventModel;
             return this;
         }
 
-        public GetProfileResult build(){
-            return new GetProfileResult(profileModel);
+        public GetEventResult build(){
+            return new GetEventResult(eventModel);
         }
 
     }
 
-    public static GetProfileResult.Builder builder(){
-        return new GetProfileResult.Builder();
+    public static GetEventResult.Builder builder(){
+        return new GetEventResult.Builder();
     }
 
 }

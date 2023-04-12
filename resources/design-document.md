@@ -204,10 +204,10 @@ mockups with some description of behaviors of the page (e.g. "When customer subm
 button, the customer is sent to the doggie detail page")_
 
 
-GetEventLambda
-GetEventActivity
 
-GetEventResult
+
+
+
 
 
 
