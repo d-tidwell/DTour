@@ -1,5 +1,5 @@
 package com.nashss.se.musicplaylistservice.activity;
-
+//???? Get rid of all these unneccessary imports
 import com.nashss.se.musicplaylistservice.activity.requests.UpdateEventRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.UpdatePlaylistRequest;
 import com.nashss.se.musicplaylistservice.activity.results.UpdateEventResult;
@@ -71,20 +71,26 @@ public class UpdateEventActivity {
 //            throw new InvalidAttributeValueException("Event name [" + updateEventRequest.getName() +
 //                    "] contains illegal characters");
 //        }
-
         Event event = eventDao.getEvent(updateEventRequest.getEventId());
-
+        // nice good job here
         if (!event.getEventId().equals(updateEventRequest.getEventId())) {
             publishExceptionMetrics(false, true);
             throw new SecurityException("You must own an event to update it.");
         }
+        //?? this needs to pass all the things along we got back from our request
+        //??? we are essentially making another createEvent like loop but this is not a new event so false
+//        event.setName(updateEventRequest.getName());]
 
-        event.setName(updateEventRequest.getName());
-        event = eventDao.saveEvent(event);
+        Event updateEvent = eventDao.saveEvent(false, updateEventRequest.getEventId(), updateEventRequest.getName(),
+                                  updateEventRequest.getEventCreator(), updateEventRequest.getAddress(),
+                                  updateEventRequest.getDescription(), updateEventRequest.getDateTime(),
+                                  updateEventRequest.getCategory());
 
         publishExceptionMetrics(false, false);
+
+        //?? make sure you look at the builder I just pencil whipped it to get something functional
         return UpdateEventResult.builder()
-                .withEvent(new ModelConverter().toEventModel(event))
+                .withEvent(new ModelConverter().toEventModel(updateEvent))
                 .build();
     }
 
@@ -95,6 +101,7 @@ public class UpdateEventActivity {
      */
     private void publishExceptionMetrics(final boolean isInvalidAttributeValue,
                                          final boolean isInvalidAttributeChange) {
+        //??sneaky way to do that ternary
         metricsPublisher.addCount(MetricsConstants.UPDATEEVENT_INVALIDATTRIBUTEVALUE_COUNT,
                 isInvalidAttributeValue ? 1 : 0);
         metricsPublisher.addCount(MetricsConstants.UPDATEEVENT_INVALIDATTRIBUTECHANGE_COUNT,

@@ -18,14 +18,17 @@ public class UpdateEventLambda
                     UpdateEventRequest unauthenticatedRequest = input.fromBody(UpdateEventRequest.class);
                     return input.fromUserClaims(claims ->
                             UpdateEventRequest.builder()
-                                    .withEventId(unauthenticatedRequest.getEventId())
+                                    //?? Ya think we should let them change the event ID??
+//                                    .withEventId(unauthenticatedRequest.getEventId())
                                     .withName(unauthenticatedRequest.getName())
                                     .withEventCreator(unauthenticatedRequest.getEventCreator())
                                     .withAddress(unauthenticatedRequest.getAddress())
                                     .withDescription(unauthenticatedRequest.getDescription())
                                     .withDateTime(unauthenticatedRequest.getDateTime())
                                     .withCategory(unauthenticatedRequest.getCategory())
-                                    .withAttendees(unauthenticatedRequest.getAttendees())
+                                    //we will have an endpoint to add or remove attendees so best to leave that up
+                                    //to that part of things
+//                                    .withAttendees(unauthenticatedRequest.getAttendees())
                                     .build());
                 },
                 (request, serviceComponent) ->
