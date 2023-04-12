@@ -1,9 +1,6 @@
 package com.nashss.se.musicplaylistservice.activity.results;
-
-import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
-import java.util.Set;
 
 public class GetProfileResult {
 
