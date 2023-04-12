@@ -4,6 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileReq
 import com.nashss.se.musicplaylistservice.activity.results.AddEventToProfileResult;
 import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,7 +48,7 @@ public class AddEventToProfileActivity {
      * @param addEventToProfileRequest request object containing the profile and eventId
      *                                 to retrieve the event data
      * @return addEventToProfileResult result object containing the profile's updated list of
-     *                                 API defined {@link EventModel}s
+     *                                 API defined
      */
     public AddEventToProfileResult handleRequest(final AddEventToProfileRequest addEventToProfileRequest) {
         log.info("Received AddEventToProfileRequest {} ", addEventToProfileRequest);
@@ -55,15 +56,13 @@ public class AddEventToProfileActivity {
         String eventId = addEventToProfileRequest.getEventId();
         String profileId = addEventToProfileRequest.getProfileId();
 
-        //this will check to make sure the event is legit
+
         eventDao.getEvent(eventId);
-        // this will check to make sure the profile # is legit
+
         profileDao.getProfile(addEventToProfileRequest.getProfileId());
 
         Set<String> updatedSet = profileDao.addEventToFollowing(eventId, profileId);
 
-        //?? all it takes to convert a set to a list
-//        List<String> eventModels = new ModelConverter().toEventModelList(events);
         List<String> eventModels = new ArrayList<>(updatedSet);
         return AddEventToProfileResult.builder()
                 .withEventList(eventModels)
