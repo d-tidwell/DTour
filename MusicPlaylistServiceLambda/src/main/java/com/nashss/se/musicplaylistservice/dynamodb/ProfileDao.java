@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeException;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
@@ -117,66 +118,42 @@ public class ProfileDao {
         }
         return saveProfile;
     }
-    public List<String>  addProfileToFollowersList(String id, String profileToAdd) {
-        List<String> updatedListAfterAdding = new ArrayList<>();
-
-        //how can you throw a profile not found exception when you havent checked if it exists???? What you have written here says
-        // if the string is empty I guess that means it doesn't exist which is incorrect you have to check with getProfile
-        //if you are just checking for empty strings it would be an invalideattribute exception
-        if (id.isEmpty() || id == null) {
-            throw new ProfileNotFoundException("The entered email address is invalid. Please try again.");
+    public Set<String>  addProfileToFollowersList(String id, String profileToAdd) {
+        if (id == null || id.isEmpty()) {
+            throw new InvalidAttributeException("The entered email address is invalid. Please try again.");
         }
+
         Profile profile = getProfile(id);
-        //why check this if its already being checked about in teh getProfile call???
-        if (profile == null) {
-            throw new ProfileNotFoundException("Profile does not exist. Please enter another emailAddress.");
+
+        if (profileToAdd == null || profileToAdd.isEmpty()) {
+            throw new InvalidAttributeException("The profile to add is invalid. Please try again.");
         }
+
+        Profile profileToAddProfile = getProfile(profileToAdd);
+
         Set<String> following = profile.getFollowing();
-        //this is necessary bc the saveProfile initializes this on creation or the profile doesn't exist which
-        //would have been caught above
-        if (following == null) {
-            following = new HashSet<>();
-        }
-        //you need to check if the profile you are adding also exists like you did above with id before adding it
-        following.add(profileToAdd);
+
+        following.add(profileToAddProfile.getId());
         profile.setFollowing(following);
-        //this needs to be changed to reflect the saveProfile implementation that has been corrected
-        //or just call the dynamoDBmapper save method that will just update one field that you need to
-        saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
-                profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
+        this.dynamoDbMapper.save(profile);
 
-        //why can't you just return following instead of a whole new object??
-        updatedListAfterAdding.addAll(following);
-
-        return updatedListAfterAdding;
+        return new HashSet<>(following);
     }
 
-    public List<String> removeProfileFromFollowing(String id, String profileIdToRemove) {
 
-        //?? See all the notes in add Event to Following below they apply here plus these notes as well
-        List<String> updatedList = new ArrayList<>();
+    public Set<String> removeProfileFromFollowing(String id, String profileIdToRemove) {
+        if (id == null || id.isEmpty()) {
+            throw new InvalidAttributeException("The entered email address is invalid. Please try again.");
+        }
         Profile profile = getProfile(id);
-        //and here
-        if (profile == null) {
-            throw new ProfileNotFoundException("Unable to retrieve the profile with the given id.");
-        }
+        getProfile(profileIdToRemove);
         Set<String> following = profile.getFollowing();
-        // this says if the set is null or if the set does not condtain id they the profile doesn't exist the way you have written it
-        // A) why would the profile have its own id in it?
-        // B) if it doesn't why does that mean it doesn't exist???
-        // C) if the set is empty the profile doesn't exist??? thats not probably what you were trying to do here
-        if (following == null || !(following.contains(id))) {
-            throw new ProfileNotFoundException("Profile with the given id is not your following.");
-        }
-
         following.remove(profileIdToRemove);
         profile.setFollowing(following);
-        saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
-                profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing());
-
-        updatedList.addAll(following);
-
+        this.dynamoDbMapper.save(profile);
+        Set<String> updatedList = new HashSet<>(following);
         return updatedList;
+
     }
 
     public Set<String> addEventToFollowing(String eventId, String profileId) {

@@ -7,22 +7,20 @@ import java.util.List;
 
 public class RemoveFromFollowingResult {
 
-    //??? LOOK at the addToFollowingResult for why this is all incorrect
+    private final List<String> profileList;
 
-//    private final List<ProfileModel> profileModelList;
-
-    private RemoveFromFollowingResult (List<ProfileModel> profileModelList) {
-        this.profileModelList = profileModelList;
+    private RemoveFromFollowingResult (List<String> profileList) {
+        this.profileList = profileList;
     }
 
-    public List<ProfileModel> getProfileModelList() {
-        return profileModelList;
+    public List<String> getProfileList() {
+        return profileList;
     }
 
     @Override
     public String toString() {
         return "RemoveFromFollowingResult{" +
-                "profileModelList=" + profileModelList +
+                "profileList=" + profileList +
                 '}';
     }
 
@@ -32,15 +30,15 @@ public class RemoveFromFollowingResult {
     }
 
     public static class Builder {
-        private List<ProfileModel> profileModelList;
+        private List<String> profileList;
 
-        public RemoveFromFollowingResult.Builder withProfileModelList(List <ProfileModel> profileModelList) {
-            this.profileModelList = new ArrayList<>(profileModelList);
+        public RemoveFromFollowingResult.Builder withProfileList(List<String> profileList) {
+            this.profileList = new ArrayList<>(profileList);
             return this;
         }
 
         public RemoveFromFollowingResult build() {
-            return new RemoveFromFollowingResult(profileModelList);
+            return new RemoveFromFollowingResult(profileList);
         }
 
     }

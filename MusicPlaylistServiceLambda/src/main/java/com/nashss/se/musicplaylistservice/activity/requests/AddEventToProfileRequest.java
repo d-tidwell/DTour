@@ -18,7 +18,6 @@ public class AddEventToProfileRequest {
         return eventId;
     }
 
-
     public String getProfileId() {
         return profileId;
     }
@@ -48,7 +47,6 @@ public class AddEventToProfileRequest {
             return this;
         }
 
-
         public Builder withProfileId(String profileId) {
             this.profileId = profileId;
             return this;
@@ -57,7 +55,6 @@ public class AddEventToProfileRequest {
         public AddEventToProfileRequest build() {
             return new AddEventToProfileRequest(eventId, profileId);
         }
-
 
     }
 }
