@@ -14,6 +14,7 @@ implements RequestHandler<AuthenticatedLambdaRequest<CreateProfileRequest>,Lambd
      * @param context The Lambda execution environment context object.
      * @return The Lambda Function output
      */
+    //?? we only want exactly what is needed to create a minimum profile
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<CreateProfileRequest> input, Context context) {
         return super.runActivity(
@@ -27,8 +28,9 @@ implements RequestHandler<AuthenticatedLambdaRequest<CreateProfileRequest>,Lambd
                                     .withLocation(unauthenticatedRequest.getLocation())
                                     .withGender(unauthenticatedRequest.getGender())
                                     .withDateOfBirth(unauthenticatedRequest.getDateOfBirth())
-                                    .withFollowing(unauthenticatedRequest.getFollowerList())
-                                    .withEvents(unauthenticatedRequest.getEventList())
+                                    //?? ask yourself why would we send an empty list for these two fields
+//                                    .withFollowing(unauthenticatedRequest.getFollowerList())
+//                                    .withEvents(unauthenticatedRequest.getEventList())
                                     .build());
 
                 },

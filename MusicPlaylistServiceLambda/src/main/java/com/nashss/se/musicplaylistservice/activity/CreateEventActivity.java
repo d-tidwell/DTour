@@ -1,5 +1,6 @@
 package com.nashss.se.musicplaylistservice.activity;
 
+//???? clean up all your imports before you commit anything please
 import com.nashss.se.musicplaylistservice.activity.requests.CreateEventRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.CreatePlaylistRequest;
 import com.nashss.se.musicplaylistservice.activity.results.CreateEventResult;
@@ -56,8 +57,9 @@ public class CreateEventActivity {
     public CreateEventResult handleRequest(final CreateEventRequest createEventRequest) {
         log.info("Received CreateEventRequest {}", createEventRequest);
 
-
-        Event newEvent = eventDao.createEvent(createEventRequest.getName(), createEventRequest.getEventCreator(),
+        //added true here so we know we are creating not updating see the eventDao for disambiguation
+        //added null bc we don't have an id to give bc this is a new event
+        Event newEvent = eventDao.saveEvent(true, null, createEventRequest.getName(), createEventRequest.getEventCreator(),
                 createEventRequest.getAddress(), createEventRequest.getDescription(),
                 createEventRequest.getDateTime(), createEventRequest.getCategory());
 

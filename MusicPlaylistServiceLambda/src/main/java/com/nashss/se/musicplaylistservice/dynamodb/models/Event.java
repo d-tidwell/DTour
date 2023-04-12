@@ -21,7 +21,7 @@ public class Event {
     private String eventCreator;
     private String address;
     private String description;
-    private ZonedDateTime dateTime;
+    private String dateTime;
     private Set<String> category = new HashSet<>();
     private Set<String> attendees = new HashSet<>();
 
@@ -78,10 +78,10 @@ public class Event {
 
     @DynamoDBRangeKey(attributeName = "date_time")
     public ZonedDateTime getDateTime() {
-        return dateTime;
+        return ZonedDateTime.parse(dateTime);
     }
 
-    public void setDateTime(ZonedDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 

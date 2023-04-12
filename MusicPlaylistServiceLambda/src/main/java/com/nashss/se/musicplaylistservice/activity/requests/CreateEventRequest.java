@@ -3,11 +3,7 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
-
-import static com.nashss.se.musicplaylistservice.utils.CollectionUtils.copyToList;
 
 @JsonDeserialize(builder = CreateEventRequest.Builder.class)
 public class CreateEventRequest {
@@ -16,11 +12,11 @@ public class CreateEventRequest {
     private final String eventCreator;
     private final String address;
     private final String description;
-    private final ZonedDateTime dateTime;
+    private final String dateTime;
     private final Set<String> category;
 
     private CreateEventRequest(String name, String eventCreator, String address,
-                               String description, ZonedDateTime dateTime, Set<String> category) {
+                               String description, String dateTime, Set<String> category) {
         this.name = name;
         this.eventCreator = eventCreator;
         this.address = address;
@@ -45,7 +41,7 @@ public class CreateEventRequest {
         return description;
     }
 
-    public ZonedDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
@@ -76,7 +72,8 @@ public class CreateEventRequest {
         private String eventCreator;
         private String address;
         private String description;
-        private ZonedDateTime dateTime;
+        //the request will come in as a string
+        private String dateTime;
         private Set<String> category;
 
         public Builder withName(String name) {
@@ -99,7 +96,7 @@ public class CreateEventRequest {
             return this;
         }
 
-        public Builder withDateTime (ZonedDateTime dateTime) {
+        public Builder withDateTime (String dateTime) {
             this.dateTime = dateTime;
             return this;
         }

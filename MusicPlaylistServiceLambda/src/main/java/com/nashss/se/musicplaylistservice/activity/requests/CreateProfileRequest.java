@@ -16,8 +16,8 @@ public class CreateProfileRequest {
     private final String location;
     private final String gender;
     private final String dateOfBirth;
-    private final Set<String> eventList;
-    private final Set<String> followerList;
+//    private final Set<String> eventList;
+//    private final Set<String> followerList;
 
     public boolean isNew() {
         return isNew;
@@ -47,13 +47,13 @@ public class CreateProfileRequest {
         return dateOfBirth;
     }
 
-    public Set<String> getEventList() {
-        return eventList;
-    }
-
-    public Set<String> getFollowerList() {
-        return followerList;
-    }
+//    public Set<String> getEventList() {
+//        return eventList;
+//    }
+//
+//    public Set<String> getFollowerList() {
+//        return followerList;
+//    }
 
 
 
@@ -67,13 +67,25 @@ public class CreateProfileRequest {
                 ", location='" + location + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", eventList=" + eventList +
-                ", followerList=" + followerList +
+//                ", eventList=" + eventList +
+//                ", followerList=" + followerList +
                 '}';
     }
 
+//    private CreateProfileRequest(boolean isNew, String firstName, String lastName, String emailAddress, String location,
+//                                 String gender, String dateOfBirth, Set<String> eventList, Set<String> followerList){
+//        this.isNew = isNew;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.emailAddress = emailAddress;
+//        this.location = location;
+//        this.gender = gender;
+//        this.dateOfBirth = dateOfBirth;
+//        this.eventList = eventList;
+//        this.followerList = followerList;
+//    }
     private CreateProfileRequest(boolean isNew, String firstName, String lastName, String emailAddress, String location,
-                                 String gender, String dateOfBirth, Set<String> eventList, Set<String> followerList){
+                                 String gender, String dateOfBirth){
         this.isNew = isNew;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -81,8 +93,6 @@ public class CreateProfileRequest {
         this.location = location;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
-        this.eventList = eventList;
-        this.followerList = followerList;
     }
     public static Builder builder() {
         return new Builder();
@@ -123,16 +133,18 @@ public class CreateProfileRequest {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
-    public Builder withFollowing(Set<String> followerList){
-        this.followerList = followerList;
-        return this;
-    }
-    public Builder withEvents(Set<String> eventList){
-        this.eventList = eventList;
-        return this;
-    }
+    //?? Not needed
+//    public Builder withFollowing(Set<String> followerList){
+//        this.followerList = followerList;
+//        return this;
+//    }
+//    public Builder withEvents(Set<String> eventList){
+//        this.eventList = eventList;
+//        return this;
+//    }
     public CreateProfileRequest build(){
-        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth,eventList,followerList);
+//        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth,eventList,followerList);
+        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth);
     }
 
 

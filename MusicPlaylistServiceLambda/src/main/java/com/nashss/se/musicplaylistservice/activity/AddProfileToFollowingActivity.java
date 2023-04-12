@@ -52,12 +52,16 @@ public class AddProfileToFollowingActivity {
 
         profileDao.getProfile(idToAdd);
 
+        //why are you converting a list of strings to a list of ProfileModels when you just need to return a list of strings???
+        //why convert it at all ??
         List<String> updatedListProfiles = profileDao.addProfileToFollowersList(id, idToAdd);
 
-        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
+//        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
 
+        //just pass the list to the withProfileModelList
         return AddProfileToFollowingResult.builder()
-                .withProfileModelListList(profileModel)
+//                .withProfileModelListList(profileModel)
+                .withProfileModelList(updatedListProfiles)
                 .build();
     }
 }

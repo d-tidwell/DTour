@@ -17,7 +17,7 @@ public class Profile {
     private String lastName;
     private String location;
     private String gender;
-    private ZonedDateTime dateOfBirth;
+    private String dateOfBirth;
     private Set<String> following;
     private Set<String> events;
 
@@ -68,10 +68,10 @@ public class Profile {
 
     @DynamoDBAttribute(attributeName = "dateOfBirth")
     public ZonedDateTime getDateOfBirth() {
-        return dateOfBirth;
+        return ZonedDateTime.parse(dateOfBirth);
     }
 
-    public void setDateOfBirth(ZonedDateTime dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
