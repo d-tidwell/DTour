@@ -119,6 +119,10 @@ public class ProfileDao {
     }
     public List<String>  addProfileToFollowersList(String id, String profileToAdd) {
         List<String> updatedListAfterAdding = new ArrayList<>();
+
+        //how can you throw a profile not found exception when you havent checked if it exists???? What you have written here says
+        // if the string is empty I guess that means it doesn't exist which is incorrect you have to check with getProfile
+        //if you are just checking for empty strings it would be an invalideattribute exception
         if (id.isEmpty() || id == null) {
             throw new ProfileNotFoundException("The entered email address is invalid. Please try again.");
         }
@@ -127,14 +131,20 @@ public class ProfileDao {
             throw new ProfileNotFoundException("Profile does not exist. Please enter another emailAddress.");
         }
         Set<String> following = profile.getFollowing();
+        //this is necessary bc the saveProfile initializes this on creation or the profile doesn't exist which
+        //would have been caught above
         if (following == null) {
             following = new HashSet<>();
         }
+        //you need to check if the profile you are adding also exists like you did above with id before adding it
         following.add(profileToAdd);
         profile.setFollowing(following);
+        //this needs to be changed to reflect the saveProfile implementation that has been corrected
+        //or just call the dynamoDBmapper save method that will just update one field that you need to
         saveProfile(profile.getId(), profile.getFirstName(), profile.getLastName(), profile.getLocation(),
                 profile.getGender(), profile.getDateOfBirth(), profile.getEvents(), profile.getFollowing ());
 
+        //why can't you just return following instead of a whole new object??
         updatedListAfterAdding.addAll(following);
 
         return updatedListAfterAdding;
