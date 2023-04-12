@@ -21,14 +21,14 @@ public class ModelConverter {
 
     public ProfileModel toProfileModel(String id){
         return ProfileModel.builder()
-                .withProfileId(id)
-//                .withFirstName(profile.getFirstName())
-//                .withLastName(profile.getLastName())
-//                .withLocation(profile.getLocation())
-//                .withGender(profile.getGender())
-//                .withDateOfBirth(profile.getDateOfBirth())
-//                .withFollowing(profile.getFollowing())
-//                .withEvents(profile.getEvents())
+                .withProfileId(profile.getId())
+                .withFirstName(profile.getFirstName())
+                .withLastName(profile.getLastName())
+                .withLocation(profile.getLocation())
+                .withGender(profile.getGender())
+                .withDateOfBirth(profile.getDateOfBirth().toString())
+                .withFollowing(profile.getFollowing())
+                .withEvents(profile.getEvents())
                 .build();
     }
    

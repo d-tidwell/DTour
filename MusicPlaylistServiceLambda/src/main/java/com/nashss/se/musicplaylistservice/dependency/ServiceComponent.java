@@ -4,6 +4,8 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.musicplaylistservice.activity.*;
 import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.AddProfileToFollowingRequest;
+import com.nashss.se.musicplaylistservice.activity.requests.CreateEventRequest;
+
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -17,46 +19,20 @@ public interface ServiceComponent {
 
     /**
      * Provides the relevant activity.
-     * @return AddSongToPlaylistActivity
-     */
-    AddSongToPlaylistActivity provideAddSongToPlaylistActivity();
-
-    /**
-     * Provides the relevant activity.
-     * @return CreatePlaylistActivity
-     */
-    CreatePlaylistActivity provideCreatePlaylistActivity();
-
-    /**
-     * Provides the relevant activity.
-     * @return GetPlaylistActivity
-     */
-    GetPlaylistActivity provideGetPlaylistActivity();
-
-    /**
-     * Provides the relevant activity.
-     * @return GetPlaylistActivity
-     */
-    SearchPlaylistsActivity provideSearchPlaylistsActivity();
-
-    /**
-     * Provides the relevant activity.
-     * @return GetPlaylistSongsActivity
-     */
-    GetPlaylistSongsActivity provideGetPlaylistSongsActivity();
-
-    /**
-     * Provides the relevant activity.
      * @return UpdatePlaylistActivity
      */
-    UpdatePlaylistActivity provideUpdatePlaylistActivity();
+     UpdateEventActivity provideUpdateEventActivity();
 
-    UpdateEventActivity provideUpdateEventActivity();
+    UpdatePlaylistActivity provideUpdatePlaylistActivity();
+    
+    CreateProfileActivity provideCreateProfileActivity();
 
     AddEventToProfileActivity provideAddEventToProfileActivity();
 
     RemoveFromFollowingActivity provideRemoveFromFollowingActivity();
 
     AddProfileToFollowingActivity provideAddProfileToFollowingActivity();
+
+    CreateEventActivity provideCreateEventActivity();
 
 }

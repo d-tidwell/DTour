@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.nashss.se.musicplaylistservice.utils.UniqueIdGenerator;
 
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -30,8 +31,13 @@ public class Event {
         return eventId;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    private String generateId() {
+        String eventId = UniqueIdGenerator.generateUniqueId();
+        return eventId;
+    }
+
+    public void setEventId() {
+        this.eventId = generateId();
     }
 
     @DynamoDBAttribute(attributeName = "name")
@@ -110,7 +116,6 @@ public class Event {
                 name.equals(that.name) &&
                 address.equals(that.address) &&
                 Objects.equals(eventCreator, that.eventCreator) &&
-                Objects.equals(description, that.description) &&
                 Objects.equals(dateTime, that.dateTime) &&
                 Objects.equals(category, that.category) &&
                 Objects.equals(attendees, that.attendees);
@@ -118,7 +123,7 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, name, eventCreator, address, description, dateTime, category, attendees);
+        return Objects.hash(eventId, name, eventCreator, address, dateTime, category, attendees);
     }
 
     @Override

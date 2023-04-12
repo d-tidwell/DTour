@@ -1,21 +1,3 @@
-package com.nashss.se.musicplaylistservice.activity;
-
-import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileRequest;
-import com.nashss.se.musicplaylistservice.activity.requests.AddSongToPlaylistRequest;
-import com.nashss.se.musicplaylistservice.activity.results.AddEventToProfileResult;
-import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResult;
-import com.nashss.se.musicplaylistservice.converters.ModelConverter;
-import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
-import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
-import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
-import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
-import com.nashss.se.musicplaylistservice.models.EventModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -70,7 +52,7 @@ public class AddEventToProfileActivity {
 
         Set<String> events = eventDao.addEventToProfile(eventId, profile);
 
-        List<EventModel> eventModels = new ModelConverter().toEventModelList(events);
+        List<String> eventModels = new ModelConverter().toEventModelList(events);
         return AddEventToProfileResult.builder()
                 .withEventList(eventModels)
                 .build();
