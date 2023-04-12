@@ -24,8 +24,6 @@ public interface ServiceComponent {
      */
     UpdateEventActivity provideUpdateEventActivity();
 
-    UpdatePlaylistActivity provideUpdatePlaylistActivity();
-    
     CreateProfileActivity provideCreateProfileActivity();
 
     AddEventToProfileActivity provideAddEventToProfileActivity();
@@ -37,4 +35,5 @@ public interface ServiceComponent {
     CreateEventActivity provideCreateEventActivity();
 
     GetProfileActivity provideGetProfileActivity();
+    UpdateProfileActivity provideUpdateProfileActivity();
 }

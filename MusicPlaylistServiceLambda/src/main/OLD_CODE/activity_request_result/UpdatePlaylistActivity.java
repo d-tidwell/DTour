@@ -1,5 +1,5 @@
 // package com.nashss.se.musicplaylistservice.activity;
-
+//
 // import com.nashss.se.musicplaylistservice.activity.requests.UpdatePlaylistRequest;
 // import com.nashss.se.musicplaylistservice.activity.results.UpdatePlaylistResult;
 // import com.nashss.se.musicplaylistservice.converters.ModelConverter;
@@ -10,12 +10,12 @@
 // import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 // import com.nashss.se.musicplaylistservice.models.PlaylistModel;
 // import com.nashss.se.projectresources.music.playlist.servic.util.MusicPlaylistServiceUtils;
-
+//
 // import org.apache.logging.log4j.LogManager;
 // import org.apache.logging.log4j.Logger;
-
+//
 // import javax.inject.Inject;
-
+//
 // /**
 //  * Implementation of the UpdatePlaylistActivity for the MusicPlaylistService's UpdatePlaylist API.
 //  *
@@ -25,7 +25,7 @@
 //     private final Logger log = LogManager.getLogger();
 //     private final PlaylistDao playlistDao;
 //     private final MetricsPublisher metricsPublisher;
-
+//
 //     /**
 //      * Instantiates a new UpdatePlaylistActivity object.
 //      *
@@ -38,7 +38,7 @@
 //         this.playlistDao = playlistDao;
 //         this.metricsPublisher = metricsPublisher;
 //     }
-
+//
 //     /**
 //      * This method handles the incoming request by retrieving the playlist, updating it,
 //      * and persisting the playlist.
@@ -59,29 +59,29 @@
 //      */
 //     public UpdatePlaylistResult handleRequest(final UpdatePlaylistRequest updatePlaylistRequest) {
 //         log.info("Received UpdatePlaylistRequest {}", updatePlaylistRequest);
-
+//
 //         if (!MusicPlaylistServiceUtils.isValidString(updatePlaylistRequest.getName())) {
 //             publishExceptionMetrics(true, false);
 //             throw new InvalidAttributeValueException("Playlist name [" + updatePlaylistRequest.getName() +
 //                                                      "] contains illegal characters");
 //         }
-
+//
 //         Playlist playlist = playlistDao.getPlaylist(updatePlaylistRequest.getId());
-
+//
 //         if (!playlist.getCustomerId().equals(updatePlaylistRequest.getCustomerId())) {
 //             publishExceptionMetrics(false, true);
 //             throw new SecurityException("You must own a playlist to update it.");
 //         }
-
+//
 //         playlist.setName(updatePlaylistRequest.getName());
 //         playlist = playlistDao.savePlaylist(playlist);
-
+//
 //         publishExceptionMetrics(false, false);
 //         return UpdatePlaylistResult.builder()
 //                 .withPlaylist(new ModelConverter().toPlaylistModel(playlist))
 //                 .build();
 //     }
-
+//
 //     /**
 //      * Helper method to publish exception metrics.
 //      * @param isInvalidAttributeValue indicates whether InvalidAttributeValueException is thrown
