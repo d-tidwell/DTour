@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Singleton
@@ -40,39 +41,81 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth, Set<String> events, Set<String> following ) {
-        Profile profile = new Profile();
+//        ?? NOAH We have two save profile functions both different neither correct
+//    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth, Set<String> events, Set<String> following ) {
+//        Profile profile = new Profile();
+//        //??where are you setting these values and saving them
+//        if(profileId.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || location.isEmpty() || gender.isEmpty() || dateOfBirth==null){
+//            //fix this exception so that it is throwable
+//            throw new InvalidAttributeValueException("Arguments can not be empty, please try again.");
+//        }
+//
+//        if(events == null){
+//            events = new HashSet<>();
+//        }
+//        if(following == null){
+//            following = new HashSet<>();
+//        }
+//
+//        return profile;
+//    }
 
-        if(profileId.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || location.isEmpty() || gender.isEmpty() || dateOfBirth==null){
-            throw new InvalidAttributeValueException("Arguments can not be empty, please try again.");
-        }
+//    ?? NATALIA We have two save profile functions both different neither correct
+//    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender,
+//                               String dateOfBirth, Set<String> events, Set<String> following) {
+        //what happens if this is an update and not a save ? what about null values??
+//        Profile profile = new Profile();
+//        profile.setId(profileId);
+//        profile.setFirstName(firstName);
+//        profile.setLastName(lastName);
+//        profile.setLocation(location);
+//        profile.setGender(gender);
+//        //this needs to be a zoned datetime object
+//        profile.setDateOfBirth(dateOfBirth);
+//        //what if this is an empty value???
+//        profile.setFollowing(following);
+//        profile.setEvents(events);
+//        this.dynamoDbMapper.save(profile);
+//        return profile;
+//    }
+    public Profile saveProfile(boolean isNew, String emailAddress, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
+        Profile saveProfile = new Profile();
+        //needed either for update or save bc its the hashkey
+        saveProfile.setId(emailAddress);
+        //if this is a new profile we are saving just save the info we are given we know this bc we passed true
+        if(isNew) {
+            saveProfile.setFirstName(firstName);
+            saveProfile.setLastName(lastName);
+            saveProfile.setLocation(location);
+            saveProfile.setGender(gender);
+            //this needs to be a zoned datetime object
+            saveProfile.setDateOfBirth(dateOfBirth.toString());
+            //they couldn't possibly have values so we need to set them here so the field exists
+            saveProfile.setEvents(new HashSet<>());
+            saveProfile.setFollowing(new HashSet<>());
+            this.dynamoDbMapper.save(saveProfile);
 
-        if(events == null){
-            events = new HashSet<>();
+        //if the boolean is false it means we are updating and need to check each field to see if it needs updating
+        } else {
+            if (firstName != null || !gender.isEmpty()) {
+                saveProfile.setFirstName(firstName);
+            }
+            if (lastName != null || !gender.isEmpty()) {
+                saveProfile.setFirstName(lastName);
+            }
+            if (location != null || !gender.isEmpty()) {
+                saveProfile.setFirstName(location);
+            }
+            if (gender != null || !gender.isEmpty()) {
+                saveProfile.setFirstName(gender);
+            }
+            if (!Objects.isNull(dateOfBirth)) {
+                saveProfile.setDateOfBirth(dateOfBirth.toString());
+            }
+            this.dynamoDbMapper.save(saveProfile);
         }
-        if(following == null){
-            following = new HashSet<>();
-        }
-
-        return profile;
+        return saveProfile;
     }
-
-
-    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender,
-                               String dateOfBirth, Set<String> events, Set<String> following) {
-        Profile profile = new Profile();
-        profile.setId(profileId);
-        profile.setFirstName(firstName);
-        profile.setLastName(lastName);
-        profile.setLocation(location);
-        profile.setGender(gender);
-        profile.setDateOfBirth(dateOfBirth);
-        profile.setFollowing(following);
-        profile.setEvents(events);
-        this.dynamoDbMapper.save(profile);
-        return profile;
-    }
-
     public List<String>  addProfileToFollowersList(String id, String profileToAdd) {
         List<String> updatedListAfterAdding = new ArrayList<>();
         if (id.isEmpty() || id == null) {

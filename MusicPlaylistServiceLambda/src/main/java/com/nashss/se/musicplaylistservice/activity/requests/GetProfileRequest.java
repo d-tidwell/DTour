@@ -7,7 +7,7 @@ import java.util.Set;
 
 @JsonDeserialize(builder = GetProfileResult.Builder.class)
 public class GetProfileRequest {
-
+    //?? Look at the lambda and you will realize why all this is not needed just the profileId
     private final String profileId;
     private final String firstName;
     private final String lastName;

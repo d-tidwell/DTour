@@ -6,6 +6,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileReq
 import com.nashss.se.musicplaylistservice.activity.requests.AddProfileToFollowingRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.CreateEventRequest;
 
+import com.nashss.se.musicplaylistservice.activity.requests.GetProfileRequest;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -21,7 +22,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return UpdatePlaylistActivity
      */
-     UpdateEventActivity provideUpdateEventActivity();
+    UpdateEventActivity provideUpdateEventActivity();
 
     UpdatePlaylistActivity provideUpdatePlaylistActivity();
     
@@ -35,4 +36,5 @@ public interface ServiceComponent {
 
     CreateEventActivity provideCreateEventActivity();
 
+    GetProfileActivity provideGetProfileActivity();
 }

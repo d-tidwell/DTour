@@ -13,6 +13,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,12 +64,19 @@ public class EventDao {
      * @param event The event to save
      * @return The Event object that was saved
      */
-    public Event saveEvent(Event event) {
+    //create vs save: choose one but not both save should probably be the name since that is what we are doing on the
+    // backend so since this is just checking the datetime issue lets call this that and the other save
+
+    public boolean checkEventDateTime(String eventTime) {
         ZonedDateTime now = ZonedDateTime.now();
-        if (event.getDateTime().isAfter(now)) {
-            this.dynamoDbMapper.save(event);
+        //just make sure this gets tested between now and Friday so we are sure 100% its effective
+        if(ZonedDateTime.parse(eventTime).isAfter(now)){
+            return true;
+        } else {
+            //create this exception handling I just put this here as an example
+            throw new EventTimeIsInvalidException("Events must be for future dates");
+            return false;
         }
-        return event;
     }
 
     /**
@@ -94,18 +102,50 @@ public class EventDao {
      * Creates a new Event object.
      *
      */
-
-    public Event createEvent(String name, String eventCreator, String address, String description,
-                             ZonedDateTime dateTime, Set<String> category) {
+    //let this also do double duty as an update method so we don't have to make two seperate things to accomplish the same
+    //backend functionality
+    public Event saveEvent(boolean isNew,String eventId, String name, String eventCreator, String address, String description,
+                             String dateTime, Set<String> category) {
         Event event = new Event();
-        event.setEventId();
-        event.setName(name);
-        event.setEventCreator(eventCreator);
-        event.setAddress(address);
-        event.setDescription(description);
-        event.setDateTime(dateTime);
-        event.setCategory(category);
-        saveEvent(event);
+
+        //if this is new and this event is after the date time of now
+        if(isNew && checkEventDateTime(dateTime)){
+            event.setEventId();
+            event.setName(name);
+            event.setEventCreator(eventCreator);
+            event.setAddress(address);
+            event.setDescription(description);
+            event.setDateTime(dateTime);
+            event.setCategory(new HashSet<>());
+
+        //if its not a new event this must an update
+        } else {
+            if(name != null && !name.isEmpty()){
+                event.setName(name);
+            }
+            if(eventCreator != null && !eventCreator.isEmpty()){
+                event.setEventCreator(eventCreator);
+            }
+            if(address != null && !address.isEmpty()){
+                event.setAddress(address);
+            }
+            if(description != null && !description.isEmpty()){
+                event.setDescription(description);
+            }
+            if(dateTime != null && !dateTime.isEmpty()){
+                if(checkEventDateTime(dateTime)) {
+                    event.setDateTime(dateTime);
+                }
+            }
+            if(!category.isEmpty())){
+                Event oldEvent = this.getEvent(eventId);
+                Set<String> categories = oldEvent.getCategory();
+                categories.addAll(category);
+                event.setCategory(categories);
+            }
+        }
+
+        this.dynamoDbMapper.save(event);
 
         return event;
     }
