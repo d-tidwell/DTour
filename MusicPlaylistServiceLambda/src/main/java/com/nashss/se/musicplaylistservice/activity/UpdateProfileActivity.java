@@ -2,6 +2,7 @@ package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.UpdateProfileRequest;
 import com.nashss.se.musicplaylistservice.activity.results.UpdateProfileResult;
+import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.management.InvalidAttributeValueException;
+import java.time.ZonedDateTime;
 
 public class UpdateProfileActivity {
     private final Logger log = LogManager.getLogger();
@@ -32,8 +34,14 @@ public class UpdateProfileActivity {
             throw new InvalidAttributeValueException("Profile Name" + updateProfileRequest.getFirstName() +
                     "cannot contain illegal characters");
         }
-        Profile profile = profileDao.getProfile(updateProfileRequest.getProfileId());
+        Profile profile = profileDao.saveProfile(false, updateProfileRequest.getProfileId(),
+               updateProfileRequest.getFirstName(), updateProfileRequest.getLastName(), updateProfileRequest.getLocation(),
+               updateProfileRequest.getGender(), ZonedDateTime.parse(updateProfileRequest.getDateOfBirth()));
 
+        publishExceptionMetrics(false,false);
+        return UpdateProfileResult.builder()
+                .withProfile(new ModelConverter().toProfileModel(profile))
+                .build();
     }
     private void publishExceptionMetrics(final boolean isInvalidAttributeValue,
                                          final boolean isInvalidAttributeChange) {
