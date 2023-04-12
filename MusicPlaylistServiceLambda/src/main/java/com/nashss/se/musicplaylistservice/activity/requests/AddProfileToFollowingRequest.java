@@ -6,19 +6,27 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = AddProfileToFollowingRequest.Builder.class)
 public class AddProfileToFollowingRequest {
     private final String id;
+    private final String idToAdd;
 
-    private AddProfileToFollowingRequest(String id) {
+    private AddProfileToFollowingRequest(String id, String idToAdd) {
         this.id = id;
+        this.idToAdd = idToAdd;
     }
 
     public String getId() {
         return id;
     }
 
+    public String getIdToAdd() {
+        return idToAdd;
+    }
+
     @Override
     public String toString() {
         return "AddProfileToFollowingRequest{" +
-                "id='" + id;
+                "id='" + id + '\'' +
+                ", idToAdd='" + idToAdd + '\'' +
+                '}';
     }
 
     //CHECKSTYLE:OFF:Builder
@@ -29,14 +37,20 @@ public class AddProfileToFollowingRequest {
     @JsonPOJOBuilder
     public static class Builder {
         private String id;
+        private String idToAdd;
 
         public AddProfileToFollowingRequest.Builder withId(String id) {
             this.id = id;
             return this;
         }
 
+        public AddProfileToFollowingRequest.Builder withIdToAdd(String idToAdd) {
+            this.idToAdd = idToAdd;
+            return this;
+        }
+
         public AddProfileToFollowingRequest build() {
-            return new AddProfileToFollowingRequest(id);
+            return new AddProfileToFollowingRequest(id, idToAdd);
         }
     }
 }

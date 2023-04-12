@@ -15,11 +15,11 @@ import com.nashss.se.musicplaylistservice.models.ProfileModel;
 public class ModelConverter {
     /**
      * Converts a provided {@link Profile} into a {@link ProfileModel} representation.
-     * @param profile the Profile to convert
+     *
      * @return the converted ProfileModel
      */
 
-    public ProfileModel toProfileModel(Profile profile){
+    public ProfileModel toProfileModel(String id){
         return ProfileModel.builder()
                 .withProfileId(profile.getId())
                 .withFirstName(profile.getFirstName())
@@ -52,9 +52,9 @@ public class ModelConverter {
         .build();
     }
 
-    public List<ProfileModel> toProfileModelList(List<Profile> profiles) {
+    public List<ProfileModel> toProfileModelList(List<String> profiles) {
         List<ProfileModel> profileModels = new ArrayList<>();
-        for (Profile p : profiles) {
+        for (String p : profiles) {
             profileModels.add(toProfileModel(p));
         }
         return profileModels;

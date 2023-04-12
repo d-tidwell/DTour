@@ -3,7 +3,9 @@ package com.nashss.se.musicplaylistservice.dependency;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.musicplaylistservice.activity.*;
 import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileRequest;
+import com.nashss.se.musicplaylistservice.activity.requests.AddProfileToFollowingRequest;
 import com.nashss.se.musicplaylistservice.activity.requests.CreateEventRequest;
+
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -27,6 +29,10 @@ public interface ServiceComponent {
 
     AddEventToProfileActivity provideAddEventToProfileActivity();
 
+    RemoveFromFollowingActivity provideRemoveFromFollowingActivity();
+
+    AddProfileToFollowingActivity provideAddProfileToFollowingActivity();
 
     CreateEventActivity provideCreateEventActivity();
+
 }

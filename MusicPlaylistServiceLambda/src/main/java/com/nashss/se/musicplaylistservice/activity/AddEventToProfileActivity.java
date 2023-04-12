@@ -1,14 +1,3 @@
-package com.nashss.se.musicplaylistservice.activity;
-
-import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileRequest;
-import com.nashss.se.musicplaylistservice.activity.results.AddEventToProfileResult;
-import com.nashss.se.musicplaylistservice.converters.ModelConverter;
-import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
-import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
-import com.nashss.se.musicplaylistservice.models.EventModel;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
