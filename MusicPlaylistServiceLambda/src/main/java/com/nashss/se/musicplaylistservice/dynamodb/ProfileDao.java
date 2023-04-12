@@ -127,6 +127,7 @@ public class ProfileDao {
             throw new ProfileNotFoundException("The entered email address is invalid. Please try again.");
         }
         Profile profile = getProfile(id);
+        //why check this if its already being checked about in teh getProfile call???
         if (profile == null) {
             throw new ProfileNotFoundException("Profile does not exist. Please enter another emailAddress.");
         }
