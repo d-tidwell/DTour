@@ -3,7 +3,6 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import java.time.ZonedDateTime;
 import java.util.Set;
 
 @JsonDeserialize(builder = UpdateEventRequest.Builder.class)
@@ -15,18 +14,7 @@ public class UpdateEventRequest {
     private final String description;
     private final String dateTime;
     private final Set<String> category;
-//    private final Set<String> attendees;
 
-//    private UpdateEventRequest(String eventId, String name, String eventCreator, String address, String description, ZonedDateTime dateTime, Set<String> category,Set<String> attendees) {
-//        this.eventId = eventId;
-//        this.name = name;
-//        this.eventCreator = eventCreator;
-//        this.address = address;
-//        this.description = description;
-//        this.dateTime = dateTime;
-//        this.category = category;
-//        this.attendees = attendees;
-//    }
     private UpdateEventRequest(String eventId, String name, String eventCreator, String address, String description, String dateTime, Set<String> category) {
         this.eventId = eventId;
         this.name = name;
@@ -66,9 +54,6 @@ public class UpdateEventRequest {
         return category;
     }
 
-//    public Set<String> getAttendees() {
-//        return attendees;
-//    }
 
     @Override
     public String toString() {
@@ -80,7 +65,6 @@ public class UpdateEventRequest {
                 ", description='" + description + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", category='" + category + '\'' +
-//                ", attendees='" + attendees + '\'' +
                 '}';
     }
 
@@ -98,7 +82,6 @@ public class UpdateEventRequest {
         private String description;
         private String dateTime;
         private Set<String> category;
-//        private Set<String> attendees;
 
         public Builder withEventId(String eventId) {
             this.eventId = eventId;
@@ -135,13 +118,8 @@ public class UpdateEventRequest {
             return this;
         }
 
-//        public Builder withAttendees(Set<String> attendees) {
-//            this.attendees = attendees;
-//            return this;
-//        }
 
         public UpdateEventRequest build() {
-//            return new UpdateEventRequest(eventId, name, eventCreator, address, description, dateTime, category, attendees);
             return new UpdateEventRequest(eventId, name, eventCreator, address, description, dateTime, category);
         }
     }

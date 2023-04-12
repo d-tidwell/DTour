@@ -1,8 +1,8 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.EventNotFoundException;
+import com.nashss.se.musicplaylistservice.exceptions.EventTimeIsInvalidException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
@@ -10,7 +10,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,7 +60,7 @@ public class EventDao {
     /**
      * Saves (creates or updates) the given event.
      *
-     * @param event The event to save
+     * @param eventTime The event to save
      * @return The Event object that was saved
      */
     //create vs save: choose one but not both save should probably be the name since that is what we are doing on the
@@ -75,37 +74,15 @@ public class EventDao {
         } else {
             //create this exception handling I just put this here as an example
             throw new EventTimeIsInvalidException("Events must be for future dates");
-            return false;
         }
     }
 
-    /**
-     * Adds an event to the user's profile.
-     *
-     * @param event The event to add
-     * @Return the updated event list
-     */
-
-    //move all of this logic to the profileDao since it already has the stuff you need to make it work
-//    public Set<String> addEventToProfile(String event, String profileId) {
-/////        ProfileDao profileDao = new ProfileDao(dynamoDbMapper, metricsPublisher);
-//        getEvent(event);
-//        Profile profile = profileDao.getProfile(profileId);
-//        Set<String> events = profile.getEvents();
-//        events.add(event);
-//        this.dynamoDbMapper.save(profile);
-//
-//        return events;
-
-//    }
 
     /**
      * Creates a new Event object.
      *
      */
-    //let this also do double duty as an update method so we don't have to make two seperate things to accomplish the same
-    //backend functionality
-    public Event saveEvent(boolean isNew,String eventId, String name, String eventCreator, String address, String description,
+    public Event saveEvent(boolean isNew, String eventId, String name, String eventCreator, String address, String description,
                              String dateTime, Set<String> category) {
         Event event = new Event();
 
@@ -119,7 +96,7 @@ public class EventDao {
             event.setDateTime(dateTime);
             event.setCategory(new HashSet<>());
 
-        //if its not a new event this must an update
+        //if it's not a new event, this must an update
         } else {
             if(name != null && !name.isEmpty()){
                 event.setName(name);
@@ -138,7 +115,7 @@ public class EventDao {
                     event.setDateTime(dateTime);
                 }
             }
-            if(!category.isEmpty())){
+            if(!category.isEmpty()){
                 Event oldEvent = this.getEvent(eventId);
                 Set<String> categories = oldEvent.getCategory();
                 categories.addAll(category);
