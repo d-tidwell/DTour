@@ -152,12 +152,19 @@ public class ProfileDao {
     }
 
     public List<String> removeProfileFromFollowing(String id, String profileIdToRemove) {
+
+        //?? See all the notes in add Event to Following below they apply here plus these notes as well
         List<String> updatedList = new ArrayList<>();
         Profile profile = getProfile(id);
+        //and here
         if (profile == null) {
             throw new ProfileNotFoundException("Unable to retrieve the profile with the given id.");
         }
         Set<String> following = profile.getFollowing();
+        // this says if the set is null or if the set does not condtain id they the profile doesn't exist the way you have written it
+        // A) why would the profile have its own id in it?
+        // B) if it doesn't why does that mean it doesn't exist???
+        // C) if the set is empty the profile doesn't exist??? thats not probably what you were trying to do here
         if (following == null || !(following.contains(id))) {
             throw new ProfileNotFoundException("Profile with the given id is not your following.");
         }

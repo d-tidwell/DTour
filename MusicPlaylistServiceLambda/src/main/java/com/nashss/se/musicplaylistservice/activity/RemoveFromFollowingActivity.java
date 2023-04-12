@@ -46,7 +46,7 @@ public class RemoveFromFollowingActivity {
         profileDao.getProfile(profileIdToRemove);
 
         List<String> updatedListProfiles =  profileDao.removeProfileFromFollowing(id, profileIdToRemove);
-
+        // you are doing the same thing here as you did in the add event see that for why it doesnt make sense
         List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
 
         return RemoveFromFollowingResult.builder()

@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveFromFollowingResult {
-    private final List<ProfileModel> profileModelList;
+
+    //??? LOOK at the addToFollowingResult for why this is all incorrect
+
+//    private final List<ProfileModel> profileModelList;
 
     private RemoveFromFollowingResult (List<ProfileModel> profileModelList) {
         this.profileModelList = profileModelList;

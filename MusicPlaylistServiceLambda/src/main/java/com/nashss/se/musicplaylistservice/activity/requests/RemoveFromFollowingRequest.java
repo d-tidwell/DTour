@@ -30,8 +30,8 @@ public class RemoveFromFollowingRequest {
     }
 
     //CHECKSTYLE:OFF:Builder
-    public static RemoveFromFollowingRequest.Builder builder() {
-        return new RemoveFromFollowingRequest.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     @JsonPOJOBuilder
@@ -39,11 +39,11 @@ public class RemoveFromFollowingRequest {
         private String id;
         private String profileIdToRemove;
 
-        public RemoveFromFollowingRequest.Builder withId(String id) {
+        public Builder withId(String id) {
             this.id = id;
             return this;
         }
-        public RemoveFromFollowingRequest.Builder withProfileIdToRemove(String profileIdToRemove) {
+        public Builder withProfileIdToRemove(String profileIdToRemove) {
             this.profileIdToRemove = profileIdToRemove;
             return this;
         }
