@@ -3,7 +3,9 @@ package com.nashss.se.musicplaylistservice.dynamodb.models;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.xspec.S;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -65,8 +67,8 @@ public class Profile {
     }
 
     @DynamoDBAttribute(attributeName = "dateOfBirth")
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public ZonedDateTime getDateOfBirth() {
+        return ZonedDateTime.parse(dateOfBirth);
     }
 
     public void setDateOfBirth(String dateOfBirth) {

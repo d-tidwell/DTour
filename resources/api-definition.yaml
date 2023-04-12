@@ -178,139 +178,139 @@ paths:
           description: "Invalid input parameters"
 
   /profiles/addEvent:
-  put:
-      tags:
-        - Profiles
-      summary: addEvent to the list of events of an existing profile (addEventToProfileLambda)
-      parameters:
-        - name: eventId
-          in: path
-          description: ID of the event to add to the profiles set of events
-          required: true
-          schema:
-            type: string
-       requestBody:
-        content:
-          application/json:
+    put:
+        tags:
+          - Profiles
+        summary: addEvent to the list of events of an existing profile (addEventToProfileLambda)
+        parameters:
+          - name: eventId
+            in: path
+            description: ID of the event to add to the profiles set of events
+            required: true
             schema:
-              type: object
-              properties:
-                eventId:
-                  type: string
-
-      responses:
-        "200":
-          description: A profile object
+              type: string
+         requestBody:
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                events:
-                  type: array
-                  items:
+                  eventId:
                     type: string
-                  uniqueItems: true
-        "500":
-          description: "Invalid input parameters"
+
+        responses:
+          "200":
+            description: A profile object
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  events:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"
   
   /profiles/removeEvent:
-  put:
-      tags:
-        - Profiles
-      summary: Remove event from the list of events of an existing profile (removeEventFromProfileLambda)
-      parameters:
-        - name: eventId
-          in: path
-          description: ID of event to remove from profiles set of events
-          required: true
-          schema:
-            type: string
-       requestBody:
-        content:
-          application/json:
+    put:
+        tags:
+          - Profiles
+        summary: Remove event from the list of events of an existing profile (removeEventFromProfileLambda)
+        parameters:
+          - name: eventId
+            in: path
+            description: ID of event to remove from profiles set of events
+            required: true
             schema:
-              type: object
-              properties:
-                eventId:
-                  type: string
-                uniqueItems: true
-
-      responses:
-        "200":
-          description: A profile object
+              type: string
+         requestBody:
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                events:
-                  type: array
-                  items:
+                  eventId:
                     type: string
                   uniqueItems: true
-        "500":
-          description: "Invalid input parameters"
+
+        responses:
+          "200":
+            description: A profile object
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  events:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"
 
   /profiles/addFollowing:
-  put:
-      tags:
-        - Profiles
-      summary: add profile id to the list of following of an existing profile (addFollowingToProfileLambda)
-       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-
-      responses:
-        "200":
-          description: A profile object
+    put:
+        tags:
+          - Profiles
+        summary: add profile id to the list of following of an existing profile (addFollowingToProfileLambda)
+         requestBody:
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                following:
-                  type: array
-                  items:
+                  id:
                     type: string
-                  uniqueItems: true
-        "500":
-          description: "Invalid input parameters"
+
+        responses:
+          "200":
+            description: A profile object
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  following:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"
   
   /profiles/removeFollowing:
-  put:
-      tags:
-        - Profiles
-      summary: Remove profile from the list of events of an existing profile (removeFollowingFromProfileLambda)
-       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-
-      responses:
-        "200":
-          description: A profile object
+    put:
+        tags:
+          - Profiles
+        summary: Remove profile from the list of events of an existing profile (removeFollowingFromProfileLambda)
+         requestBody:
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                following:
-                  type: array
-                  items:
+                  id:
                     type: string
-                  uniqueItems: true
-        "500":
-          description: "Invalid input parameters"
+
+        responses:
+          "200":
+            description: A profile object
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  following:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"
 
   /events/create:
     post:
@@ -369,46 +369,46 @@ paths:
           description: "Invalid input parameters"
 
   /events/${id}:
-  get:
-      tags:
-        - Events
-      summary: Get an existing event (GetEventLambda)
-      parameters:
-        - name: eventId
-          in: path
-          description: ID of event to retrieve
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: A profile object
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                name:
-                  type: string
-                date:
-                  type: string
-                time:
-                  type: string
-                location:
-                  type: string
-                event_creator:
-                  type: string
-                description:
-                  type: string
-                category:
-                  type: string
-                attendees:
-                  type: array
-                  items:
+    get:
+        tags:
+          - Events
+        summary: Get an existing event (GetEventLambda)
+        parameters:
+          - name: eventId
+            in: path
+            description: ID of event to retrieve
+            required: true
+            schema:
+              type: string
+        responses:
+          "200":
+            description: A profile object
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  name:
                     type: string
-                  uniqueItems: true
-        "500":
-          description: "Invalid input parameters"
+                  date:
+                    type: string
+                  time:
+                    type: string
+                  location:
+                    type: string
+                  event_creator:
+                    type: string
+                  description:
+                    type: string
+                  category:
+                    type: string
+                  attendees:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"
 
     put:
       tags:
@@ -471,23 +471,23 @@ paths:
           description: "Invalid input parameters"
 
   /events/all:
-  get:
-      tags:
-        - Events
-      summary: Get an existing event (GetEventLambda)
-      responses:
-        "200":
-          description: A profile object
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                events:
-                  type: array
-                  items:
-                    type: string
-                  uniqueItems: true
-        "500":
-          description: "Invalid input parameters"
+    get:
+        tags:
+          - Events
+        summary: Get an existing event (GetEventLambda)
+        responses:
+          "200":
+            description: A profile object
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  events:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"
 

@@ -1,8 +1,5 @@
 package com.nashss.se.musicplaylistservice.activity.results;
 
-import com.nashss.se.musicplaylistservice.models.EventModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
-
 import java.util.ArrayList;
 import java.util.List;
 

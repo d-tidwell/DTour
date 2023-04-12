@@ -4,6 +4,7 @@ import com.nashss.se.musicplaylistservice.activity.requests.UpdateProfileRequest
 import com.nashss.se.musicplaylistservice.activity.results.UpdateProfileResult;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
+import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 import com.nashss.se.projectresources.music.playlist.servic.util.MusicPlaylistServiceUtils;
 import org.apache.logging.log4j.LogManager;
@@ -23,14 +24,22 @@ public class UpdateProfileActivity {
         this.metricsPublisher = metricsPublisher;
     }
 
-    public UpdateProfileResult handleRequest(final UpdateProfileRequest updateProfileRequest) {
+    public UpdateProfileResult handleRequest(final UpdateProfileRequest updateProfileRequest) throws InvalidAttributeValueException {
         log.info("Received UpdateProfileRequest{}", updateProfileRequest);
 
         if(!MusicPlaylistServiceUtils.isValidString(updateProfileRequest.getFirstName())){
             publishExceptionMetrics(true,false);
-            throw new InvalidAttributeValueException("Profile Name" + updateProfileRequest.getFirstName() + "cannot contain illegal characters");
+            throw new InvalidAttributeValueException("Profile Name" + updateProfileRequest.getFirstName() +
+                    "cannot contain illegal characters");
         }
-        Profile profile = profileDao.getProfile(updateProfileRequest.getId()
+        Profile profile = profileDao.getProfile(updateProfileRequest.getProfileId());
 
+    }
+    private void publishExceptionMetrics(final boolean isInvalidAttributeValue,
+                                         final boolean isInvalidAttributeChange) {
+        metricsPublisher.addCount(MetricsConstants.UPDATEPROFILE_INVALIDATTRIBUTECHANGE_COUNT,
+                isInvalidAttributeValue ? 1 : 0);
+        metricsPublisher.addCount(MetricsConstants.UPDATEPROFILE_INVALIDATTRIBUTECHANGE_COUNT,
+                isInvalidAttributeChange ? 1 : 0);
     }
 }

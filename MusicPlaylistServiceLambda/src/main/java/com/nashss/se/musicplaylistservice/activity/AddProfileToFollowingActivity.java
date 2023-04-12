@@ -5,14 +5,12 @@ import com.nashss.se.musicplaylistservice.activity.results.AddProfileToFollowing
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
-import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -48,17 +46,22 @@ public class AddProfileToFollowingActivity {
         log.info("Received AddProfileToFollowingRequest {} ", addProfileToFollowingRequest);
 
         String id = addProfileToFollowingRequest.getId();
-        Profile profile = profileDao.getProfile(id);
-        if (profile == null) {
-            throw new ProfileNotFoundException("Profile does not exist, please try again with another id.");
-        }
+        String idToAdd = addProfileToFollowingRequest.getIdToAdd();
 
-        profileDao.addProfileToFollowersList(id);
+        profileDao.getProfile(id);
 
-        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(Collections.singletonList(profile));
+        profileDao.getProfile(idToAdd);
 
+        //why are you converting a list of strings to a list of ProfileModels when you just need to return a list of strings???
+        //why convert it at all ??
+        List<String> updatedListProfiles = profileDao.addProfileToFollowersList(id, idToAdd);
+
+//        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
+
+        //just pass the list to the withProfileModelList
         return AddProfileToFollowingResult.builder()
-                .withProfileModelListList(profileModel)
+//                .withProfileModelListList(profileModel)
+                .withProfileModelList(updatedListProfiles)
                 .build();
     }
 }

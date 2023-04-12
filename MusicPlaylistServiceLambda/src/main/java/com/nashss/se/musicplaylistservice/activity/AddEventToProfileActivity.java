@@ -1,24 +1,18 @@
+// You were missing the package up here which is what was causing the handleRequest error
 package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.AddEventToProfileRequest;
-import com.nashss.se.musicplaylistservice.activity.requests.AddSongToPlaylistRequest;
 import com.nashss.se.musicplaylistservice.activity.results.AddEventToProfileResult;
-import com.nashss.se.musicplaylistservice.activity.results.AddSongToPlaylistResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
-import com.nashss.se.musicplaylistservice.dynamodb.AlbumTrackDao;
 import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
-import com.nashss.se.musicplaylistservice.dynamodb.PlaylistDao;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.AlbumTrack;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Playlist;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
-import com.nashss.se.musicplaylistservice.models.EventModel;
-import com.nashss.se.musicplaylistservice.models.SongModel;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -65,12 +59,18 @@ public class AddEventToProfileActivity {
         log.info("Received AddEventToProfileRequest {} ", addEventToProfileRequest);
 
         String eventId = addEventToProfileRequest.getEventId();
+        String profileId = addEventToProfileRequest.getProfileId();
 
-        String profile = addEventToProfileRequest.getProfileId();
+        //this will check to make sure the event is legit
+        eventDao.getEvent(eventId);
+        // this will check to make sure the profile # is legit
+        profileDao.getProfile(addEventToProfileRequest.getProfileId());
 
-        Set<String> events = eventDao.addEventToProfile(eventId, profile);
+        Set<String> updatedSet = profileDao.addEventToFollowing(eventId, profileId);
 
-        List<String> eventModels = new ModelConverter().toEventModelList(events);
+        //?? all it takes to convert a set to a list
+//        List<String> eventModels = new ModelConverter().toEventModelList(events);
+        List<String> eventModels = new ArrayList<>(updatedSet);
         return AddEventToProfileResult.builder()
                 .withEventList(eventModels)
                 .build();

@@ -15,10 +15,11 @@ import com.nashss.se.musicplaylistservice.models.ProfileModel;
 public class ModelConverter {
     /**
      * Converts a provided {@link Profile} into a {@link ProfileModel} representation.
-     * @param profile the Profile to convert
+     *
      * @return the converted ProfileModel
      */
 
+    // This should take a profile and return a model thats why profile is red all up in there
     public ProfileModel toProfileModel(Profile profile){
         return ProfileModel.builder()
                 .withProfileId(profile.getId())
@@ -26,7 +27,7 @@ public class ModelConverter {
                 .withLastName(profile.getLastName())
                 .withLocation(profile.getLocation())
                 .withGender(profile.getGender())
-                .withDateOfBirth(profile.getDateOfBirth())
+                .withDateOfBirth(profile.getDateOfBirth().toString())
                 .withFollowing(profile.getFollowing())
                 .withEvents(profile.getEvents())
                 .build();
@@ -52,9 +53,9 @@ public class ModelConverter {
         .build();
     }
 
-    public List<ProfileModel> toProfileModelList(List<Profile> profiles) {
+    public List<ProfileModel> toProfileModelList(List<String> profiles) {
         List<ProfileModel> profileModels = new ArrayList<>();
-        for (Profile p : profiles) {
+        for (String p : profiles) {
             profileModels.add(toProfileModel(p));
         }
         return profileModels;
