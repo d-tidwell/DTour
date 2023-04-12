@@ -138,7 +138,7 @@ public class EventDao {
                     event.setDateTime(dateTime);
                 }
             }
-            if(!category.isEmpty())){
+            if(!category.isEmpty()){
                 Event oldEvent = this.getEvent(eventId);
                 Set<String> categories = oldEvent.getCategory();
                 categories.addAll(category);

@@ -1,6 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.RemoveFromFollowingRequest;
+import com.nashss.se.musicplaylistservice.activity.results.AddEventToProfileResult;
 import com.nashss.se.musicplaylistservice.activity.results.RemoveFromFollowingResult;
 import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
@@ -10,7 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class RemoveFromFollowingActivity {
     private final Logger log = LogManager.getLogger();
@@ -41,17 +44,15 @@ public class RemoveFromFollowingActivity {
         String id = removeFromFollowingRequest.getId();
         String profileIdToRemove = removeFromFollowingRequest.getProfileIdToRemove();
 
-        profileDao.getProfile(id);
+        profileDao.getProfile(removeFromFollowingRequest.getId());
 
-        profileDao.getProfile(profileIdToRemove);
-
-        List<String> updatedListProfiles =  profileDao.removeProfileFromFollowing(id, profileIdToRemove);
-        // you are doing the same thing here as you did in the add event see that for why it doesnt make sense
-        List<ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
-
+        Set<String> updatedList = profileDao.removeProfileFromFollowing(id, profileIdToRemove);
+        List<String> list = new ArrayList<>(updatedList);
         return RemoveFromFollowingResult.builder()
-                .withProfileModelList(profileModel)
+                .withProfileList(list)
                 .build();
+
+
     }
 }
 

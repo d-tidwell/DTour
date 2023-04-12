@@ -2,16 +2,16 @@ package com.nashss.se.musicplaylistservice.activity;
 
 import com.nashss.se.musicplaylistservice.activity.requests.AddProfileToFollowingRequest;
 import com.nashss.se.musicplaylistservice.activity.results.AddProfileToFollowingResult;
-import com.nashss.se.musicplaylistservice.converters.ModelConverter;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -52,16 +52,12 @@ public class AddProfileToFollowingActivity {
 
         profileDao.getProfile(idToAdd);
 
-        //why are you converting a list of strings to a list of ProfileModels when you just need to return a list of strings???
-        //why convert it at all ??
-        List<String> updatedListProfiles = profileDao.addProfileToFollowersList(id, idToAdd);
+        Set<String> updatedListProfiles = profileDao.addProfileToFollowersList(id, idToAdd);
 
-//        List <ProfileModel> profileModel = new ModelConverter().toProfileModelList(updatedListProfiles);
+        List<String> list = new ArrayList<>(updatedListProfiles);
 
-        //just pass the list to the withProfileModelList
         return AddProfileToFollowingResult.builder()
-//                .withProfileModelListList(profileModel)
-                .withProfileModelList(updatedListProfiles)
+                .withProfileList(list)
                 .build();
     }
 }

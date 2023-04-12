@@ -19,7 +19,6 @@ public class ModelConverter {
      * @return the converted ProfileModel
      */
 
-    // This should take a profile and return a model thats why profile is red all up in there
     public ProfileModel toProfileModel(Profile profile){
         return ProfileModel.builder()
                 .withProfileId(profile.getId())
@@ -53,11 +52,4 @@ public class ModelConverter {
         .build();
     }
 
-    public List<ProfileModel> toProfileModelList(List<String> profiles) {
-        List<ProfileModel> profileModels = new ArrayList<>();
-        for (String p : profiles) {
-            profileModels.add(toProfileModel(p));
-        }
-        return profileModels;
-    }
 }
