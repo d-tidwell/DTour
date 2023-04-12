@@ -2,20 +2,20 @@
 
 Profile & ProfileModel
 -id (String (email from authentication))
--fname (String)
--lname (String)
+-firstName (String)
+-lastName (String)
 -location (String)
 -gender (String)
--dob (DateTime)
+-dateOfBirth (DateTime)
 -events (set of strings)
 -following (set of strings)
 
 Event & EventModel
 -id (String needs to be hash generated for uniqueness)
--createdBy (String)
+-eventCreator (String)
 -name (String)
 -address (String)
--datetime (DateTime)
+-dateTime (DateTime)
 -category (set of strings)
 -description (string)
 -attendees (set of string)
