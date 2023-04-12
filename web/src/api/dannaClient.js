@@ -257,7 +257,7 @@ export default class DannaClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.put(`profiles/addEvent`, {
-                eventId:eventId
+                eventId: eventId
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -280,7 +280,7 @@ export default class DannaClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.put(`profiles/removeEvent`, {
-                eventId:eventId
+                eventId: eventId
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -303,7 +303,7 @@ export default class DannaClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.put(`profiles/addFollowing`, {
-                profileId:profileId
+                profileId: profileId
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -322,11 +322,11 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async removeFromFollowing(id, profileId, errorCallback) {
+    async removeFromFollowing(profileId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.put(`profiles/removeFollowing`, {
-                profileId:profileId
+                profileId: profileId
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
