@@ -86,17 +86,18 @@ public class EventDao {
      * @Return the updated event list
      */
 
-    public Set<String> addEventToProfile(String event, String profileId) {
-        ProfileDao profileDao = new ProfileDao(dynamoDbMapper, metricsPublisher);
-        getEvent(event);
-        Profile profile = profileDao.getProfile(profileId);
-        Set<String> events = profile.getEvents();
-        events.add(event);
-        this.dynamoDbMapper.save(profile);
+    //move all of this logic to the profileDao since it already has the stuff you need to make it work
+//    public Set<String> addEventToProfile(String event, String profileId) {
+/////        ProfileDao profileDao = new ProfileDao(dynamoDbMapper, metricsPublisher);
+//        getEvent(event);
+//        Profile profile = profileDao.getProfile(profileId);
+//        Set<String> events = profile.getEvents();
+//        events.add(event);
+//        this.dynamoDbMapper.save(profile);
+//
+//        return events;
 
-        return events;
-
-    }
+//    }
 
     /**
      * Creates a new Event object.

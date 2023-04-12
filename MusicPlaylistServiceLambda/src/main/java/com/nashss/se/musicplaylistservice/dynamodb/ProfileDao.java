@@ -1,6 +1,7 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
@@ -160,4 +161,14 @@ public class ProfileDao {
         return updatedList;
     }
 
+    public Set<String> addEventToFollowing(String eventId, String profileId) {
+        Profile profileToAddEventTo = this.getProfile(profileId);
+        Set<String> eventsStoredAlready = profileToAddEventTo.getEvents();
+        eventsStoredAlready.add(eventId);
+        profileToAddEventTo.setEvents(eventsStoredAlready);
+        //??? make sure this doesn't overwrite the existing fields in the database object its late and I can't
+        //remember off the top of my head
+        this.dynamoDbMapper.save( profileToAddEventTo);
+        return eventsStoredAlready;
+    }
 }
