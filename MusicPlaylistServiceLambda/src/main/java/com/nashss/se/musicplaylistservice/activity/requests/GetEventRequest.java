@@ -28,7 +28,7 @@ public class GetEventRequest {
         private String eventId;
 
 
-        public GetEventRequest.Builder withId(String eventId) {
+        public Builder withId(String eventId) {
             this.eventId = eventId;
             return this;
         }

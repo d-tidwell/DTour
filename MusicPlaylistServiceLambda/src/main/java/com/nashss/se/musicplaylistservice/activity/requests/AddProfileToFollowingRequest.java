@@ -30,8 +30,8 @@ public class AddProfileToFollowingRequest {
     }
 
     //CHECKSTYLE:OFF:Builder
-    public static AddProfileToFollowingRequest.Builder builder() {
-        return new AddProfileToFollowingRequest.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     @JsonPOJOBuilder
@@ -39,12 +39,12 @@ public class AddProfileToFollowingRequest {
         private String id;
         private String idToAdd;
 
-        public AddProfileToFollowingRequest.Builder withId(String id) {
+        public Builder withId(String id) {
             this.id = id;
             return this;
         }
 
-        public AddProfileToFollowingRequest.Builder withIdToAdd(String idToAdd) {
+        public Builder withIdToAdd(String idToAdd) {
             this.idToAdd = idToAdd;
             return this;
         }
