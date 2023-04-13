@@ -3,12 +3,60 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "KirillZininTestEmailAddress@gmail.com"},
-          "firstName": {"S": "Kirill"},
-          "lastName": {"S": "Zinin"},
+          "id": {"S": "NoahCainTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Noah"},
+          "lastName": {"S": "Cain"},
           "location": {"S": "Mount Juliet"},
           "gender": {"S": "male"},
           "dateOfBirth": {"S": "09.18.1985"},
+          "following": {
+            "SS": [
+              "AndresATestEmailAddress@gmail.com",
+              "AshleyGildayTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "001NASH",
+              "002NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "AshleyGildayTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Ashley"},
+          "lastName": {"S": "Gilday"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "12.25.1983"},
+          "following": {
+            "SS": [
+              "NoahCainTestEmailAddress@gmail.com",
+              "AndresATestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "002NASH",
+              "003NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "AndresATestEmailAddress@gmail.com"},
+          "firstName": {"S": "Andres"},
+          "lastName": {"S": "A"},
+          "location": {"S": "Knoxville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "04.05.1990"},
           "following": {
             "SS": [
               "NoahCainTestEmailAddress@gmail.com",
@@ -17,56 +65,8 @@
           },
           "events": {
             "SS": [
-              "Game, Grill and Chill",
-              "Little Explorers"
-            ]
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "id": {"S": "SvetlanaLuntikTestEmailAddress@gmail.com"},
-          "firstName": {"S": "Svetlana"},
-          "lastName": {"S": "Luntik"},
-          "location": {"S": "Nashville"},
-          "gender": {"S": "female"},
-          "dateOfBirth": {"S": "12.25.1983"},
-          "following": {
-            "SS": [
-              "AshleyGildayTestEmailAddress@gmail.com",
-              "AndresATestEmailAddress@gmail.com"
-            ]
-          },
-          "events": {
-            "SS": [
-              "Little Explorers",
-              "Dino Discovery Day"
-            ]
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "id": {"S": "AndrewAdamsTestEmailAddress@gmail.com"},
-          "firstName": {"S": "Andrew"},
-          "lastName": {"S": "Adams"},
-          "location": {"S": "Knoxville"},
-          "gender": {"S": "male"},
-          "dateOfBirth": {"S": "04.05.1990"},
-          "following": {
-            "SS": [
-              "NoahCainTestEmailAddress@gmail.com",
-              "AndresATestEmailAddress@gmail.com"
-            ]
-          },
-          "events": {
-            "SS": [
-              "Dino Discovery Day",
-              "Game, Grill and Chill"
+              "003NASH",
+              "001NASH"
             ]
           }
         }

@@ -25,7 +25,7 @@ public class GetEventResult {
     public static class Builder{
         private EventModel eventModel;
 
-        public GetEventResult.Builder withEventModel(EventModel eventModel){
+        public Builder withEventModel(EventModel eventModel){
             this.eventModel = eventModel;
             return this;
         }
@@ -36,8 +36,8 @@ public class GetEventResult {
 
     }
 
-    public static GetEventResult.Builder builder(){
-        return new GetEventResult.Builder();
+    public static Builder builder(){
+        return new Builder();
     }
 
 }
