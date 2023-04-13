@@ -31,7 +31,7 @@ public class GetProfileRequest {
         private String profileId;
 
 
-        public GetProfileRequest.Builder withId(String profileId) {
+        public Builder withId(String profileId) {
             this.profileId = profileId;
             return this;
         }
