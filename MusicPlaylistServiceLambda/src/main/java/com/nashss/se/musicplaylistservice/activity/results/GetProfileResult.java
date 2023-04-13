@@ -24,7 +24,7 @@ public class GetProfileResult {
     public static class Builder{
         private ProfileModel profileModel;
 
-        public GetProfileResult.Builder withProfileModel(ProfileModel profileModel){
+        public Builder withProfileModel(ProfileModel profileModel){
             this.profileModel = profileModel;
             return this;
         }
