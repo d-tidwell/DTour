@@ -7,6 +7,11 @@ class ViewProfile extends BindingClass {
         super();
         this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout'], this);
         this.dataStore = new DataStore();
+        this.dataStore.addChangeListener(this.redirectAllEvents);
+        this.dataStore.addChangeListener(this.redirectCreateEvents);
+        this.dataStore.addChangeListener(this.redirectEditProfile);
+        this.dataStore.addChangeListener(this.redirectAllFollowing);
+        this.dataStore.addChangeListener(this.logout);
         this.header = new Header(this.dataStore);
         console.log("viewprofile constructor");
     }
@@ -52,6 +57,7 @@ class ViewProfile extends BindingClass {
 
     redirectEditProfile(){
         window.location.href = '/createProfile.html';
+        console.log("createEvent button clicked");
     }
     redirectAllEvents(){
         window.location.href = '/viewAllEvents.html';
