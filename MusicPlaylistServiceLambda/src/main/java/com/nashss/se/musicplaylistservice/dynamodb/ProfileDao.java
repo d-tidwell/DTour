@@ -43,43 +43,6 @@ public class ProfileDao {
         return profile;
     }
 
-//        ?? NOAH We have two save profile functions both different neither correct
-//    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth, Set<String> events, Set<String> following ) {
-//        Profile profile = new Profile();
-//        //??where are you setting these values and saving them
-//        if(profileId.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || location.isEmpty() || gender.isEmpty() || dateOfBirth==null){
-//            //fix this exception so that it is throwable
-//            throw new InvalidAttributeValueException("Arguments can not be empty, please try again.");
-//        }
-//
-//        if(events == null){
-//            events = new HashSet<>();
-//        }
-//        if(following == null){
-//            following = new HashSet<>();
-//        }
-//
-//        return profile;
-//    }
-
-//    ?? NATALIA We have two save profile functions both different neither correct
-//    public Profile saveProfile(String profileId, String firstName, String lastName, String location, String gender,
-//                               String dateOfBirth, Set<String> events, Set<String> following) {
-        //what happens if this is an update and not a save ? what about null values??
-//        Profile profile = new Profile();
-//        profile.setId(profileId);
-//        profile.setFirstName(firstName);
-//        profile.setLastName(lastName);
-//        profile.setLocation(location);
-//        profile.setGender(gender);
-//        //this needs to be a zoned datetime object
-//        profile.setDateOfBirth(dateOfBirth);
-//        //what if this is an empty value???
-//        profile.setFollowing(following);
-//        profile.setEvents(events);
-//        this.dynamoDbMapper.save(profile);
-//        return profile;
-//    }
     public Profile saveProfile(boolean isNew, String emailAddress, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
         Profile saveProfile = new Profile();
         //needed either for update or save bc its the hashkey
