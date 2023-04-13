@@ -15,9 +15,10 @@ class ViewProfile extends BindingClass {
      * Once the client is loaded, get the profile metadata and song list.
      */
     async clientLoaded() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const profileId = urlParams.get('id');
-        const profile = await this.client.getProfile(profileId);
+        // const urlParams = new URLSearchParams(window.location.search);
+        const identity = this.client.getIdentity();
+        const profile = await this.client.getProfile(identity.email);
+        console.log("getting..." + identity.email);
         this.dataStore.set('profile', profile);
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('eventResults').innerText = "Loading Events ...";
