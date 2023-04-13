@@ -203,12 +203,3 @@ be on the page, especially where customers enter and submit data. You may want t
 mockups with some description of behaviors of the page (e.g. "When customer submits the submit-dog-photo
 button, the customer is sent to the doggie detail page")_
 
-
-
-
-
-
-
-
-
-MAKE SURE YOU ARE SHOWING FUTURE EVENTS AND NOT HISTORICAL EVENTS!!
