@@ -131,11 +131,11 @@ export default class DannaClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.post(`profiles/createProfile`, {
-                fname: fname,
-                lname: lname,
+                firstName: firstName,
+                lastName: lastName,
                 location: location,
                 gender: gender,
-                dob: dob
+                dateOfBirth: dateOfBirth
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -164,11 +164,11 @@ export default class DannaClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.put(`profiles/${id}`, {
-                fname: fname,
-                lname: lname,
+                firstName: firstName,
+                lastName: lastName,
                 location: location,
                 gender: gender,
-                dob: dob
+                dateOfBirth: dateOfBirth
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -234,7 +234,7 @@ export default class DannaClient extends BindingClass {
                 time: time,
                 address: address,
                 category: category,
-                description: description
+                description: description,
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -264,7 +264,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile.events;
+            return response.data.events;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

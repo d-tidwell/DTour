@@ -9,7 +9,6 @@ import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 
 @JsonDeserialize(builder = CreateProfileRequest.Builder.class)
 public class CreateProfileRequest {
-    private final boolean isNew;
     private final String firstName;
     private final String lastName;
     private final String emailAddress;
@@ -17,10 +16,6 @@ public class CreateProfileRequest {
     private final String gender;
     private final String dateOfBirth;
 
-
-    public boolean isNew() {
-        return isNew;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -50,7 +45,6 @@ public class CreateProfileRequest {
     @Override
     public String toString() {
         return "CreateProfileRequest{" +
-                "isNew=" + isNew +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
@@ -60,9 +54,9 @@ public class CreateProfileRequest {
                 '}';
     }
 
-    private CreateProfileRequest(boolean isNew, String firstName, String lastName, String emailAddress, String location,
+    private CreateProfileRequest(String firstName, String lastName, String emailAddress, String location,
                                  String gender, String dateOfBirth){
-        this.isNew = isNew;
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -75,7 +69,6 @@ public class CreateProfileRequest {
     }
 @JsonPOJOBuilder
     public static class Builder{
-    private  boolean isNew;
     private  String firstName;
     private  String lastName;
     private  String emailAddress;
@@ -111,7 +104,7 @@ public class CreateProfileRequest {
 
     public CreateProfileRequest build(){
 
-        return new CreateProfileRequest(isNew,firstName,lastName,emailAddress,location,gender,dateOfBirth);
+        return new CreateProfileRequest(firstName,lastName,emailAddress,location,gender,dateOfBirth);
     }
 }
 }
