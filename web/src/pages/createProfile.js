@@ -42,9 +42,8 @@ class CreateProfile extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('submit-btn').addEventListener('click', this.showConfirmationModal);
-        document.getElementById('cancel-Btn').addEventListener('click', closeModal);
+        document.getElementById('cancel-Btn').addEventListener('click', this.closeModal);
         document.getElementById('confirm-Btn').addEventListener('click', this.submitFormData);
-        closeBtn.addEventListener('click', closeModal);
 
         // this.header.addHeaderToPage();
 
@@ -134,6 +133,13 @@ class CreateProfile extends BindingClass {
         this.dataStore.set('profile', profile);
         window.location.href = '/viewProfile.html';
     }
+
+    async closeModal() {
+        const modal = document.querySelector('.modal.is-active'); // get the active modal element
+        if (modal) {
+          modal.classList.remove('is-active'); // remove the "is-active" class to close the modal
+        }
+      }
 
     redirectEditProfile(){
         window.location.href = '/createProfile.html';
