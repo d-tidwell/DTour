@@ -22,7 +22,7 @@ Event & EventModel
 
 POST Create a new profile accepts all profile information needed to create a Profile object 
     endpoint: profile/create
-    data: fname, lname, location, gender, dob
+    data: id, fname, lname, location, gender, dob
     response: all of the new created profile object data
     (use for returning data from createProfile.html,createProfile.js)
 GET endpoint uses email (id) and returns all of the profile information to include:

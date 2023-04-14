@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="assets/createProfile.js"></script>
         <link rel="stylesheet" type="text/css" href="css/MidstoneStyle.css">
         <link rel="shortcut icon" href="icons/balloon-heart.svg">
         <title>@DANNA</title>
@@ -22,6 +23,18 @@
             <span>!!!</span>
         </header>
         <body>
+        <!-- Modal HTML -->
+        <div id="confirmation-modal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirm Submission</h2>
+            <p id="confirmation-message"></p>
+            <div class="modal-buttons">
+              <button id="confirm-btn">Confirm</button>
+              <button id="cancel-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
         <div class="container-fluid">
             <div class="row flex-nowrap">
                 <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -84,7 +97,7 @@
                                     <input type="text" class="form-control" id="gender" placeholder="Gender">
                                   </div>
                                   <div class="text-end">
-                                    <button class="btn btn-dark">Submit</button>
+                                    <button class="btn btn-dark" id="submit-btn">Submit</button>
                                   </div>
                                 </form>
                               </div>
