@@ -317,7 +317,10 @@ paths:
                 description:
                   type: string
                 category:
-                  type: string
+                  type: array
+                    items:
+                      type: string
+                    uniqueItems: true
       responses:
         "200":
           description: A profile object

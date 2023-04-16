@@ -10,7 +10,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -56,10 +55,10 @@ public class EventDao {
             throw new EventNotFoundException("Could not find event with id " + eventId);
         }
 
-        ZonedDateTime dateTime = event.getDateTime();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = dateTime.format(formatter);
-        this.checkEventDateTime(formattedDateTime);
+        // ZonedDateTime dateTime = event.getDateTime();
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // String formattedDateTime = dateTime.format(formatter);
+        // this.checkEventDateTime(formattedDateTime);
 
         metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 0);
         return event;
@@ -75,9 +74,11 @@ public class EventDao {
     // backend so since this is just checking the datetime issue lets call this that and the other save
 
     public boolean checkEventDateTime(String eventTime) {
-        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime eventDate = ZonedDateTime.parse(eventTime);
+        ZonedDateTime now = ZonedDateTime.now(eventDate.getZone());
+
         //just make sure this gets tested between now and Friday so we are sure 100% its effective
-        if(ZonedDateTime.parse(eventTime).isAfter(now)){
+        if(eventDate.isAfter(now)){
             return true;
         } else {
             //create this exception handling I just put this here as an example
@@ -103,6 +104,7 @@ public class EventDao {
             event.setDescription(description);
             event.setDateTime(dateTime);
             event.setCategory(new HashSet<>());
+            event.setAttendees(new HashSet<>());
 
         //if it's not a new event, this must an update
         } else {
