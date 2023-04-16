@@ -66,9 +66,9 @@ PUT remove event from Profile
 ## MISC
 PUT accepts an email of the person you want to add to the current session users email list of follower
     endpoint: profiles/addFollowing
-    data: profileId of the person to add to this profiles list
+    data: profileId & id of the person to add to this profiles list
     response: updated profiles following list
 PUT remove by email of the person you want to remove from the current sessions email list of following
     endpoint: profiles/removeFollowing
-    data: profileId of the person to remove from this profiles list
+    data: profileId & id of the person to remove from this profiles list
     response: updated profiles following list

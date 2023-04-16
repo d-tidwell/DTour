@@ -7,6 +7,8 @@ import java.util.Set;
 
 @JsonDeserialize(builder = UpdateEventRequest.Builder.class)
 public class UpdateEventRequest {
+
+    private final String profileId;
     private final String eventId;
     private final String name;
     private final String eventCreator;
@@ -15,7 +17,8 @@ public class UpdateEventRequest {
     private final String dateTime;
     private final Set<String> category;
 
-    private UpdateEventRequest(String eventId, String name, String eventCreator, String address, String description, String dateTime, Set<String> category) {
+    private UpdateEventRequest(String profileId, String eventId, String name, String eventCreator, String address, String description, String dateTime, Set<String> category) {
+        this.profileId = profileId;
         this.eventId = eventId;
         this.name = name;
         this.eventCreator = eventCreator;
@@ -25,7 +28,7 @@ public class UpdateEventRequest {
         this.category = category;
 
     }
-
+    public String getProfileId(){return profileId;}
     public String getEventId() {
         return eventId;
     }
@@ -58,13 +61,14 @@ public class UpdateEventRequest {
     @Override
     public String toString() {
         return "UpdateEventRequest{" +
-                "eventId='" + eventId + '\'' +
+                "profileId='" + profileId + '\'' +
+                ", eventId='" + eventId + '\'' +
                 ", name='" + name + '\'' +
                 ", eventCreator='" + eventCreator + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
                 ", dateTime='" + dateTime + '\'' +
-                ", category='" + category + '\'' +
+                ", category=" + category +
                 '}';
     }
 
@@ -75,6 +79,7 @@ public class UpdateEventRequest {
 
     @JsonPOJOBuilder
     public static class Builder {
+        private String profileId;
         private String eventId;
         private String name;
         private String eventCreator;
@@ -83,6 +88,10 @@ public class UpdateEventRequest {
         private String dateTime;
         private Set<String> category;
 
+        public Builder withProfileId(String profileId) {
+            this.profileId = profileId;
+            return this;
+        }
         public Builder withEventId(String eventId) {
             this.eventId = eventId;
             return this;
@@ -120,7 +129,7 @@ public class UpdateEventRequest {
 
 
         public UpdateEventRequest build() {
-            return new UpdateEventRequest(eventId, name, eventCreator, address, description, dateTime, category);
+            return new UpdateEventRequest(profileId, eventId, name, eventCreator, address, description, dateTime, category);
         }
     }
 }

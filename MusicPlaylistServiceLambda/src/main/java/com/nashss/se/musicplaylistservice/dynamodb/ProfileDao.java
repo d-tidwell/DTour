@@ -48,7 +48,8 @@ public class ProfileDao {
             saveProfile.setLastName(lastName);
             saveProfile.setLocation(location);
             saveProfile.setGender(gender);
-            //this needs to be a zoned datetime object
+            //this needs to be a zoned datetime object to check for valid birthday but stored as a string
+            //so you would need to make a function that does that
             saveProfile.setDateOfBirth(dateOfBirth.toString());
             //they couldn't possibly have values so we need to set them here so the field exists
             saveProfile.setEvents(new HashSet<>());
@@ -69,6 +70,8 @@ public class ProfileDao {
             if (gender != null || !gender.isEmpty()) {
                 saveProfile.setFirstName(gender);
             }
+            //this needs to be a zoned datetime object to check for valid birthday but stored as a string
+            //so you would need to make a function that does that
             if (!Objects.isNull(dateOfBirth)) {
                 saveProfile.setDateOfBirth(dateOfBirth.toString());
             }
@@ -119,8 +122,6 @@ public class ProfileDao {
         Set<String> eventsStoredAlready = profileToAddEventTo.getEvents();
         eventsStoredAlready.add(eventId);
         profileToAddEventTo.setEvents(eventsStoredAlready);
-        //??? make sure this doesn't overwrite the existing fields in the database object its late and I can't
-        //remember off the top of my head
         this.dynamoDbMapper.save( profileToAddEventTo);
         return eventsStoredAlready;
     }
