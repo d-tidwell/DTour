@@ -151,7 +151,7 @@ export default class MusicPlaylistClient extends BindingClass {
     }
 
     /**
-     * Search for a soong.
+     * Search for a song.
      * @param criteria A string containing search criteria to pass to the API.
      * @returns The playlists that match the search criteria.
      */

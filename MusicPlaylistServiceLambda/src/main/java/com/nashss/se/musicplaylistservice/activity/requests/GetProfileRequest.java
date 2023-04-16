@@ -9,7 +9,6 @@ import java.util.Set;
 public class GetProfileRequest {
     private final String profileId;
 
-
     public GetProfileRequest(String profileId) {
         this.profileId = profileId;
     }

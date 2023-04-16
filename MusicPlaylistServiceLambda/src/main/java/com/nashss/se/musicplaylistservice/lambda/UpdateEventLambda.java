@@ -14,15 +14,18 @@ public class UpdateEventLambda
         return super.runActivity(
                 () -> {
                     UpdateEventRequest unauthenticatedRequest = input.fromBody(UpdateEventRequest.class);
-                    return input.fromPath(path ->
+                    String eventIdFromPath = input.getPathParameters().get("id");
+                    return input.fromUserClaims(claims ->
                             UpdateEventRequest.builder()
-                                    .withName(unauthenticatedRequest.getName())
-                                    .withEventCreator(unauthenticatedRequest.getEventCreator())
-                                    .withAddress(unauthenticatedRequest.getAddress())
-                                    .withDescription(unauthenticatedRequest.getDescription())
-                                    .withDateTime(unauthenticatedRequest.getDateTime())
-                                    .withCategory(unauthenticatedRequest.getCategory())
-                                    .build());
+                                .withProfileId(claims.get("email"))
+                                .withEventId(eventIdFromPath)
+                                .withName(unauthenticatedRequest.getName())
+                                .withEventCreator(unauthenticatedRequest.getEventCreator())
+                                .withAddress(unauthenticatedRequest.getAddress())
+                                .withDescription(unauthenticatedRequest.getDescription())
+                                .withDateTime(unauthenticatedRequest.getDateTime())
+                                .withCategory(unauthenticatedRequest.getCategory())
+                                .build());
                 },
                 (request, serviceComponent) ->
                         serviceComponent.provideUpdateEventActivity().handleRequest(request)

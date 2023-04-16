@@ -82,20 +82,20 @@ export default class DannaClient extends BindingClass {
     async getProfile(id, errorCallback) {
         try {
             const response = await this.axiosClient.get(`profiles/${id}`);
-            return response.data.profile;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
    /**
-    * @param  errorCallback (Optional) a funciton to execute on a failed call
+    * @param  errorCallback (Optional) a function to execute on a failed call
     * @returns all the events
     */
     async getAllEvents(errorCallback) {
         try {
             const response = await this.axiosClient.get(`events/all/`);
-            return response.data.events;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -110,7 +110,7 @@ export default class DannaClient extends BindingClass {
     async getEventDetails(id, errorCallback) {
         try {
             const response = await this.axiosClient.get(`events/${id}`);
-            return response.data.event;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -127,22 +127,23 @@ export default class DannaClient extends BindingClass {
      * @param  errorCallback 
      * @returns profile metadata
      */
-    async createProfile(id, fname, lname, location, gender, dob, errorCallback) {
+    async createProfile(id, firstName, lastName, location, gender, dateOfBirth, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.post(`profiles/createProfile`, {
-                fname: fname,
-                lname: lname,
+                id: id,
+                firstName: firstName,
+                lastName: lastName,
                 location: location,
                 gender: gender,
-                dob: dob
+                dateOfBirth: dateOfBirth
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -160,22 +161,22 @@ export default class DannaClient extends BindingClass {
      * @returns profile metadata
      */
 
-    async updateProfile(id, fname, lname, location, gender,dob, errorCallback) {
+    async updateProfile(id, firstName, lastName, location, gender, dateOfBirth, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
             const response = await this.axiosClient.put(`profiles/${id}`, {
-                fname: fname,
-                lname: lname,
+                firstName: firstName,
+                lastName: lastName,
                 location: location,
                 gender: gender,
-                dob: dob
+                dateOfBirth: dateOfBirth
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -208,7 +209,7 @@ export default class DannaClient extends BindingClass {
 
                 }
             });
-            return response.data.event;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -234,14 +235,14 @@ export default class DannaClient extends BindingClass {
                 time: time,
                 address: address,
                 category: category,
-                description: description
+                description: description,
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.event;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -264,7 +265,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile.events;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -287,7 +288,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile.events;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -310,7 +311,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile.following;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
@@ -333,7 +334,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data.profile.following;
+            return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

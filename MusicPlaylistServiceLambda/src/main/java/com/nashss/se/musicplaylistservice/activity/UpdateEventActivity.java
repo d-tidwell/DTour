@@ -59,7 +59,7 @@ public class UpdateEventActivity {
 
         Event event = eventDao.getEvent(updateEventRequest.getEventId());
 
-        if (!event.getEventId().equals(updateEventRequest.getEventId())) {
+        if (!event.getCreatedBy().equals(updateEventRequest.getProfileId())) {
             publishExceptionMetrics(false, true);
             throw new SecurityException("You must own an event to update it.");
         }

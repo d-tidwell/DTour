@@ -13,5 +13,6 @@ public class MetricsConstants {
     public static final String NAMESPACE_NAME = "U3/MusicPlaylistService";
     public static final String UPDATEEVENT_INVALIDATTRIBUTECHANGE_COUNT =
             "UpdateEvent.InvalidAttributeValueException.Count";
-    public static final String UPDATEPROFILE_INVALIDATTRIBUTECHANGE_COUNT = "UpdateProfile.InvalidAttributeValueException.Count";
+    public static final String UPDATEPROFILE_INVALIDATTRIBUTECHANGE_COUNT = "UpdateProfile.InvalidAttributeChangeException.Count";
+    public static final String UPDATEPROFILE_INVALIDATTRIBUTEVALUE_COUNT = "UpdateProfile.InvalidAttributeValueException.Count";
 }

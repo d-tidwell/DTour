@@ -35,9 +35,9 @@ public class CreateProfileActivity {
         if(!MusicPlaylistServiceUtils.isValidString(createProfileRequest.getFirstName())){
             throw new InvalidAttributeValueException("Your Name cannot contain illegal characters");
         }
-        //?? the model converter - - See below
+
         Profile newProfile = profileDao.saveProfile(true,
-                createProfileRequest.getEmailAddress(), createProfileRequest.getFirstName(),
+                createProfileRequest.getId(), createProfileRequest.getFirstName(),
                 createProfileRequest.getLastName(), createProfileRequest.getLocation(),
                 createProfileRequest.getGender(), ZonedDateTime.parse(createProfileRequest.getDateOfBirth()));
 

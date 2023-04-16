@@ -416,7 +416,7 @@ Resources:
         MusicPlaylistService:
           Type: Api
           Properties:
-            Path: /events
+            Path: /events/create
             Method: post
 
   UpdateEventLambda:

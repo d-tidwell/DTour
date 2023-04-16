@@ -17,21 +17,26 @@ implements RequestHandler<AuthenticatedLambdaRequest<UpdateProfileRequest>,Lambd
      */
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<UpdateProfileRequest> input, Context context) {
+        // Run the activity with the provided input and service component
         return super.runActivity(
                 () -> {
+                    // Deserialize the request body into an UpdateProfileRequest object
                     UpdateProfileRequest unauthenticatedRequest = input.fromBody(UpdateProfileRequest.class);
-                    return input.fromPath(path ->
-                            UpdateProfileRequest.builder()
-                                    .withFirstName(unauthenticatedRequest.getFirstName())
-                                    .withLastName(unauthenticatedRequest.getLastName())
-                                    .withLocation(unauthenticatedRequest.getLocation())
-                                    .withGender(unauthenticatedRequest.getGender())
-                                    .withDateOfBirth(unauthenticatedRequest.getDateOfBirth())
-                                    .withId(path.get("email"))
-                                    .build());
+
+                    // Extract the profileId from the path parameter named 'id'
+                    String profileIdFromPath = input.getPathParameters().get("id");
+
+                    // Build a new UpdateProfileRequest object with the path parameter 'id' and the body values
+                    return UpdateProfileRequest.builder()
+                            .withFirstName(unauthenticatedRequest.getFirstName())
+                            .withLastName(unauthenticatedRequest.getLastName())
+                            .withLocation(unauthenticatedRequest.getLocation())
+                            .withGender(unauthenticatedRequest.getGender())
+                            .withDateOfBirth(unauthenticatedRequest.getDateOfBirth())
+                            .withId(profileIdFromPath)
+                            .build();
                 },
-                (request, serviceComponent) ->
-                        serviceComponent.provideUpdateProfileActivity().handleRequest(request)
+                (request, serviceComponent) -> serviceComponent.provideUpdateProfileActivity().handleRequest(request)
         );
     }
 }
