@@ -1,21 +1,16 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
-import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeException;
-import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeValueException;
 import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -43,10 +38,10 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile saveProfile(boolean isNew, String emailAddress, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
+    public Profile saveProfile(boolean isNew, String id, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
         Profile saveProfile = new Profile();
         //needed either for update or save bc its the hashkey
-        saveProfile.setId(emailAddress);
+        saveProfile.setId(id);
         //if this is a new profile we are saving just save the info we are given we know this bc we passed true
         if(isNew) {
             saveProfile.setFirstName(firstName);

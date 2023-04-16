@@ -37,7 +37,7 @@ public class CreateProfileActivity {
         }
         //?? the model converter - - See below
         Profile newProfile = profileDao.saveProfile(true,
-                createProfileRequest.getEmailAddress(), createProfileRequest.getFirstName(),
+                createProfileRequest.getId(), createProfileRequest.getFirstName(),
                 createProfileRequest.getLastName(), createProfileRequest.getLocation(),
                 createProfileRequest.getGender(), ZonedDateTime.parse(createProfileRequest.getDateOfBirth()));
 

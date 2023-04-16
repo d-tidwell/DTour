@@ -18,12 +18,12 @@ implements RequestHandler<AuthenticatedLambdaRequest<GetEventRequest>, LambdaRes
  */
 @Override
 public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetEventRequest> input, Context context) {
-        return super.runActivity(
+                return super.runActivity(
         () -> input.fromPath(path ->
-        GetEventRequest.builder()
-        .withId(path.get("id"))
-        .build()),
-        (request,serviceComponent)->
-        serviceComponent.provideGetEventActivity().handleRequest(request));
-        }
+                GetEventRequest.builder()
+                        .withId(path.get("id"))
+                        .build()),
+                (request,serviceComponent)->
+                        serviceComponent.provideGetEventActivity().handleRequest(request));
+                }
         }

@@ -22,7 +22,7 @@ implements RequestHandler<AuthenticatedLambdaRequest<CreateProfileRequest>,Lambd
                     CreateProfileRequest unauthenticatedRequest = input.fromBody(CreateProfileRequest.class);
                     return input.fromUserClaims(claims ->
                             CreateProfileRequest.builder()
-                                    .withEmailAddress(claims.get("email"))
+                                    .withId(claims.get("email"))
                                     .withFirstName(unauthenticatedRequest.getFirstName())
                                     .withLastName(unauthenticatedRequest.getLastName())
                                     .withLocation(unauthenticatedRequest.getLocation())

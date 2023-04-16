@@ -9,9 +9,9 @@ import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 
 @JsonDeserialize(builder = CreateProfileRequest.Builder.class)
 public class CreateProfileRequest {
+    private final String id;
     private final String firstName;
     private final String lastName;
-    private final String emailAddress;
     private final String location;
     private final String gender;
     private final String dateOfBirth;
@@ -25,8 +25,8 @@ public class CreateProfileRequest {
         return lastName;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getId() {
+        return id;
     }
 
     public String getLocation() {
@@ -47,19 +47,19 @@ public class CreateProfileRequest {
         return "CreateProfileRequest{" +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
+                ", id='" + id + '\'' +
                 ", location='" + location + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 '}';
     }
 
-    private CreateProfileRequest(String firstName, String lastName, String emailAddress, String location,
+    private CreateProfileRequest(String firstName, String lastName, String id, String location,
                                  String gender, String dateOfBirth){
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailAddress = emailAddress;
+        this.id = id;
         this.location = location;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -69,9 +69,10 @@ public class CreateProfileRequest {
     }
 @JsonPOJOBuilder
     public static class Builder{
+
+    private  String id;
     private  String firstName;
     private  String lastName;
-    private  String emailAddress;
     private  String location;
     private  String gender;
     private  String dateOfBirth;
@@ -85,8 +86,8 @@ public class CreateProfileRequest {
         this.lastName = lastName;
         return this;
     }
-    public Builder withEmailAddress(String emailAddress){
-        this.emailAddress = emailAddress;
+    public Builder withId(String id){
+        this.id = id;
         return this;
     }
     public Builder withLocation(String location){
@@ -104,7 +105,7 @@ public class CreateProfileRequest {
 
     public CreateProfileRequest build(){
 
-        return new CreateProfileRequest(firstName,lastName,emailAddress,location,gender,dateOfBirth);
+        return new CreateProfileRequest(firstName,lastName,id,location,gender,dateOfBirth);
     }
 }
 }
