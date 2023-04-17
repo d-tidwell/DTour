@@ -10,25 +10,31 @@ class LandingPage extends BindingClass {
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
+        this.client = new dannaClient();
+        this.clientLoaded();
     }
 
     async clientLoaded() {}
 
-    mount() {
+    async mount() {
+        const loggedIn = await this.client.isLoggedIn();
+        console.log("HERE", loggedIn);
+        if(loggedIn){
+            window.location.href= "/profile.html";
+        }
         document.getElementById('logout').addEventListener('click', this.login);
         document.getElementById('logout-2').addEventListener('click', this.login);
         document.getElementById('sign-up').addEventListener('click', this.login);
 
         // this.header.addHeaderToPage();
 
-        this.client = new dannaClient();
-        this.clientLoaded();
     }
 
     async login(){
         await this.client.login();
         
     }
+
 
 
 }

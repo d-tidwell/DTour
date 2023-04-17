@@ -21,7 +21,7 @@ class ViewProfile extends BindingClass {
      */
     async clientLoaded() {
         // const urlParams = new URLSearchParams(window.location.search);
-        const identity = this.client.getIdentity();
+        const identity = await this.client.getIdentity();
         console.log("Identity", identity);
         const profile = await this.client.getProfile(identity.email);
         console.log("getting..." + identity.email);
@@ -29,8 +29,8 @@ class ViewProfile extends BindingClass {
         console.log(profile);
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('eventResults').innerText = "Loading Events ...";
-        document.getElementById('personalEventResults').innerText = "Loading Personal Events...)";
-        document.getElementById("followingList").innerText = "Loading People You Follow...";
+        document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
+        document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
 
     }
     /**

@@ -20,7 +20,7 @@ export default class DannaClient extends BindingClass {
                                 'removeFromFollowing', 'isLoggedIn'];
         this.bindClassMethods(methodsToBind, this);
 
-        this.authenticator = new Authenticator();;
+        this.authenticator = new Authenticator();
         this.props = props;
 
         axios.defaults.baseURL = process.env.API_BASE_URL;
@@ -38,7 +38,7 @@ export default class DannaClient extends BindingClass {
     }
 
     async isLoggedIn(){
-        return this.Authenticator.isUserLoggedIn();
+        return this.authenticator.isUserLoggedIn();
     }
     /**
      * Get the identity of the current user
@@ -46,13 +46,14 @@ export default class DannaClient extends BindingClass {
      * @returns The user information for the current user.
      */
     async getIdentity(errorCallback) {
+        
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
 
             if (!isLoggedIn) {
                 return undefined;
             }
-
+            console.log("called getIdentity!!!!", this.authenticator.getCurrentUserInfo())
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
             this.handleError(error, errorCallback)
