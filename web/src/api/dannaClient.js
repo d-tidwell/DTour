@@ -82,6 +82,7 @@ export default class DannaClient extends BindingClass {
     async getProfile(id, errorCallback) {
         try {
             const response = await this.axiosClient.get(`profiles/${id}`);
+            console.log(response.data);
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -127,11 +128,10 @@ export default class DannaClient extends BindingClass {
      * @param  errorCallback 
      * @returns profile metadata
      */
-    async createProfile(id, firstName, lastName, location, gender, dateOfBirth, errorCallback) {
+    async createProfile(firstName, lastName, location, gender, dateOfBirth, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create a profile.");
-            const response = await this.axiosClient.post(`profiles/createProfile`, {
-                id: id,
+            const response = await this.axiosClient.post(`profiles/create`, {
                 firstName: firstName,
                 lastName: lastName,
                 location: location,
@@ -143,6 +143,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
+            console.log(response.data);
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
