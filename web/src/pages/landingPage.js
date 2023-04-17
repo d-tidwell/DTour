@@ -26,8 +26,8 @@ class LandingPage extends BindingClass {
     }
 
     async login(){
-        this.client.login;
-        window.location.href = '/profile.html'
+        await this.client.login();
+        
     }
 
 

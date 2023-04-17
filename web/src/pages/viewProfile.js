@@ -17,14 +17,16 @@ class ViewProfile extends BindingClass {
     }
 
     /**
-     * Once the client is loaded, get the profile metadata and song list.
+     * Once the client is loaded, get the profile metadata.
      */
     async clientLoaded() {
         // const urlParams = new URLSearchParams(window.location.search);
         const identity = this.client.getIdentity();
+        console.log("Identity", identity);
         const profile = await this.client.getProfile(identity.email);
         console.log("getting..." + identity.email);
         this.dataStore.set('profile', profile);
+        console.log(profile);
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('eventResults').innerText = "Loading Events ...";
         document.getElementById('personalEventResults').innerText = "Loading Personal Events...)";
@@ -49,6 +51,7 @@ class ViewProfile extends BindingClass {
     }
 
     async addEvents(){
+        console.log(this.dataStore.profile);
         const profile = this.dataStore.get("profile");
         if (profile == null) {
             return;
@@ -93,9 +96,12 @@ class ViewProfile extends BindingClass {
     redirectAllFollowing(){
         window.location.href = '/allFollowing.html';
     }
-    logout(){
-        this.client.logout;
-        window.location.href ='/landingPage.html';
+    async logout(){
+        await this.client.logout(); 
+        if(!this.client.isLoggedIn()){
+            window.location.href ='/landingPage.html';
+        }
+        
     }
 
 }

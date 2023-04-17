@@ -116,7 +116,7 @@ class CreateProfile extends BindingClass {
         window.location.href = '/allFollowing.html';
     }
     logout(){
-        this.client.logout;
+        this.client.logout();
         window.location.href ='/landingPage.html';
     }
 }
