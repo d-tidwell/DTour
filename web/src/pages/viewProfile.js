@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class ViewProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addEvents);
         this.dataStore.addChangeListener(this.addPersonalEvents);
@@ -56,7 +56,7 @@ class ViewProfile extends BindingClass {
         if (profile == null) {
             return;
         }
-        document.getElementById("eventResults").innerText = profile.events;
+        document.getElementById("eventResults").innerText = profile.profileModel.events;
     }
 
     async addPersonalEvents(){
@@ -64,7 +64,7 @@ class ViewProfile extends BindingClass {
         if (profile == null) {
             return;
         }
-        document.getElementById("personalEventResults").innerText = profile.events;
+        document.getElementById("personalEventResults").innerText = profile.profileModel.events;
     }
 
     async addName(){
@@ -72,7 +72,7 @@ class ViewProfile extends BindingClass {
         if (profile == null) {
             return;
         }
-        document.getElementById("names").innerText = profile.name;
+        document.getElementById("names").innerText = profile.profileModel.name;
     }
 
     async addFollowing(){
@@ -80,7 +80,7 @@ class ViewProfile extends BindingClass {
         if (profile == null) {
             return;
         }
-        document.getElementById("allFollowingList").innerText = profile.following;
+        document.getElementById("allFollowingList").innerText = profile.profileModel.following;
     }
 
     redirectEditProfile(){
