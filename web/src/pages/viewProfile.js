@@ -25,7 +25,12 @@ class ViewProfile extends BindingClass {
         console.log("Identity", identity);
         const profile = await this.client.getProfile(identity.email);
         console.log("getting..." + identity.email);
-        this.dataStore.set('profile', identity);
+        this.dataStore.set('profile', profile);
+        this.dataStore.set('events', profile.profileModel.events);
+        this.dataStore.set('firstName', profile.profileModel.firstName);
+        console.log("checking after client load profile", this.dataStore.get("profile"));
+        console.log("checking after client load profile events", this.dataStore.get("events"));
+        console.log("checking after client load firstname", this.dataStore.get("firstName"));
         console.log(profile);
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('eventResults').innerText = "Loading Events ...";
@@ -51,7 +56,9 @@ class ViewProfile extends BindingClass {
     }
 
     async addEvents(){
-        console.log(this.dataStore.profile);
+        console.log("ADD EVENTS Method CALL", this.dataStore.profile.profileModel);
+        console.log("EVENTS PROFILE KEY ATTEMPT", this.dataStore.profile.profileModel.events);
+        console.log("FirstName PROFILE KEY ATTEMPT", this.dataStore.profile.profileModel.firstName);
         const profile = this.dataStore.get("profile");
         if (profile == null) {
             return;
@@ -79,6 +86,15 @@ class ViewProfile extends BindingClass {
         const profile = this.dataStore.get("profile");
         if (profile == null) {
             return;
+        }
+        profile.profileModel.following.array.forEach(element => {
+            
+        });
+        let profileHtml = '';
+        let profileFollowing;
+        for (profileFollowing of profile.profileModel.following) {
+            document.getElementById("allFollowingList").appendChild('<a href="#" class="nav-link align-middle px-0" id="foreignPic">'+' <i class="bi bi-person-circle"></i>'+'<span class="ms-1 d-none d-sm-inline"><H3 class="names" id="names">'+profileFollowing + '</H3></span></a>');
+            
         }
         document.getElementById("allFollowingList").innerText = profile.profileModel.following;
     }
