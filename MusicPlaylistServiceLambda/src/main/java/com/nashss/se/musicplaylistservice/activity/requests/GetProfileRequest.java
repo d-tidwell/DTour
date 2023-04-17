@@ -5,7 +5,7 @@ import com.nashss.se.musicplaylistservice.activity.results.GetProfileResult;
 
 import java.util.Set;
 
-@JsonDeserialize(builder = GetProfileResult.Builder.class)
+@JsonDeserialize(builder = GetProfileRequest.Builder.class)
 public class GetProfileRequest {
     private final String profileId;
 
