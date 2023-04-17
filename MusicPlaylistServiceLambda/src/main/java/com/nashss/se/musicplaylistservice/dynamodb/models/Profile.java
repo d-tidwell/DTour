@@ -67,8 +67,8 @@ public class Profile {
     }
 
     @DynamoDBAttribute(attributeName = "dateOfBirth")
-    public ZonedDateTime getDateOfBirth() {
-        return ZonedDateTime.parse(dateOfBirth);
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
