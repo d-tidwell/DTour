@@ -40,6 +40,7 @@ class ViewProfile extends BindingClass {
         document.getElementById('createEvents').addEventListener('click', this.redirectCreateEvents);
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
+        document.getElementById('door').addEventListener('click', this.logout);
 
         //this.header.addHeaderToPage();
 
