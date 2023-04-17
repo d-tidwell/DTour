@@ -36,6 +36,7 @@ Globals:
       AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
       AllowHeaders: "'content-type,authorization'"
       AllowOrigin: "'*'"
+      AllowCredentials: "'true'"
     Auth:
       DefaultAuthorizer: CognitoAuthorizer
       AddDefaultAuthorizerToCorsPreflight: false
