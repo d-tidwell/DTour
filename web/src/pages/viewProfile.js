@@ -28,14 +28,13 @@ class ViewProfile extends BindingClass {
         this.dataStore.set('profile', profile);
         this.dataStore.set('events', profile.profileModel.events);
         this.dataStore.set('firstName', profile.profileModel.firstName);
+        this.dataStore.set('lastName', profile.profileModel.lastName);
+        this.dataStore.set('following', profile.profileModel.following);
         console.log("checking after client load profile", this.dataStore.get("profile"));
         console.log("checking after client load profile events", this.dataStore.get("events"));
         console.log("checking after client load firstname", this.dataStore.get("firstName"));
         console.log(profile);
-        document.getElementById('names').innerText = "Loading Profile ...";
-        document.getElementById('eventResults').innerText = "Loading Events ...";
-        document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
-        document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
+        
 
     }
     /**
@@ -48,6 +47,10 @@ class ViewProfile extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
+        document.getElementById('names').innerText = "Loading Profile ...";
+        document.getElementById('eventResults').innerText = "Loading Events ...";
+        document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
+        document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
 
         //this.header.addHeaderToPage();
 
@@ -56,47 +59,42 @@ class ViewProfile extends BindingClass {
     }
 
     async addEvents(){
-        console.log("ADD EVENTS Method CALL", this.dataStore.profile.profileModel);
-        console.log("EVENTS PROFILE KEY ATTEMPT", this.dataStore.profile.profileModel.events);
-        console.log("FirstName PROFILE KEY ATTEMPT", this.dataStore.profile.profileModel.firstName);
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const events = this.dataStore.get("events");
+        if (events == null) {
+            document.getElementById("eventResults").innerText = "No Events added in your Profile";
         }
-        document.getElementById("eventResults").innerText = profile.profileModel.events;
+        document.getElementById("eventResults").innerText = events;
     }
 
     async addPersonalEvents(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const events = this.dataStore.get("events");
+        if (events == null) {
+            document.getElementById("eventResults").innerText = "No Events created by you in your Profile";
         }
-        document.getElementById("personalEventResults").innerText = profile.profileModel.events;
+        document.getElementById("eventResults").innerText = events;
     }
 
     async addName(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const fname = this.dataStore.get("firstName");
+        const lname = this.dataStore.get("lastName");
+        if (fname == null) {
+            document.getElementById("names").innerText = "John Doh";
         }
-        document.getElementById("names").innerText = profile.profileModel.name;
+        document.getElementById("names").innerText = fname + " " + lname;
     }
 
     async addFollowing(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const following = this.dataStore.get("following");
+        if (following == null) {
+            document.getElementById("allFollowingList").innerText = "You are not following anyone";
         }
-        profile.profileModel.following.array.forEach(element => {
-            
-        });
+
         let profileHtml = '';
         let profileFollowing;
-        for (profileFollowing of profile.profileModel.following) {
-            document.getElementById("allFollowingList").appendChild('<a href="#" class="nav-link align-middle px-0" id="foreignPic">'+' <i class="bi bi-person-circle"></i>'+'<span class="ms-1 d-none d-sm-inline"><H3 class="names" id="names">'+profileFollowing + '</H3></span></a>');
-            
+        for (profileFollowing of following) {
+            document.getElementById("allFollowingList").appendChild('<a href="#" class="nav-link align-middle px-0" id="foreignPic">'+' <i class="bi bi-person-circle"></i>'+'<span class="ms-1 d-none d-sm-inline"><H3 class="names" id="names">'+profileFollowing + '</H3></span></a>');   
         }
-        document.getElementById("allFollowingList").innerText = profile.profileModel.following;
+        
     }
 
     redirectEditProfile(){
