@@ -105,7 +105,7 @@ class CreateProfile extends BindingClass {
 
     redirectEditProfile(){
         window.location.href = '/createProfile.html';
-        console.log("createEvent button clicked");
+        console.log("createProfile button clicked");
     }
     redirectAllEvents(){
         window.location.href = '/viewAllEvents.html';
