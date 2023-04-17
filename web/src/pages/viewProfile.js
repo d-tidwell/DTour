@@ -25,7 +25,7 @@ class ViewProfile extends BindingClass {
         console.log("Identity", identity);
         const profile = await this.client.getProfile(identity.email);
         console.log("getting..." + identity.email);
-        this.dataStore.set('profile', profile);
+        this.dataStore.set('profile', identity);
         console.log(profile);
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('eventResults').innerText = "Loading Events ...";
