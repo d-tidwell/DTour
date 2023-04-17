@@ -81,7 +81,12 @@ export default class DannaClient extends BindingClass {
      */
     async getProfile(id, errorCallback) {
         try {
-            const response = await this.axiosClient.get(`profiles/${id}`);
+            const response = await this.axiosClient.get(`profiles/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             console.log(response.data);
             return response.data;
         } catch (error) {
@@ -95,7 +100,12 @@ export default class DannaClient extends BindingClass {
     */
     async getAllEvents(errorCallback) {
         try {
-            const response = await this.axiosClient.get(`events/all/`);
+            const response = await this.axiosClient.get(`events/all/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -110,7 +120,12 @@ export default class DannaClient extends BindingClass {
     */
     async getEventDetails(id, errorCallback) {
         try {
-            const response = await this.axiosClient.get(`events/${id}`);
+            const response = await this.axiosClient.get(`events/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
