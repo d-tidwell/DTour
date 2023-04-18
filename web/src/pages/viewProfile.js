@@ -50,7 +50,7 @@ class ViewProfile extends BindingClass {
         document.getElementById('door').addEventListener('click', this.logout);
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
-        document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
+        document.getElementById("allFollowingListText").innerText = "Loading People You Follow...";
         //this.header.addHeaderToPage();
 
         this.client = new dannaClient();
@@ -60,11 +60,11 @@ class ViewProfile extends BindingClass {
     async addEvents(){
         const events = this.dataStore.get("events");
         if (events == null) {
-            document.getElementById("eventResults").innerText = "No Events added in your Profile";
+            document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
             let eventResult;
             let counter = 0;
-            for (eventResult of events[0]) {
+            for (eventResult of events) {
                 counter += 1
                 const anchor = document.createElement('tr');
                 const th = document.createElement('th');
@@ -115,7 +115,7 @@ class ViewProfile extends BindingClass {
         }
     
         let profileFollowing;
-        for (profileFollowing of following[0]) {
+        for (profileFollowing of following) {
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', '#');
@@ -124,7 +124,7 @@ class ViewProfile extends BindingClass {
     
             // Create an icon element
             const icon = document.createElement('i');
-            icon.className = 'bi bi-person-circle';
+            icon.className = 'bi bi-person-circle nav-profile-icon-sm';
     
             // Create a span element
             const span = document.createElement('span');
@@ -142,6 +142,7 @@ class ViewProfile extends BindingClass {
             anchor.appendChild(span);
             document.getElementById("allFollowingList").appendChild(anchor);
         }
+        document.getElementById("allFollowingListText").remove();
     }
 
     redirectEditProfile(){

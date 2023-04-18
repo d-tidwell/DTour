@@ -126,6 +126,10 @@ color:white;
     color: var(--textColor);
     font-size: 10rem;
 }
+.nav-profile-icon-sm {
+    color: var(--textColor);
+    font-size: 2rem;
+}
 .nav-link .nav-profile-icon:hover {
     color:var(--hoverColor);
 }
