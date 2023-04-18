@@ -66,7 +66,7 @@ class ViewProfile extends BindingClass {
             let counter = 0;
             for (eventResult of events) {
                 const resulting = await this.client.getEventDetails(eventResult);
-                console.log(resulting);
+                console.log("RESULTING" + counter + " " + resulting);
                 counter += 1
                 const anchor = document.createElement('tr');
                 const th = document.createElement('th');
@@ -145,7 +145,7 @@ class ViewProfile extends BindingClass {
             const name = document.createElement('H3');
             name.className = 'names';
             name.id = 'names';
-            name.textContent = getName.profileModel.getName;
+            name.textContent = getName.profileModel.firstName + " " + getName.profileModel.lastName;
     
             // Append elements
             span.appendChild(name);

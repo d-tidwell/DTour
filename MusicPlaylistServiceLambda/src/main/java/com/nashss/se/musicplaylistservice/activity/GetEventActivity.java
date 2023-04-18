@@ -24,12 +24,8 @@ public class GetEventActivity {
 
         log.info("Receive GetEventResult {} ", getEventRequest);
 
-
         String id = getEventRequest.getEventId();
         Event event = eventDao.getEvent(id);
-
-        System.out.println("id: " + id);
-        System.out.println("event " + event);
 
         EventModel eventModel = new ModelConverter().toEventModel(event);
 

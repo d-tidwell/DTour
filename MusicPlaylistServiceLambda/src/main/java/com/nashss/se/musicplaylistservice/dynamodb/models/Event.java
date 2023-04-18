@@ -30,12 +30,12 @@ public class Event {
         return eventId;
     }
 
-    private String generateId() {
+    public String generateId() {
         return UniqueIdGenerator.generateUniqueId();
     }
 
-    public void setEventId() {
-        this.eventId = generateId();
+    public void setEventId(String eventId){
+        this.eventId = eventId;
     }
 
     @DynamoDBAttribute(attributeName = "name")
@@ -48,7 +48,7 @@ public class Event {
     }
 
     @DynamoDBAttribute(attributeName = "event_creator")
-    public String getCreatedBy() {
+    public String getEventCreator() {
         return eventCreator;
     }
 
@@ -66,7 +66,7 @@ public class Event {
     }
 
     @DynamoDBAttribute(attributeName = "description")
-    public String getDesciption() {
+    public String getDescription() {
         return description;
     }
 
@@ -85,7 +85,7 @@ public class Event {
 
     @DynamoDBAttribute(attributeName = "category")
     public Set<String> getCategory() {
-        return category;
+        return new HashSet<>(category);
     }
 
     public void setCategory(Set<String> category) {
@@ -94,7 +94,7 @@ public class Event {
 
     @DynamoDBAttribute(attributeName = "attendees")
     public Set<String> getAttendees() {
-        return attendees;
+        return new HashSet<>(attendees);
     }
 
     public void setAttendees(Set<String> attendees) {
