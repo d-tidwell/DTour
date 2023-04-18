@@ -27,7 +27,7 @@ public class ModelConverter {
                 .withLastName(profile.getLastName())
                 .withLocation(profile.getLocation())
                 .withGender(profile.getGender())
-                .withDateOfBirth(profile.getDateOfBirth().toString())
+                .withDateOfBirth(profile.getDateOfBirth())
                 .withFollowing(profile.getFollowing())
                 .withEvents(profile.getEvents())
                 .build();
