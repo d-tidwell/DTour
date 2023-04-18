@@ -52,8 +52,8 @@ public class ProfileDao {
             //so you would need to make a function that does that
             saveProfile.setDateOfBirth(dateOfBirth.toString());
             //they couldn't possibly have values so we need to set them here so the field exists
-            saveProfile.setEvents(new HashSet<>());
-            saveProfile.setFollowing(new HashSet<>());
+//            saveProfile.setEvents(new HashSet<>());
+//            saveProfile.setFollowing(new HashSet<>());
             this.dynamoDbMapper.save(saveProfile);
 
         //if the boolean is false it means we are updating and need to check each field to see if it needs updating

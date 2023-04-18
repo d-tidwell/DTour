@@ -3,7 +3,7 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.nashss.se.musicplaylistservice.activity.results.GetEventResult;
 
-@JsonDeserialize(builder = GetEventResult.Builder.class)
+@JsonDeserialize(builder = GetEventRequest.Builder.class)
 public class GetEventRequest {
     private final String eventId;
 

@@ -11,12 +11,12 @@ public class EventModel {
     private final String eventCreator;
     private final String eventAddress;
     private final String description;
-    private final ZonedDateTime dateTime;
+    private final String dateTime;
     private Set<String> category;
     private Set<String> attendees;
 
     private EventModel(String eventId, String name, String eventCreator, String eventAddress, String description,
-                          ZonedDateTime dateTime, Set<String> category, Set<String> attendees) {
+                          String dateTime, Set<String> category, Set<String> attendees) {
         this.eventId = eventId;
         this.name = name;
         this.eventCreator = eventCreator;
@@ -48,7 +48,7 @@ public class EventModel {
         return description;
     }
 
-    public ZonedDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
@@ -97,7 +97,7 @@ public class EventModel {
         private String eventCreator;
         private String eventAddress;
         private String description;
-        private ZonedDateTime dateTime;
+        private String dateTime;
         private Set<String> category;
         private Set<String> attendees;
 
@@ -127,7 +127,7 @@ public class EventModel {
             return this;
         }
 
-        public Builder withDateTime(ZonedDateTime dateTime) {
+        public Builder withDateTime(String dateTime) {
             this.dateTime = dateTime;
             return this;
         }

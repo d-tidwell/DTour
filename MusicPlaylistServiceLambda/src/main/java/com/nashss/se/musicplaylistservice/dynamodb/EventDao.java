@@ -12,11 +12,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -103,8 +99,8 @@ public class EventDao {
             event.setAddress(address);
             event.setDescription(description);
             event.setDateTime(dateTime);
-            event.setCategory(new HashSet<>());
-            event.setAttendees(new HashSet<>());
+            event.setCategory(new HashSet<>(category));
+            event.setAttendees(new HashSet<>(Collections.singleton(eventCreator)));
 
         //if it's not a new event, this must an update
         } else {
@@ -132,7 +128,7 @@ public class EventDao {
                 event.setCategory(categories);
             }
         }
-
+        System.out.println(event);
         this.dynamoDbMapper.save(event);
 
         return event;
