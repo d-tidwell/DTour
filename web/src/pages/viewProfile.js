@@ -8,10 +8,6 @@ class ViewProfile extends BindingClass {
         super();
         this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing'], this);
         this.dataStore = new DataStore();
-        this.dataStore.addChangeListener(this.addEvents);
-        this.dataStore.addChangeListener(this.addPersonalEvents);
-        this.dataStore.addChangeListener(this.addName);
-        this.dataStore.addChangeListener(this.addFollowing);
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
     }
@@ -34,7 +30,11 @@ class ViewProfile extends BindingClass {
         console.log("checking after client load profile events", this.dataStore.get("events"));
         console.log("checking after client load firstname", this.dataStore.get("firstName"));
         console.log("checking after client load following", this.dataStore.get("following"));
-        console.log(profile);
+        this.addEvents();
+        this.addPersonalEvents();
+        this.addName();
+        this.addFollowing();
+        console.log("client loaded - methods called");
         
 
     }
@@ -51,7 +51,6 @@ class ViewProfile extends BindingClass {
         document.getElementById('names').innerText = "Loading Profile ...";
         document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
         document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
-
         //this.header.addHeaderToPage();
 
         this.client = new dannaClient();
@@ -81,15 +80,14 @@ class ViewProfile extends BindingClass {
                 eventOrg.innerText = "NEED CALL";
                 const eventCancel = document.createElement('td');
                 eventCancel.innerText = "NEED CALL";
+                anchor.appendChild(th);
                 anchor.appendChild(eventName);
                 anchor.appendChild(eventDate);
                 anchor.appendChild(eventTime);
                 anchor.appendChild(eventOrg);
                 anchor.appendChild(eventCancel);
-                anchor.appendChild(th);
                 document.getElementById("event-list").appendChild(anchor);
             }
-        
         }
     }
 
