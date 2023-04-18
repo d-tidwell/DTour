@@ -18,6 +18,7 @@ implements RequestHandler<AuthenticatedLambdaRequest<GetEventRequest>, LambdaRes
  */
 @Override
 public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetEventRequest> input, Context context) {
+    System.out.println("in handle()");
                 return super.runActivity(
         () -> input.fromPath(path ->
                 GetEventRequest.builder()

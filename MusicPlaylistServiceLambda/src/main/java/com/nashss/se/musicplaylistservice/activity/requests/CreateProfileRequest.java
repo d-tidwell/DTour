@@ -104,7 +104,6 @@ public class CreateProfileRequest {
     }
 
     public CreateProfileRequest build(){
-
         return new CreateProfileRequest(firstName,lastName,id,location,gender,dateOfBirth);
     }
 }

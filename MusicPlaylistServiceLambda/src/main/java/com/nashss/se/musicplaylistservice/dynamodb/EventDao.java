@@ -51,10 +51,8 @@ public class EventDao {
             throw new EventNotFoundException("Could not find event with id " + eventId);
         }
 
-        // ZonedDateTime dateTime = event.getDateTime();
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        // String formattedDateTime = dateTime.format(formatter);
-        // this.checkEventDateTime(formattedDateTime);
+         String dateTime = event.getDateTime();
+         this.checkEventDateTime(dateTime);
 
         metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 0);
         return event;
@@ -99,6 +97,7 @@ public class EventDao {
             event.setAddress(address);
             event.setDescription(description);
             event.setDateTime(dateTime);
+
             event.setCategory(new HashSet<>(category));
             event.setAttendees(new HashSet<>(Collections.singleton(eventCreator)));
 

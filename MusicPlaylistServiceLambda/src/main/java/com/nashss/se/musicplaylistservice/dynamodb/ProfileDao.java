@@ -52,23 +52,21 @@ public class ProfileDao {
             //so you would need to make a function that does that
             saveProfile.setDateOfBirth(dateOfBirth.toString());
             //they couldn't possibly have values so we need to set them here so the field exists
-//            saveProfile.setEvents(new HashSet<>());
-//            saveProfile.setFollowing(new HashSet<>());
             this.dynamoDbMapper.save(saveProfile);
 
         //if the boolean is false it means we are updating and need to check each field to see if it needs updating
         } else {
-            if (firstName != null || !gender.isEmpty()) {
+            if (firstName != null || !firstName.isEmpty()) {
                 saveProfile.setFirstName(firstName);
             }
-            if (lastName != null || !gender.isEmpty()) {
-                saveProfile.setFirstName(lastName);
+            if (lastName != null || !lastName.isEmpty()) {
+                saveProfile.setLastName(lastName);
             }
-            if (location != null || !gender.isEmpty()) {
-                saveProfile.setFirstName(location);
+            if (location != null || !location.isEmpty()) {
+                saveProfile.setLocation(location);
             }
             if (gender != null || !gender.isEmpty()) {
-                saveProfile.setFirstName(gender);
+                saveProfile.setGender(gender);
             }
             //this needs to be a zoned datetime object to check for valid birthday but stored as a string
             //so you would need to make a function that does that

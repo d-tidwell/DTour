@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class ViewProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addEvents);
         this.dataStore.addChangeListener(this.addPersonalEvents);
@@ -17,18 +17,25 @@ class ViewProfile extends BindingClass {
     }
 
     /**
-     * Once the client is loaded, get the profile metadata and song list.
+     * Once the client is loaded, get the profile metadata.
      */
     async clientLoaded() {
         // const urlParams = new URLSearchParams(window.location.search);
-        const identity = this.client.getIdentity();
+        const identity = await this.client.getIdentity();
+        console.log("Identity", identity);
         const profile = await this.client.getProfile(identity.email);
         console.log("getting..." + identity.email);
         this.dataStore.set('profile', profile);
-        document.getElementById('names').innerText = "Loading Profile ...";
-        document.getElementById('eventResults').innerText = "Loading Events ...";
-        document.getElementById('personalEventResults').innerText = "Loading Personal Events...)";
-        document.getElementById("followingList").innerText = "Loading People You Follow...";
+        this.dataStore.set('events', profile.profileModel.events);
+        this.dataStore.set('firstName', profile.profileModel.firstName);
+        this.dataStore.set('lastName', profile.profileModel.lastName);
+        this.dataStore.set('following', profile.profileModel.following);
+        console.log("checking after client load profile", this.dataStore.get("profile"));
+        console.log("checking after client load profile events", this.dataStore.get("events"));
+        console.log("checking after client load firstname", this.dataStore.get("firstName"));
+        console.log("checking after client load following", this.dataStore.get("following"));
+        console.log(profile);
+        
 
     }
     /**
@@ -41,6 +48,10 @@ class ViewProfile extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
+        document.getElementById('names').innerText = "Loading Profile ...";
+        document.getElementById('eventResults').innerText = "Loading Events ...";
+        document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
+        document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
 
         //this.header.addHeaderToPage();
 
@@ -49,35 +60,91 @@ class ViewProfile extends BindingClass {
     }
 
     async addEvents(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const events = this.dataStore.get("events");
+        if (events == null) {
+            document.getElementById("eventResults").innerText = "No Events added in your Profile";
+        } else {
+            let eventResult;
+            let counter = 0;
+            for (eventResult of events[0]) {
+                counter += 1
+                const anchor = document.createElement('tr');
+                const th = document.createElement('th');
+                th.setAttribute("scope", "row");
+                th.innerText = counter;
+                const eventName = document.createElement('td');
+                eventName.innerText = eventResult;
+                const eventDate = document.createElement('td');
+                eventDate.innerText = "NEED CALL";
+                const eventTime = document.createElement('td');
+                eventTime.innerText = "NEED CALL";
+                const eventOrg = document.createElement('td');
+                eventOrg.innerText = "NEED CALL";
+                const eventCancel = document.createElement('td');
+                eventCancel.innerText = "NEED CALL";
+                anchor.appendChild(eventName);
+                anchor.appendChild(eventDate);
+                anchor.appendChild(eventTime);
+                anchor.appendChild(eventOrg);
+                anchor.appendChild(eventCancel);
+                anchor.appendChild(th);
+                document.getElementById("event-list").appendChild(anchor);
+            }
+        
         }
-        document.getElementById("eventResults").innerText = profile.events;
     }
 
     async addPersonalEvents(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const events = this.dataStore.get("events");
+        if (events == null) {
+            document.getElementById("personalEventResults").innerText = "No Events created by you in your Profile";
         }
-        document.getElementById("personalEventResults").innerText = profile.events;
+        document.getElementById("personalEventResults").innerText = events;
     }
 
     async addName(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const fname = this.dataStore.get("firstName");
+        const lname = this.dataStore.get("lastName");
+        if (fname == null) {
+            document.getElementById("names").innerText = "John Doh";
         }
-        document.getElementById("names").innerText = profile.name;
+        document.getElementById("names").innerText = fname + " " + lname;
     }
 
     async addFollowing(){
-        const profile = this.dataStore.get("profile");
-        if (profile == null) {
-            return;
+        const following = this.dataStore.get("following");
+        if (following == null) {
+            document.getElementById("allFollowingList").innerText = "You are not following anyone";
         }
-        document.getElementById("allFollowingList").innerText = profile.following;
+    
+        let profileFollowing;
+        for (profileFollowing of following[0]) {
+            // Create an anchor element
+            const anchor = document.createElement('a');
+            anchor.setAttribute('href', '#');
+            anchor.className = 'nav-link align-middle px-0';
+            anchor.id = 'foreignPic';
+    
+            // Create an icon element
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-person-circle';
+    
+            // Create a span element
+            const span = document.createElement('span');
+            span.className = 'ms-1 d-none d-sm-inline';
+    
+            // Create an H3 element
+            const name = document.createElement('H3');
+            name.className = 'names';
+            name.id = 'names';
+            name.textContent = profileFollowing;
+    
+            // Append elements
+            span.appendChild(name);
+            anchor.appendChild(icon);
+            anchor.appendChild(span);
+            document.getElementById("allFollowingList").appendChild(anchor);
+        }
     }
 
     redirectEditProfile(){
@@ -93,9 +160,12 @@ class ViewProfile extends BindingClass {
     redirectAllFollowing(){
         window.location.href = '/allFollowing.html';
     }
-    logout(){
-        this.client.logout;
-        window.location.href ='/landingPage.html';
+    async logout(){
+        await this.client.logout(); 
+        if(!this.client.isLoggedIn()){
+            window.location.href ='/landingPage.html';
+        }
+        
     }
 
 }
