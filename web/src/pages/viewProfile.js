@@ -49,7 +49,6 @@ class ViewProfile extends BindingClass {
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
         document.getElementById('names').innerText = "Loading Profile ...";
-        document.getElementById('eventResults').innerText = "Loading Events ...";
         document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
         document.getElementById("allFollowingList").innerText = "Loading People You Follow...";
 
