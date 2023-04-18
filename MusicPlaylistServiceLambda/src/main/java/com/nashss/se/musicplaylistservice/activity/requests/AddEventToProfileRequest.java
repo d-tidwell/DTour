@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 public class AddEventToProfileRequest {
     private final String eventId;
 
-    private String profileId;
+    private final String profileId;
 
     private AddEventToProfileRequest(String eventId,  String profileId) {
         this.eventId = eventId;

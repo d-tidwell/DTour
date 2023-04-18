@@ -34,6 +34,5 @@ implements RequestHandler<AuthenticatedLambdaRequest<CreateProfileRequest>,Lambd
                 (request,serviceComponent) ->
                         serviceComponent.provideCreateProfileActivity().handleRequest(request)
         );
-
     }
 }

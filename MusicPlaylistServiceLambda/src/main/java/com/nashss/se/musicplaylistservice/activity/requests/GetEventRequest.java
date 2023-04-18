@@ -1,9 +1,10 @@
 package com.nashss.se.musicplaylistservice.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.nashss.se.musicplaylistservice.activity.results.GetEventResult;
 
-@JsonDeserialize(builder = GetEventResult.Builder.class)
+@JsonDeserialize(builder = GetEventRequest.Builder.class)
 public class GetEventRequest {
     private final String eventId;
 
@@ -22,7 +23,7 @@ public class GetEventRequest {
                 "eventId='" + eventId + '\'' +
                 '}';
     }
-
+    @JsonPOJOBuilder
     public static class Builder {
 
         private String eventId;

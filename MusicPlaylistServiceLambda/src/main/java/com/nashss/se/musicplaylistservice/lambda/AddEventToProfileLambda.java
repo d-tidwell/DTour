@@ -11,6 +11,7 @@ public class AddEventToProfileLambda
         implements RequestHandler<AuthenticatedLambdaRequest<AddEventToProfileRequest>, LambdaResponse> {
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<AddEventToProfileRequest> input, Context context) {
+        System.out.println("In handle");
         return super.runActivity(
                 () -> {
                     AddEventToProfileRequest unauthenticatedRequest = input.fromBody(AddEventToProfileRequest.class);

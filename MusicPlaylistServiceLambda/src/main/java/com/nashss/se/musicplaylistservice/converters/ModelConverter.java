@@ -1,5 +1,6 @@
 package com.nashss.se.musicplaylistservice.converters;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class ModelConverter {
         .withEventCreator(event.getCreatedBy())
         .withEventAddress(event.getAddress())
         .withDescription(event.getDesciption())
-        .withDateTime(event.getDateTime())
+        .withDateTime(ZonedDateTime.parse(event.getDateTime()))
         .withCategory(event.getCategory())
         .withAttendees(event.getAttendees())
         .build();
