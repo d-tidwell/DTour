@@ -44,7 +44,6 @@ public class ModelConverter {
      */
     
     public EventModel toEventModel(Event event){
-        log.info("Receive GetEventResult {} ", event.toString());
         return EventModel.builder()
         .withEventId(event.getEventId())
         .withName(event.getName())

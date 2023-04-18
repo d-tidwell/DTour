@@ -47,9 +47,9 @@ public class EventDao {
      * @return the stored Event, or null if none was found.
      */
     public Event getEvent(String eventId) {
-        System.out.println("DAO!!!!!!!!!!!!!");
+
         Event event = this.dynamoDbMapper.load(Event.class, eventId);
-        log.info("dao {} ", event.toString());
+
         if (event == null) {
             metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 1);
             throw new EventNotFoundException("Could not find event with id " + eventId);
