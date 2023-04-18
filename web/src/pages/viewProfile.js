@@ -33,6 +33,7 @@ class ViewProfile extends BindingClass {
         console.log("checking after client load profile", this.dataStore.get("profile"));
         console.log("checking after client load profile events", this.dataStore.get("events"));
         console.log("checking after client load firstname", this.dataStore.get("firstName"));
+        console.log("checking after client load following", this.dataStore.get("following"));
         console.log(profile);
         
 
@@ -62,32 +63,34 @@ class ViewProfile extends BindingClass {
         const events = this.dataStore.get("events");
         if (events == null) {
             document.getElementById("eventResults").innerText = "No Events added in your Profile";
-        }
-        let eventResult;
-        let counter = 0;
-        for (eventResult of events) {
-            counter += 1
-            const anchor = document.createElement('tr');
-            const th = document.createElement('th');
-            th.setAttribute("scope", "row");
-            th.innerText = counter;
-            const eventName = document.createElement('td');
-            eventName.innerText = eventResult;
-            const eventDate = document.createElement('td');
-            eventDate.innerText = "NEED CALL";
-            const eventTime = document.createElement('td');
-            eventTime.innerText = "NEED CALL";
-            const eventOrg = document.createElement('td');
-            eventOrg.innerText = "NEED CALL";
-            const eventCancel = document.createElement('td');
-            eventCancel.innerText = "NEED CALL";
-            th.appendChild(eventCancel);
-            th.appendChild(eventOrg);
-            th.appendChild(eventTime);
-            th.appendChild(eventDate);
-            th.appendChild(eventName);
-            anchor.appendChild(th);
-            document.getElementById("event-list").appendChild(anchor);
+        } else {
+            let eventResult;
+            let counter = 0;
+            for (eventResult of events[0]) {
+                counter += 1
+                const anchor = document.createElement('tr');
+                const th = document.createElement('th');
+                th.setAttribute("scope", "row");
+                th.innerText = counter;
+                const eventName = document.createElement('td');
+                eventName.innerText = eventResult;
+                const eventDate = document.createElement('td');
+                eventDate.innerText = "NEED CALL";
+                const eventTime = document.createElement('td');
+                eventTime.innerText = "NEED CALL";
+                const eventOrg = document.createElement('td');
+                eventOrg.innerText = "NEED CALL";
+                const eventCancel = document.createElement('td');
+                eventCancel.innerText = "NEED CALL";
+                anchor.appendChild(eventName);
+                anchor.appendChild(eventDate);
+                anchor.appendChild(eventTime);
+                anchor.appendChild(eventOrg);
+                anchor.appendChild(eventCancel);
+                anchor.appendChild(th);
+                document.getElementById("event-list").appendChild(anchor);
+            }
+        
         }
     }
 
@@ -115,7 +118,7 @@ class ViewProfile extends BindingClass {
         }
     
         let profileFollowing;
-        for (profileFollowing of following) {
+        for (profileFollowing of following[0]) {
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', '#');
