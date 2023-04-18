@@ -74,7 +74,7 @@ public class Event {
         this.description = description;
     }
 
-    @DynamoDBRangeKey(attributeName = "date_time")
+    @DynamoDBAttribute(attributeName = "date_time")
     public String getDateTime() {
         return dateTime;
     }
