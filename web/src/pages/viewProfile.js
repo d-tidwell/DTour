@@ -131,7 +131,7 @@ class ViewProfile extends BindingClass {
             const anchor = document.createElement('a');
             anchor.setAttribute('href', '#');
             anchor.className = 'nav-link align-middle px-0';
-            anchor.id = 'foreignPic';
+            anchor.id = 'foreignPic' + getName.profileModel.getName;
     
             // Create an icon element
             const icon = document.createElement('i');
