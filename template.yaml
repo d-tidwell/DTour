@@ -319,12 +319,12 @@ Resources:
             Path: /profiles/removeEvent
             Method: put
 
-  AddFollowingToProfileLambda:
+  AddProfileToFollowingLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.AddFollowingToProfileLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.AddProfileToFollowingLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -339,12 +339,12 @@ Resources:
             Path: /profiles/addFollowing
             Method: put
   
-  RemoveFollowingFromProfileLambda:
+  RemoveFromFollowingLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveFollowingFromProfileLambda::handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveFromFollowingLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
