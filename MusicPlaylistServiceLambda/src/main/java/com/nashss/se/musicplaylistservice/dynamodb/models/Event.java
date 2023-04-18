@@ -21,8 +21,8 @@ public class Event {
     private String address;
     private String description;
     private String dateTime;
-    private Set<String> category = new HashSet<>();
-    private Set<String> attendees = new HashSet<>();
+    private Set<String> category;
+    private Set<String> attendees;
 
 
     @DynamoDBHashKey(attributeName = "eventId")
@@ -31,8 +31,7 @@ public class Event {
     }
 
     private String generateId() {
-        String eventId = UniqueIdGenerator.generateUniqueId();
-        return eventId;
+        return UniqueIdGenerator.generateUniqueId();
     }
 
     public void setEventId() {
@@ -90,7 +89,7 @@ public class Event {
     }
 
     public void setCategory(Set<String> category) {
-        this.category.addAll(category);
+        this.category = category;
     }
 
     @DynamoDBAttribute(attributeName = "attendees")
@@ -99,7 +98,7 @@ public class Event {
     }
 
     public void setAttendees(Set<String> attendees) {
-        this.attendees.addAll(attendees);
+        this.attendees = attendees;
     }
 
     @Override
