@@ -77,8 +77,8 @@ public class Event {
     }
 
     @DynamoDBRangeKey(attributeName = "date_time")
-    public ZonedDateTime getDateTime() {
-        return ZonedDateTime.parse(dateTime);
+    public String getDateTime() {
+        return dateTime;
     }
 
     public void setDateTime(String dateTime) {

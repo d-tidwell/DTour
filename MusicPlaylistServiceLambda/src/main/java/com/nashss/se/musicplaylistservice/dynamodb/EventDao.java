@@ -103,8 +103,8 @@ public class EventDao {
             event.setAddress(address);
             event.setDescription(description);
             event.setDateTime(dateTime);
-            event.setCategory(new HashSet<>());
-            event.setAttendees(new HashSet<>());
+//            event.setCategory(new HashSet<>());
+//            event.setAttendees(new HashSet<>());
 
         //if it's not a new event, this must an update
         } else {
