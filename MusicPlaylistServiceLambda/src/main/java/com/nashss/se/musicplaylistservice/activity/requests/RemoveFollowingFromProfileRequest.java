@@ -3,12 +3,12 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-@JsonDeserialize(builder = RemoveFromFollowingRequest.Builder.class)
-public class RemoveFromFollowingRequest {
+@JsonDeserialize(builder = RemoveFollowingFromProfileRequest.Builder.class)
+public class RemoveFollowingFromProfileRequest {
     private final String id;
     private final String profileIdToRemove;
 
-    private RemoveFromFollowingRequest(String id, String profileIdToRemove) {
+    private RemoveFollowingFromProfileRequest(String id, String profileIdToRemove) {
         this.id = id;
         this.profileIdToRemove = profileIdToRemove;
     }
@@ -48,8 +48,8 @@ public class RemoveFromFollowingRequest {
             return this;
         }
 
-        public RemoveFromFollowingRequest build() {
-            return new RemoveFromFollowingRequest(id, profileIdToRemove);
+        public RemoveFollowingFromProfileRequest build() {
+            return new RemoveFollowingFromProfileRequest(id, profileIdToRemove);
         }
     }
 }

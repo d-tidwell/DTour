@@ -1,9 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
-import com.nashss.se.musicplaylistservice.activity.requests.RemoveFromFollowingRequest;
-import com.nashss.se.musicplaylistservice.activity.results.AddEventToProfileResult;
-import com.nashss.se.musicplaylistservice.activity.results.RemoveFromFollowingResult;
-import com.nashss.se.musicplaylistservice.converters.ModelConverter;
+import com.nashss.se.musicplaylistservice.activity.requests.RemoveFollowingFromProfileRequest;
+import com.nashss.se.musicplaylistservice.activity.results.RemoveFollowingFromProfileResult;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class RemoveFromFollowingActivity {
+public class RemoveFollowingFromProfileActivity {
     private final Logger log = LogManager.getLogger();
     private final ProfileDao profileDao;
 
@@ -25,7 +23,7 @@ public class RemoveFromFollowingActivity {
      * @param profileDao AlbumTrackDao to access the album_track table.
      */
     @Inject
-    public RemoveFromFollowingActivity(ProfileDao profileDao) {
+    public RemoveFollowingFromProfileActivity(ProfileDao profileDao) {
         this.profileDao = profileDao;
     }
 
@@ -38,7 +36,7 @@ public class RemoveFromFollowingActivity {
      * @return AddProfileToFollowingResult result object containing the playlist's updated list of
      * API defined {@link ProfileModel}s
      */
-    public RemoveFromFollowingResult handleRequest(final RemoveFromFollowingRequest removeFromFollowingRequest) {
+    public RemoveFollowingFromProfileResult handleRequest(final RemoveFollowingFromProfileRequest removeFromFollowingRequest) {
         log.info("Received RemoveFromFollowingRequest {} ", removeFromFollowingRequest);
 
         String id = removeFromFollowingRequest.getId();
@@ -48,7 +46,7 @@ public class RemoveFromFollowingActivity {
 
         Set<String> updatedList = profileDao.removeProfileFromFollowing(id, profileIdToRemove);
         List<String> list = new ArrayList<>(updatedList);
-        return RemoveFromFollowingResult.builder()
+        return RemoveFollowingFromProfileResult.builder()
                 .withProfileList(list)
                 .build();
 
