@@ -65,7 +65,7 @@ class ViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
-                const resulting = this.client.getEventDetails(eventResult);
+                const resulting = await this.client.getEventDetails(eventResult);
                 console.log(resulting);
                 counter += 1
                 const anchor = document.createElement('tr');
@@ -78,14 +78,22 @@ class ViewProfile extends BindingClass {
                 eventDate.innerText = resulting.dateTime;
                 const eventTime = document.createElement('td');
                 eventTime.innerText = resulting.dateTime;
+                const eventLocation = document.createElement('td');
+                eventLocation.innerText = resulting.address;
                 const eventOrg = document.createElement('td');
                 eventOrg.innerText = resulting.createdBy;
                 const eventCancel = document.createElement('td');
-                eventCancel.innerText = "NEED button to cancel here";
+                // eventCancel.innerText = "NEED button to cancel here";
+                const removeBtn = document.createElement('button');
+                removeBtn.innerText = "Cancel";
+                removeBtn.className("btn btn-light-custom");
+                removeBtn.id = eventResult + "btn";
+                eventCancel.appendChild(removeBtn);
                 anchor.appendChild(th);
                 anchor.appendChild(eventName);
                 anchor.appendChild(eventDate);
                 anchor.appendChild(eventTime);
+                anchor.appendChild(eventLocation);
                 anchor.appendChild(eventOrg);
                 anchor.appendChild(eventCancel);
                 document.getElementById("event-list").appendChild(anchor);
@@ -118,7 +126,7 @@ class ViewProfile extends BindingClass {
     
         let profileFollowing;
         for (profileFollowing of following) {
-            const getName = this.client.getProfile(profileFollowing);
+            const getName = await this.client.getProfile(profileFollowing);
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', '#');
