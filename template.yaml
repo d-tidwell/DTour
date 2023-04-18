@@ -284,7 +284,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.AddEventToProfileLambda:handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.AddEventToProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -304,7 +304,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveEventFromProfileLambda:handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveEventFromProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -324,7 +324,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.AddFollowingToProfileLambda:handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.AddFollowingToProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -344,7 +344,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: MusicPlaylistServiceLambda
-      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveFollowingFromProfileLambda:handleRequest
+      Handler: com.nashss.se.musicplaylistservice.lambda.RemoveFollowingFromProfileLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64

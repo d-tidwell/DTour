@@ -1,7 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity;
 
-import com.nashss.se.musicplaylistservice.activity.requests.AddProfileToFollowingRequest;
-import com.nashss.se.musicplaylistservice.activity.results.AddProfileToFollowingResult;
+import com.nashss.se.musicplaylistservice.activity.requests.AddFollowingToProfileRequest;
+import com.nashss.se.musicplaylistservice.activity.results.AddFollowingToProfileResult;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
 import com.nashss.se.musicplaylistservice.models.ProfileModel;
 
@@ -20,7 +20,7 @@ import java.util.Set;
  * This API allows the customer to add a song to their existing playlist.
  */
 
-public class AddProfileToFollowingActivity {
+public class AddFollowingToProfileActivity {
     private final Logger log = LogManager.getLogger();
     private final ProfileDao profileDao;
 
@@ -30,7 +30,7 @@ public class AddProfileToFollowingActivity {
      * @param profileDao AlbumTrackDao to access the album_track table.
      */
     @Inject
-    public AddProfileToFollowingActivity(ProfileDao profileDao) {
+    public AddFollowingToProfileActivity(ProfileDao profileDao) {
         this.profileDao = profileDao;
     }
 
@@ -38,16 +38,16 @@ public class AddProfileToFollowingActivity {
      * This method handles the incoming request by adding a profile to following list
      * It then returns the updated following list
      * If the profile does not exist, this should throw a ProfileNotFoundException.
-     * @param addProfileToFollowingRequest request object containing id
+     * @param addFollowingToProfileRequest request object containing id
      *                                 to retrieve the data
      * @return AddProfileToFollowingResult result object containing the playlist's updated list of
      *                                 API defined {@link ProfileModel}s
      */
-    public AddProfileToFollowingResult handleRequest(final AddProfileToFollowingRequest addProfileToFollowingRequest) {
-        log.info("Received AddProfileToFollowingRequest {} ", addProfileToFollowingRequest);
+    public AddFollowingToProfileResult handleRequest(final AddFollowingToProfileRequest addFollowingToProfileRequest) {
+        log.info("Received AddFollowingToProfileRequest {} ", addFollowingToProfileRequest);
 
-        String id = addProfileToFollowingRequest.getId();
-        String idToAdd = addProfileToFollowingRequest.getIdToAdd();
+        String id = addFollowingToProfileRequest.getId();
+        String idToAdd = addFollowingToProfileRequest.getIdToAdd();
 
         profileDao.getProfile(id);
 
@@ -57,7 +57,7 @@ public class AddProfileToFollowingActivity {
 
         List<String> list = new ArrayList<>(updatedListProfiles);
 
-        return AddProfileToFollowingResult.builder()
+        return AddFollowingToProfileResult.builder()
                 .withProfileList(list)
                 .build();
     }

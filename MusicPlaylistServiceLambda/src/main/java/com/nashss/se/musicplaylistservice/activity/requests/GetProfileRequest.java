@@ -1,6 +1,7 @@
 package com.nashss.se.musicplaylistservice.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.nashss.se.musicplaylistservice.activity.results.GetProfileResult;
 
 import java.util.Set;
@@ -24,7 +25,7 @@ public class GetProfileRequest {
                 "profileId='" + profileId + '\'' +
                 '}';
     }
-
+    @JsonPOJOBuilder
     public static class Builder{
 
         private String profileId;
