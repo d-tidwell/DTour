@@ -1,7 +1,6 @@
 package com.nashss.se.musicplaylistservice.activity.results;
-
 import com.nashss.se.musicplaylistservice.models.EventModel;
-import com.nashss.se.musicplaylistservice.models.ProfileModel;
+
 
 public class GetEventResult {
 

@@ -51,9 +51,6 @@ public class EventDao {
             throw new EventNotFoundException("Could not find event with id " + eventId);
         }
 
-         String dateTime = event.getDateTime();
-         this.checkEventDateTime(dateTime);
-
         metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 0);
         return event;
     }
