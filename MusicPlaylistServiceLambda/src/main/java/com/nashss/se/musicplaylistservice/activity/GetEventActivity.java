@@ -24,15 +24,17 @@ public class GetEventActivity {
 
         log.info("Receive GetEventResult {} ", getEventRequest);
 
-
+        System.out.println("event id:" + getEventRequest.getEventId());
         String id = getEventRequest.getEventId();
+        System.out.println(id);
         Event event = eventDao.getEvent(id);
 
         System.out.println("id: " + id);
         System.out.println("event " + event);
-
+        log.info("Receive EventDao returned {} ", event);
         EventModel eventModel = new ModelConverter().toEventModel(event);
-
+        log.info("model converter returned {} ", eventModel);
+        log.info("Model {} ", eventModel);
         return GetEventResult.builder()
                 .withEventModel(eventModel)
                 .build();

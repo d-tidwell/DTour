@@ -9,6 +9,8 @@ import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +24,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class EventDao {
+    private final Logger log = LogManager.getLogger();
     private final DynamoDBMapper dynamoDbMapper;
     private final MetricsPublisher metricsPublisher;
 
@@ -44,8 +47,9 @@ public class EventDao {
      * @return the stored Event, or null if none was found.
      */
     public Event getEvent(String eventId) {
+        System.out.println("DAO!!!!!!!!!!!!!");
         Event event = this.dynamoDbMapper.load(Event.class, eventId);
-
+        log.info("dao {} ", event.toString());
         if (event == null) {
             metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 1);
             throw new EventNotFoundException("Could not find event with id " + eventId);
@@ -88,7 +92,7 @@ public class EventDao {
 
         //if this is new and this event is after the date time of now
         if(isNew && checkEventDateTime(dateTime)){
-            event.setEventId();
+            event.setEventId(event.generateId());
             event.setName(name);
             event.setEventCreator(eventCreator);
             event.setAddress(address);

@@ -132,15 +132,13 @@ public class EventModel {
             return this;
         }
 
-        public Builder withCategory(Set<String> category) {
-            this.category = new HashSet<>();
-            category.addAll(category);
+        public Builder withCategory(Set<String> categories) {
+            this.category = categories;
             return this;
         }
 
         public Builder withAttendees(Set<String> newAttendees) {
-            this.attendees = new HashSet<>();
-            attendees.addAll(newAttendees);
+            this.attendees = newAttendees;
             return this;
         }
 
