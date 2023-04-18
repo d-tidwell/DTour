@@ -23,7 +23,7 @@ public interface ServiceComponent {
 
     AddEventToProfileActivity provideAddEventToProfileActivity();
 
-    RemoveFromFollowingActivity provideRemoveFromFollowingActivity();
+    RemoveFollowingFromProfileActivity provideRemoveFromFollowingActivity();
 
     AddFollowingToProfileActivity provideAddProfileToFollowingActivity();
 
