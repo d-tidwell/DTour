@@ -3,12 +3,12 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-@JsonDeserialize(builder = AddProfileToFollowingRequest.Builder.class)
-public class AddProfileToFollowingRequest {
+@JsonDeserialize(builder = AddFollowingToProfileRequest.Builder.class)
+public class AddFollowingToProfileRequest {
     private final String id;
     private final String idToAdd;
 
-    private AddProfileToFollowingRequest(String id, String idToAdd) {
+    private AddFollowingToProfileRequest(String id, String idToAdd) {
         this.id = id;
         this.idToAdd = idToAdd;
     }
@@ -49,8 +49,8 @@ public class AddProfileToFollowingRequest {
             return this;
         }
 
-        public AddProfileToFollowingRequest build() {
-            return new AddProfileToFollowingRequest(id, idToAdd);
+        public AddFollowingToProfileRequest build() {
+            return new AddFollowingToProfileRequest(id, idToAdd);
         }
     }
 }

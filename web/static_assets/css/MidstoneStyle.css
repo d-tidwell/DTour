@@ -14,9 +14,9 @@
     align-items: center;
     padding: 10px;
 }
-body{
+/* body{
     overflow:hidden;
-}
+} */
 .page-body-background {
     background: var(--pageBackgroundColor);
 	background-size: 400% 400%;
