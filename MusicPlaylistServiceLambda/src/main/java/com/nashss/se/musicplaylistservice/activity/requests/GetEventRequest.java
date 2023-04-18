@@ -6,12 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = GetEventRequest.Builder.class)
 public class GetEventRequest {
     private final String eventId;
-    private final String dateTime;
 
 
-    public GetEventRequest(String eventId,String dateTime) {
+    public GetEventRequest(String eventId) {
         this.eventId = eventId;
-        this.dateTime = dateTime;
+
     }
 
     public String getEventId() {
@@ -37,7 +36,6 @@ public class GetEventRequest {
         }
 
         public GetEventRequest build() {
-            System.out.println(eventId);
             return new GetEventRequest(eventId);
         }
 

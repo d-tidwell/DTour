@@ -21,7 +21,7 @@ public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetEventRequest> 
                 return super.runActivity(
         () -> input.fromPath(path ->
                 GetEventRequest.builder()
-                        .withId(path.get("eventId"))
+                        .withId(path.get("id"))
                         .build()),
                 (request,serviceComponent)->
                         serviceComponent.provideGetEventActivity().handleRequest(request));
