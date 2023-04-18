@@ -46,9 +46,11 @@ public class EventDao {
      * @param eventId the Event ID
      * @return the stored Event, or null if none was found.
      */
+
     public Event getEvent(String eventId) {
 
         Event event = this.dynamoDbMapper.load(Event.class, eventId);
+
 
         if (event == null) {
             metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 1);
