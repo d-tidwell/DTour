@@ -65,6 +65,8 @@ class ViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
+                const resulting = this.client.getEventDetails(eventResult);
+                console.log(resulting);
                 counter += 1
                 const anchor = document.createElement('tr');
                 const th = document.createElement('th');
@@ -73,13 +75,13 @@ class ViewProfile extends BindingClass {
                 const eventName = document.createElement('td');
                 eventName.innerText = eventResult;
                 const eventDate = document.createElement('td');
-                eventDate.innerText = "NEED CALL";
+                eventDate.innerText = resulting.dateTime;
                 const eventTime = document.createElement('td');
-                eventTime.innerText = "NEED CALL";
+                eventTime.innerText = resulting.dateTime;
                 const eventOrg = document.createElement('td');
-                eventOrg.innerText = "NEED CALL";
+                eventOrg.innerText = resulting.createdBy;
                 const eventCancel = document.createElement('td');
-                eventCancel.innerText = "NEED CALL";
+                eventCancel.innerText = "NEED button to cancel here";
                 anchor.appendChild(th);
                 anchor.appendChild(eventName);
                 anchor.appendChild(eventDate);
@@ -116,6 +118,7 @@ class ViewProfile extends BindingClass {
     
         let profileFollowing;
         for (profileFollowing of following) {
+            const getName = this.client.getProfile(profileFollowing);
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', '#');
@@ -134,7 +137,7 @@ class ViewProfile extends BindingClass {
             const name = document.createElement('H3');
             name.className = 'names';
             name.id = 'names';
-            name.textContent = profileFollowing;
+            name.textContent = getName.profileModel.getName;
     
             // Append elements
             span.appendChild(name);
