@@ -63,15 +63,40 @@ class ViewProfile extends BindingClass {
         if (events == null) {
             document.getElementById("eventResults").innerText = "No Events added in your Profile";
         }
-        document.getElementById("eventResults").innerText = events;
+        let eventResult;
+        let counter = 0;
+        for (eventResult of events) {
+            counter += 1
+            const anchor = document.createElement('tr');
+            const th = document.createElement('th');
+            th.setAttribute("scope", "row");
+            th.innerText = counter;
+            const eventName = document.createElement('td');
+            eventName.innerText = eventResult;
+            const eventDate = document.createElement('td');
+            eventDate.innerText = "NEED CALL";
+            const eventTime = document.createElement('td');
+            eventTime.innerText = "NEED CALL";
+            const eventOrg = document.createElement('td');
+            eventOrg.innerText = "NEED CALL";
+            const eventCancel = document.createElement('td');
+            eventCancel.innerText = "NEED CALL";
+            th.appendChild(eventCancel);
+            th.appendChild(eventOrg);
+            th.appendChild(eventTime);
+            th.appendChild(eventDate);
+            th.appendChild(eventName);
+            anchor.appendChild(th);
+            document.getElementById("event-list").appendChild(anchor);
+        }
     }
 
     async addPersonalEvents(){
         const events = this.dataStore.get("events");
         if (events == null) {
-            document.getElementById("eventResults").innerText = "No Events created by you in your Profile";
+            document.getElementById("personalEventResults").innerText = "No Events created by you in your Profile";
         }
-        document.getElementById("eventResults").innerText = events;
+        document.getElementById("personalEventResults").innerText = events;
     }
 
     async addName(){
@@ -88,13 +113,35 @@ class ViewProfile extends BindingClass {
         if (following == null) {
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
         }
-
-        let profileHtml = '';
+    
         let profileFollowing;
         for (profileFollowing of following) {
-            document.getElementById("allFollowingList").appendChild('<a href="#" class="nav-link align-middle px-0" id="foreignPic">'+' <i class="bi bi-person-circle"></i>'+'<span class="ms-1 d-none d-sm-inline"><H3 class="names" id="names">'+profileFollowing + '</H3></span></a>');   
+            // Create an anchor element
+            const anchor = document.createElement('a');
+            anchor.setAttribute('href', '#');
+            anchor.className = 'nav-link align-middle px-0';
+            anchor.id = 'foreignPic';
+    
+            // Create an icon element
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-person-circle';
+    
+            // Create a span element
+            const span = document.createElement('span');
+            span.className = 'ms-1 d-none d-sm-inline';
+    
+            // Create an H3 element
+            const name = document.createElement('H3');
+            name.className = 'names';
+            name.id = 'names';
+            name.textContent = profileFollowing;
+    
+            // Append elements
+            span.appendChild(name);
+            anchor.appendChild(icon);
+            anchor.appendChild(span);
+            document.getElementById("allFollowingList").appendChild(anchor);
         }
-        
     }
 
     redirectEditProfile(){
