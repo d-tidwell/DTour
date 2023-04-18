@@ -47,7 +47,7 @@ public class ModelConverter {
         .withEventCreator(event.getCreatedBy())
         .withEventAddress(event.getAddress())
         .withDescription(event.getDesciption())
-        .withDateTime(ZonedDateTime.parse(event.getDateTime()))
+        .withDateTime(event.getDateTime())
         .withCategory(event.getCategory())
         .withAttendees(event.getAttendees())
         .build();
