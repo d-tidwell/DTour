@@ -27,7 +27,7 @@ public class ModelConverter {
                 .withLastName(profile.getLastName())
                 .withLocation(profile.getLocation())
                 .withGender(profile.getGender())
-                .withDateOfBirth(profile.getDateOfBirth().toString())
+                .withDateOfBirth(profile.getDateOfBirth())
                 .withFollowing(profile.getFollowing())
                 .withEvents(profile.getEvents())
                 .build();
@@ -47,7 +47,7 @@ public class ModelConverter {
         .withEventCreator(event.getCreatedBy())
         .withEventAddress(event.getAddress())
         .withDescription(event.getDesciption())
-        .withDateTime(ZonedDateTime.parse(event.getDateTime()))
+        .withDateTime(event.getDateTime())
         .withCategory(event.getCategory())
         .withAttendees(event.getAttendees())
         .build();

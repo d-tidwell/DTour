@@ -1,5 +1,22 @@
 
 'CREATE PROFILE ENDPOINT CURL'
 curl -v -X POST http://127.0.0.1:3000/profiles/create \
--H 'Authorization: Bearer eyJraWQiOiJvalpuWk4xZG1jYWlMbjBLUkFsOTZONjBVZjFTYVVmd3VZZE9cL2ZcL2JRNjQ9IiwiYWxnIjoiUlMyNTYifQ.eyJhdF9oYXNoIjoiUGZOR05ocG8yb0pZMXVSdVFDT25tdyIsInN1YiI6ImRlMzI5YzNhLThkNTgtNDIzMC05OWJkLTNkMGExZWE2MmVlMSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9adXdMdEpPcEoiLCJjb2duaXRvOnVzZXJuYW1lIjoiZGUzMjljM2EtOGQ1OC00MjMwLTk5YmQtM2QwYTFlYTYyZWUxIiwib3JpZ2luX2p0aSI6IjlkMjViMzcxLWJjZGEtNDE5Zi1hMGU5LWI4ZDc1N2NlYTZjZCIsImF1ZCI6IjVmOGtycDU2MWxpY29qdmUwY2VvNzRnZTM1IiwiZXZlbnRfaWQiOiI4MTgzZGU2My0wZDBmLTQxZmQtYjFkZC1lMjdhYzZhOTgzMzAiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4MTc1ODY5NywibmFtZSI6Ik5PYWgiLCJleHAiOjE2ODE3NjIyOTcsImlhdCI6MTY4MTc1ODY5NywianRpIjoiNmM4ZTk0NWQtNDE5OS00ZjczLTg3YWMtMjBlOWQ3OTFiNjAwIiwiZW1haWwiOiJub2FoemNhaW5AZ21haWwuY29tIn0.EWYgd7QcDwS8lBi-55vSEm4_Ne6BV--mE9b1bJ-ZE2dyXqTmxXAyn2FBRsTyuKi5910SPLq0gq7Hrs6crwt__Z9FTL9DCZXP5CDcg6pWK7E5x9E0pw4wHfMJSy_gv5d4Cd4Ofi1LJGdhds5Oz63ByFVY7U9oJSAKrZLbvLgZm-PAZPP5IKGBvSJQdKVkfeHXDonM0wW2x_2Fj0k2isVftjam6SB6ha-BAfnupe1LGiks2yiPT9H3tHyeXsjkjhD32Ufd23JzBukQrQGWvvZJgYZ1gu3G76a9IbZlj8fQe0CWRXwcxLuVya5oyMs51qObiNK-H7OL5Ik_r-ueoXzE6A' \
+-H 'Authorization: Bearer <TOKEN HERE> ' \
 -d '{"firstName": "Noah", "lastName": "Cain", "location": "Nashville", "gender": "M", "dateOfBirth": "2007-12-03T10:15:30+01:00"}'
+
+
+'GET PROFILE ENDPOINT'
+GetProfile EndPoint
+
+curl -X GET -H 'Authorization: Bearer <TOKEN HERE>' \
+https://g3c9cifk5j.execute-api.us-east-2.amazonaws.com/Prod/profiles/NoahCainTestEmailAddress@gmail.com
+
+'CREATE EVENT ENDPOINT'
+curl -v -X POST http://127.0.0.1:3000/events/create \            
+-H 'Authorization: Bearer <TOKEN HERE>' \
+-d '{"name":"Puzzle Day", "eventCreator":"noahzcain@gmail.com","address":"Pensacola", "description":"twist your brain with friends", "dateTime":"2023-12-03T10:15:30+01","category":["educational"]}'
+
+'UPDATE PROFILE ENDPOINT'
+curl -X PUT  http://127.0.0.1:3000/profiles/noahzcain@gmail.com \
+-H 'Authorization: Bearer <TOKEN HERE>' \
+-d '{"firstName": "Noah", "lastName": "Cain", "location": "Nashville", "gender": "M", "dateOfBirth": "1995-06-30T10:15:30+01:00"}'
