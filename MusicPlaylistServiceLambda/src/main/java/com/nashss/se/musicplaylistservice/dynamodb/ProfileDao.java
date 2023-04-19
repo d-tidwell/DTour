@@ -3,12 +3,14 @@ package com.nashss.se.musicplaylistservice.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.InvalidAttributeException;
+import com.nashss.se.musicplaylistservice.exceptions.InvalidBirthdateException;
 import com.nashss.se.musicplaylistservice.exceptions.ProfileNotFoundException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
 import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,7 +26,22 @@ public class ProfileDao {
         this.dynamoDbMapper = dynamoDbMapper;
         this.metricsPublisher = metricsPublisher;
     }
+    public boolean isValidBirthday(ZonedDateTime birthday) {
+        // Get today's date in the same time zone as the birthday
+        LocalDate today = LocalDate.now(birthday.getZone());
 
+        // Check that the birthday is not in the future
+        if (birthday.toLocalDate().isAfter(today)) {
+            return false;
+        }
+
+        // Check that the person is less than 120 years old
+        if (birthday.plusYears(120).toLocalDate().isBefore(today)) {
+            return false;
+        }
+
+        return true;
+    }
     public Profile getProfile(String id){
 
         Profile profile = this.dynamoDbMapper.load(Profile.class, id);
@@ -50,12 +67,17 @@ public class ProfileDao {
             saveProfile.setGender(gender);
             //this needs to be a zoned datetime object to check for valid birthday but stored as a string
             //so you would need to make a function that does that
-            saveProfile.setDateOfBirth(dateOfBirth.toString());
+            if(isValidBirthday(dateOfBirth)) {
+                saveProfile.setDateOfBirth(dateOfBirth.toString());
+            } else {
+                throw new InvalidBirthdateException("You are probably less than 120 years old and born before today.");
+            }
             //they couldn't possibly have values so we need to set them here so the field exists
             this.dynamoDbMapper.save(saveProfile);
 
         //if the boolean is false it means we are updating and need to check each field to see if it needs updating
         } else {
+
             if (firstName != null || !firstName.isEmpty()) {
                 saveProfile.setFirstName(firstName);
             }
@@ -71,7 +93,11 @@ public class ProfileDao {
             //this needs to be a zoned datetime object to check for valid birthday but stored as a string
             //so you would need to make a function that does that
             if (!Objects.isNull(dateOfBirth)) {
-                saveProfile.setDateOfBirth(dateOfBirth.toString());
+                if(isValidBirthday(dateOfBirth)) {
+                    saveProfile.setDateOfBirth(dateOfBirth.toString());
+                } else {
+                    throw new InvalidBirthdateException("You are probably less than 120 years old and born before today.");
+                }
             }
             this.dynamoDbMapper.save(saveProfile);
         }
