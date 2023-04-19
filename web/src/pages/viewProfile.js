@@ -86,7 +86,7 @@ class ViewProfile extends BindingClass {
                 // eventCancel.innerText = "NEED button to cancel here";
                 const removeBtn = document.createElement('button');
                 removeBtn.innerText = "Cancel";
-                removeBtn.className("btn btn-light-custom");
+                removeBtn.className= "btn btn-light-custom";
                 removeBtn.id = eventResult + "btn";
                 eventCancel.appendChild(removeBtn);
                 anchor.appendChild(th);

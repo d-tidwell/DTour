@@ -1,32 +1,91 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <script type="text/javascript" src="assets/searchPlaylists.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-
-<body class="background">
-    <header class="header" id="header"></header>
-    <div class="card">
-        <h2>Search Playlists</h2>
-        <form class="card-content" id="search-playlists-form">
-            <p class="form-field">
-                <label>Search by name or tag</label>
-                <input type="text" class="validated-field" id="search-criteria" placeholder="smooth-jamz" autofocus>
-                <sub>Search is case-sensitive and tags must match exactly.</sub>
-            </p>
-        </form>
-        <p class="button-group">
-            <a href="#" class="button" id="search-btn">Search</a>
-            <a href="createPlaylist.html" class="button">New Playlist</a>
-        </p>
-    </div>
-    <div class="card hidden" id='search-results-container'>
-        <h3>Results for <span id="search-criteria-display"></span></h3>
-        <div id="search-results-display">
-        </div>
-    </div>
-</body>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-control" content="public">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/MidstoneStyle.css">
+        <link rel="shortcut icon" href="icons/balloon-heart.svg">
+        <script type="text/javascript" src="assets/landingPage.js"></script>
+        <title>@DANNA</title>
+    </head>
+        <header class="header" id="header">
+            <a href="#" class="logo">
+              <H1 class="logoLanding">@DANNA</H1>           
+            </a>
+            <button  type="button" class="btn btn-light-custom" id="logout-2">Login</button>
+            <span>!!!</span>
+        </header>
+        <body>
+            <div class="page-body-background-landing">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col blurb-landing-pitch">
+                            <H2 class="text-righteous">What's going on? Who else is going?</H2>
+                            <H1 class="text-righteous"> Ask @Danna!</H1>
+                            <H2 class="text-righteous">Putting the social first in social media.</H3>
+                                <p class="blurb-text-paragraph">Real communities are made by real connections. Finding those communities online and fostering authentic connections can be difficult.
+                                    Find something you can't find online. Find adventures.
+                                </p>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button  type="button" class="btn btn-dark" id="logout">Login</button>
+                                <button  type="button" class="btn btn-dark" id="sign-up">SignUp</button>
+                            </div>                     
+                        </div>
+                        <div class="col">
+                            <img class="cellphone" src="icons/cellphone_alpha.png" style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-dark rounded-top page-body-background-landing overlayBox">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col py-4 pt-5">
+                                <i class="bi bi-search-heart landing-icon"></i>
+                            </div> 
+                            <div class="col py-4  pt-5">
+                                <i class="bi bi-people-fill landing-icon"></i>
+                            </div>
+                            <div class="col py-4  pt-5">
+                                <i class="bi bi-pencil-fill landing-icon"></i>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col py-2">
+                                <h2 class="text-righteous">Discover</h2>
+                            </div>
+                            <div class="col py-2">
+                                <h2 class="text-righteous">Connect</h2>
+                            </div>
+                            <div class="col py-2">
+                                <h2 class="text-righteous">Curate</h2>
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-righteous">local people and events to connect</p>
+                                <p class="text-righteous">Everything is event driven</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-righteous">with other enthusiasts.</p>
+                                <p class="text-righteous">Make connections before you get there</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-righteous">your own social schedule</p>
+                                <p class="text-righteous">Create your own events.</p>
+                            </div>   
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        </body>
 </html>
