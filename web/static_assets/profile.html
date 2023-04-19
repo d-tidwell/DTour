@@ -60,13 +60,13 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                               <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Event Name</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Organizer</th>
-                                <th scope="col">Cancel RSVP</th>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Event Name</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Time</th>
+                                <th scope="col" class="text-center">Location</th>
+                                <th scope="col" class="text-center">Organizer</th>
+                                <th scope="col" class="text-center">RSVP</th>
                               </tr>
                             </thead>
                             <tbody id="event-list">
@@ -76,11 +76,13 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                               <tr>
-                                <th scope="col">Event Name</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">RSVP</th>
+                                <!-- <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Event Name</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Time</th>
+                                <th scope="col" class="text-center">Location</th>
+                                <th scope="col" class="text-center">Organizer</th>
+                                <th scope="col" class="text-center">RSVP</th> -->
                                 <p id="personalEventResults"></p>
                               </tr>
                             </thead>
@@ -88,11 +90,11 @@
                             </tbody>
                           </table>
                           <hr>
-                        <div class="row py-3 page-body-background">
-                            <h3 class="text-center">Following</h3>
-                            <div class="col-3">
+                        <div class="row py-3">
+                            <h3 class="text-center pb-5">Following</h3>
+                            <div>
                                 <p class="text-center" id="allFollowingListText"></p>
-                                <div id="allFollowingList"></div>
+                                <div class="container d-flex flex-wrap justify-content-center" id="allFollowingList"></div>
                             </div>
                         </div>
                 </div>

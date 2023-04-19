@@ -24,7 +24,7 @@
         </header>
         <body>
         <!-- Modal HTML -->
-        <div id="confirmation-modal" class="modal">
+        <div id="confirmation-modal" class="modal fade">
           <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Confirm Submission</h2>
@@ -40,29 +40,29 @@
                 <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link align-middle px-0" id="profilePic">
-                                    <i class="bi bi-person-circle nav-profile-icon"></i>
-                                    <span class="ms-1 d-none d-sm-inline"><H3 class="names">First& LastName</H3></span>
-                                </a>
-                                
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-4 py-4 align-middle">
-                                    <i class="bi bi-calendar3 px-4 nav-custom-icon"></i>  <span class="tooltip">Browse Events</span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-4 py-4 align-middle">
-                                    <i class="bi bi-pencil-square px-4 nav-custom-icon"></i> <span class="tooltip">Create Events</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-4 py-4 align-middle">
-                                    <i class="bi bi-people px-4 nav-custom-icon"></i><span class="tooltip">You Are Following</span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-4 py-4 align-middle" id="door">
-                                    <i class="bi bi-door-open px-4 nav-custom-icon"></i><span class="tooltip">Ok.Fine.Just Leave</span></a>
-                            </li>
+                          <li class="nav-item">
+                            <a href="#" class="nav-link align-middle px-0" id="profilePic">
+                                <i class="bi bi-person-circle nav-profile-icon"></i>
+                                <span class="ms-1 d-none d-sm-inline"><H3 class="names" id="names">First& LastName</H3></span>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-4 py-4 align-middle" id="allEvents">
+                                <i class="bi bi-calendar3 px-4 nav-custom-icon"></i>  <span class="tooltip">Browse Events</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-4 py-4 align-middle" id="createEvents">
+                                <i class="bi bi-pencil-square px-4 nav-custom-icon"></i> <span class="tooltip">Create Events</span> </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-4 py-4 align-middle"id="allFollowing">
+                                <i class="bi bi-people px-4 nav-custom-icon"></i><span class="tooltip">You Are Following</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-4 py-4 align-middle"id="door">
+                                <i class="bi bi-door-open px-4 nav-custom-icon"></i><span class="tooltip">Ok.Fine.Just Leave</span></a>
+                        </li>
                         </ul>
                         <hr>
                     </div>
@@ -73,7 +73,7 @@
                           <div class="col-lg-6">
                             <div class="card">
                               <div class="card-body">
-                                <h3 class="card-title text-center">Create / Edit Profile</h3>
+                                <h3 class="card-title text-center" id="welcome">Create / Edit Profile</h3>
                                 <hr>
                                 <form>
                                   <div class="mb-3">
@@ -97,7 +97,7 @@
                                     <input type="text" class="form-control" id="gender" placeholder="Gender">
                                   </div>
                                   <div class="text-end">
-                                    <button class="btn btn-dark" id="submit-btn">Submit</button>
+                                    <button type="button"class="btn btn-dark" data-bs-toggle="modal" data-bs-target="confirmation-modal"id="submit-btn">Submit</button>
                                   </div>
                                 </form>
                               </div>

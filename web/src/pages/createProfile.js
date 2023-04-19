@@ -6,24 +6,26 @@ import DataStore from "../util/DataStore";
 class CreateProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
+        this.bindClassMethods(['clientLoaded', 'mount','showConfirmationModal','submitFormData', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
         this.dataStore = new DataStore();
-        this.dataStore.addChangeListener(this.setPlaceholders);
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
     }
 
     async clientLoaded() {
         // const urlParams = new URLSearchParams(window.location.search);
-        const identity = this.client.getIdentity();
+        const identity = await this.client.getIdentity();
         const profile = await this.client.getProfile(identity.email);
-        console.log("getting..." + identity.email);
         this.dataStore.set('profile', profile);
+        if(profile == null) {
+            document.getElementById("welcome").innerText = "Welcome! First Lets Make Your Profile!"
+        }
         document.getElementById("fname").setAttribute('placeholder', 'First Name');
         document.getElementById("lname").setAttribute('placeholder', 'Last Name');
         document.getElementById("dob").setAttribute('placeholder', 'Date of Birth');
         document.getElementById("location").setAttribute('placeholder', 'Location');
         document.getElementById("gender").setAttribute('placeholder', 'Gender');
+        this.setPlaceholders();
 
     }
 
@@ -36,8 +38,8 @@ class CreateProfile extends BindingClass {
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
         document.getElementById('submit-btn').addEventListener('click', this.showConfirmationModal);
-        document.getElementById('cancel-Btn').addEventListener('click', this.closeModal);
-        document.getElementById('confirm-Btn').addEventListener('click', this.submitFormData);
+        // document.getElementById('cancel-Btn').addEventListener('click', this.closeModal);
+        // document.getElementById('confirm-Btn').addEventListener('click', this.submitFormData);
 
         // this.header.addHeaderToPage();
 
@@ -47,27 +49,29 @@ class CreateProfile extends BindingClass {
 
     async setPlaceholders(){
         const profile = this.dataStore.get("profile");
+        console.log("this one",profile)
         if (profile == null) {
             return;
         }
-        if (profile.name) {
-            const words = profile.name.split();
-            document.getElementById('fname').setAttribute('placeholder', words[0]);
-            document.getElementById('lname').setAttribute('placeholder', words[1]);
+        if (profile.profileModel.firstName && profile.profileModel.lastName) {
+            document.getElementById("names").innerText =  profile.profileModel.firstName + " " +  profile.profileModel.lastName
+            document.getElementById('fname').setAttribute('placeholder', profile.profileModel.firstName);
+            document.getElementById('lname').setAttribute('placeholder', profile.profileModel.lastName);
         }
-        if (profile.dateOfBirth) {
-            document.getElementById('dob').setAttribute(profile.dateOfBirth);
+        if (profile.profileModel.dateOfBirth) {
+            document.getElementById('dob').setAttribute('placeholder',profile.profileModel.dateOfBirth);
         }
-        if (profile.location) {
-            document.getElementById('location').setAttribute(profile.location);
+        if (profile.profileModel.location) {
+            document.getElementById('location').setAttribute('placeholder',profile.profileModel.location);
         }
-        if (profile.gender) {
-            document.getElementById('gender').setAttribute(profile.gender);
+        if (profile.profileModel.gender) {
+            document.getElementById('gender').setAttribute('placeholder',profile.profileModel.gender);
         }
 
     }
 
     async  showConfirmationModal() {
+        console.log('called');
         const firstName = document.getElementById('fname').value;
         const lastName = document.getElementById('lname').value;
         const dob = document.getElementById('dob').value;
@@ -76,8 +80,11 @@ class CreateProfile extends BindingClass {
       
         // create the confirmation message with the form data
         const confirmationMessage = `Please confirm the following details: \n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nDate of Birth: ${dob}\nLocation: ${location}\nGender: ${gender}`;
-        document.getElementById('confirmation-message');
+        const message = document.getElementById('confirmation-message');
         message.textContent = confirmationMessage;
+        const modalShow = document.getElementById('confirmation-modal');
+        // modalShow.setAttribute()
+
     }
 
     async submitFormData(evt){
