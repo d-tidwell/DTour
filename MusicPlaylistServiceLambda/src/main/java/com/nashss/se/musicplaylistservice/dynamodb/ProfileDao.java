@@ -77,10 +77,12 @@ public class ProfileDao {
 
         //if the boolean is false it means we are updating and need to check each field to see if it needs updating
         } else {
-
+            Profile oldProfile = this.getProfile(id);
+            saveProfile.setFollowing(oldProfile.getFollowing());
+            saveProfile.setEvents(oldProfile.getEvents());
             if (firstName != null || !firstName.isEmpty()) {
                 saveProfile.setFirstName(firstName);
-            }
+            } 
             if (lastName != null || !lastName.isEmpty()) {
                 saveProfile.setLastName(lastName);
             }
@@ -90,8 +92,6 @@ public class ProfileDao {
             if (gender != null || !gender.isEmpty()) {
                 saveProfile.setGender(gender);
             }
-            //this needs to be a zoned datetime object to check for valid birthday but stored as a string
-            //so you would need to make a function that does that
             if (!Objects.isNull(dateOfBirth)) {
                 if(isValidBirthday(dateOfBirth)) {
                     saveProfile.setDateOfBirth(dateOfBirth.toString());

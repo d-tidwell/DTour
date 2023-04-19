@@ -23,15 +23,38 @@
             <span>!!!</span>
         </header>
         <body>
-        <!-- Modal HTML -->
-        <div id="confirmation-modal" class="modal fade">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Confirm Submission</h2>
-            <p id="confirmation-message"></p>
-            <div class="modal-buttons">
-              <button id="confirm-btn">Confirm</button>
-              <button id="cancel-btn">Cancel</button>
+        <!-- Modal -->
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <p  class="form-label" id="loading-modal">Loading Changes .....</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                Please Confirm Your Profile Changes
+              </div>
+              <div class="modal-body text-center">
+                  <div class="mb-3">
+                    <p  class="form-label" id="fnameC">First Name</p>
+                  </div>
+                  <div class="mb-3">
+                    <p  class="text-center" id="lnameC">Last Name</p>
+                  </div>
+                  <div class="mb-3">
+                    <p  class="text-center" id="dobC">Date of Birth</p>
+                  </div>
+                  <div class="mb-3">
+                    <p  class="text-center" id="loC">Location</p>
+                  </div>
+                  <div class="mb-3">
+                    <p  class="text-center" id="genderC">Gender</p>
+                  </div>
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-dark" id="confirm">Confirm</button>
+              </div>
             </div>
           </div>
         </div>
@@ -73,6 +96,7 @@
                           <div class="col-lg-6">
                             <div class="card">
                               <div class="card-body">
+                                <h1 class="card-title text-center" id="loading"></h1>
                                 <h3 class="card-title text-center" id="welcome">Create / Edit Profile</h3>
                                 <hr>
                                 <form>
@@ -97,7 +121,7 @@
                                     <input type="text" class="form-control" id="gender" placeholder="Gender">
                                   </div>
                                   <div class="text-end">
-                                    <button type="button"class="btn btn-dark" data-bs-toggle="modal" data-bs-target="confirmation-modal"id="submit-btn">Submit</button>
+                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#confirmModal" id="submited">Submit</button>
                                   </div>
                                 </form>
                               </div>
