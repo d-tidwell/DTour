@@ -108,7 +108,9 @@
 color:white;
 }
 .btn-dark {
+    background-color: var(--navbarColor);
     color: var(--textColor);
+    border: black;
 }
 .card {
     background-color: var(--textColor);
@@ -150,7 +152,9 @@ color:white;
 .d-sm-inline {
     color: var(--textColor);
 }
-
+h3#names.names.text-following {
+    color: var(--textColor)
+}
 /* mobile compatibility settings */
 @media (max-width: 767px) {
     /* Styles for smaller screens */

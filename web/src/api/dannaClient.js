@@ -53,7 +53,6 @@ export default class DannaClient extends BindingClass {
             if (!isLoggedIn) {
                 return undefined;
             }
-            console.log("called getIdentity!!!!", this.authenticator.getCurrentUserInfo())
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -92,7 +91,6 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log("getProfile in client:", response.data);
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
