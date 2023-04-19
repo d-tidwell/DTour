@@ -42,7 +42,7 @@ class CreateProfile extends BindingClass {
         document.getElementById('confirm').addEventListener('click', this.confirmRedirect);
         document.getElementById('submited').addEventListener('click', this.submitFormData);
 
-        // this.header.addHeaderToPage();
+      
 
         this.client = new dannaClient();
         this.clientLoaded();
