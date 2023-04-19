@@ -92,7 +92,7 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
+            console.log("getProfile in client:", response.data);
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)

@@ -66,7 +66,7 @@ class ViewProfile extends BindingClass {
             let counter = 0;
             for (eventResult of events) {
                 const resulting = await this.client.getEventDetails(eventResult);
-                console.log("RESULTING" + counter + " " + resulting);
+                console.log("RESULTING" + counter + " " + resulting.toString());
                 counter += 1
                 const anchor = document.createElement('tr');
                 const th = document.createElement('th');
@@ -130,19 +130,19 @@ class ViewProfile extends BindingClass {
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', '#');
-            anchor.className = 'nav-link align-middle px-0';
+            anchor.className = 'nav-link px-4';
             anchor.id = 'foreignPic' + getName.profileModel.getName;
     
             // Create an icon element
             const icon = document.createElement('i');
-            icon.className = 'bi bi-person-circle nav-profile-icon-sm';
+            icon.className = 'bi bi-person-circle nav-profile-icon-sm align-middle';
     
             // Create a span element
             const span = document.createElement('span');
-            span.className = 'ms-1 d-none d-sm-inline';
-    
+            span.className = '';
+
             // Create an H3 element
-            const name = document.createElement('H3');
+            const name = document.createElement('H1');
             name.className = 'names';
             name.id = 'names';
             name.textContent = getName.profileModel.firstName + " " + getName.profileModel.lastName;
