@@ -4,7 +4,7 @@ import Header from '../components/dannaHeader';
 import DataStore from "../util/DataStore";
 
 class ViewProfile extends BindingClass {
-    constructor() {
+    constructor() {+
         super();
         this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents',
         'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing'], this);
@@ -21,9 +21,7 @@ class ViewProfile extends BindingClass {
         const identity = await this.client.getIdentity();
         const profile = await this.client.getProfile(identity.email);
         this.dataStore.set('profile', profile);
-        if(profile == null) {
-            window.location.href = '/createProfile.html';
-        }
+
         this.dataStore.set('events', profile.profileModel.events);
         this.dataStore.set('firstName', profile.profileModel.firstName);
         this.dataStore.set('lastName', profile.profileModel.lastName);
@@ -56,7 +54,6 @@ class ViewProfile extends BindingClass {
 
     async addEvents(){
         const events = this.dataStore.get("events");
-        
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -132,9 +129,9 @@ class ViewProfile extends BindingClass {
     async addPersonalEvents(){
         const events = this.dataStore.get("events");
         if (events == null) {
-            document.getElementById("personalEventResults").innerText = "No Events created by you in your Profile";
+            document.getElementById("created-event-list").innerText = "No Events created by you in your Profile";
         }
-        document.getElementById("personalEventResults").innerText = events;
+        document.getElementById("created-event-list").innerText = events;
     }
 
     async addName(){
@@ -149,10 +146,10 @@ class ViewProfile extends BindingClass {
     async addFollowing(){
         const following = this.dataStore.get("following");
         if (following == null) {
+            document.getElementById("allFollowingListText").remove()
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
-        }
-    
-        let profileFollowing;
+        } else {
+            let profileFollowing;
         for (profileFollowing of following) {
             const getName = await this.client.getProfile(profileFollowing);
             // Create an anchor element
@@ -183,6 +180,10 @@ class ViewProfile extends BindingClass {
             document.getElementById("allFollowingList").appendChild(anchor);
         }
         document.getElementById("allFollowingListText").remove();
+
+        }
+    
+        
     }
 
     redirectEditProfile(){

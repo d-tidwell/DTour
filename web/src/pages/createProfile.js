@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class CreateProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','modalPop','submitFormData', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
+        this.bindClassMethods(['clientLoaded', 'mount','confirmRedirect','submitFormData', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -15,6 +15,7 @@ class CreateProfile extends BindingClass {
     async clientLoaded() {
         // const urlParams = new URLSearchParams(window.location.search);
         const identity = await this.client.getIdentity();
+        this.dataStore.set('id', identity.email);
         const profile = await this.client.getProfile(identity.email);
         this.dataStore.set('profile', profile);
         if(profile == null) {
@@ -38,8 +39,8 @@ class CreateProfile extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
-        document.getElementById('confirm').addEventListener('click', this.submitFormData);
-        document.getElementById('submited').addEventListener('click', this.modalPop());
+        document.getElementById('confirm').addEventListener('click', this.confirmRedirect);
+        document.getElementById('submited').addEventListener('click', this.submitFormData);
 
         // this.header.addHeaderToPage();
 
@@ -70,39 +71,41 @@ class CreateProfile extends BindingClass {
         document.getElementById("loading").remove();
     }
 
-    async modalPop(){
-        const firstName = document.getElementById('fname').value;
-        console.log(firstName, "HEERRREE");
-        const lastName = document.getElementById('lname').value;
-        const dob = document.getElementById('dob').value;
-        const location = document.getElementById('lo').value;
-        const gender = document.getElementById('gender').value;
-        document.getElementById('fnameC').innerText = firstName;
-        document.getElementById('lnameC').innerText = lastName;
-        document.getElementById('dobC').innerText = dob;
-        document.getElementById('loC').innerText = location;
-        document.getElementById('genderC').innerText = gender;
-
-    }
 
     async submitFormData(evt){
         evt.preventDefault();
-        const firstName = document.getElementById('fnameC').value;
-        const lastName = document.getElementById('lnameC').value;
-        const dob = document.getElementById('dobC').value;
-        const location = document.getElementById('loC').value;
-        const gender = document.getElementById('genderC').value;
-
-        const profile = await this.client.createProfile(firstName, lastName, dob, location, gender, (error) => {
-            errorMessageDisplay.innerText = `Error: ${error.message}`;
-        });
+        const firstName = document.getElementById('fname').value || document.getElementById('fname').getAttribute('placeholder');
+        const lastName = document.getElementById('lname').value ||  document.getElementById('lname').getAttribute('placeholder');
+        const dob = document.getElementById('dob').value ||  document.getElementById('dob').getAttribute('placeholder');
+        const location = document.getElementById('location').value ||  document.getElementById('location').getAttribute('placeholder');
+        const gender = document.getElementById('gender').value || document.getElementById('gender').getAttribute('placeholder');
+        console.log(firstName, lastName, dob, location, gender);
+        let profile;
+        if(document.getElementById('welcome').innerText == "Welcome! First Lets Make Your Profile!"){
+            profile = await this.client.createProfile(firstName, lastName, location, gender, dob, (error) => {
+                errorMessageDisplay.innerText = `Error: ${error.message}`;
+            });
+        } else {
+            profile = await this.client.updateProfile(this.dataStore.get('id'),firstName, lastName, location, gender, dob, (error) => {
+                errorMessageDisplay.innerText = `Error: ${error.message}`;
+            });
+        }
+        
 
         this.dataStore.set('profile', profile);
-        window.location.href = '/viewProfile.html';
+        document.getElementById('fnameC').innerText = firstName || profile.profileModel.firstName;
+        document.getElementById('lnameC').innerText = lastName || profile.profileModel.lastName;
+        document.getElementById('dobC').innerText = dob || profile.profileModel.dateOfBirth;
+        document.getElementById('loC').innerText = location || profile.profileModel.location;
+        document.getElementById('genderC').innerText = gender ||profile.profileModel.gender;
+        document.getElementById('loading-modal').remove();
+        
     }
-
-    redirectEditProfile(){
+    confirmRedirect() {
         window.location.href = '/profile.html';
+    }
+    redirectEditProfile(){
+        window.location.href = '/createProfile.html';
     }
     redirectAllEvents(){
         window.location.href = '/viewAllEvents.html';
