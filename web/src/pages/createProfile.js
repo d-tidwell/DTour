@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class CreateProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','showConfirmationModal','submitFormData', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
+        this.bindClassMethods(['clientLoaded', 'mount','modalPop','submitFormData', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -20,6 +20,7 @@ class CreateProfile extends BindingClass {
         if(profile == null) {
             document.getElementById("welcome").innerText = "Welcome! First Lets Make Your Profile!"
         }
+        document.getElementById("loading").innerText = "Loading.....";
         document.getElementById("fname").setAttribute('placeholder', 'First Name');
         document.getElementById("lname").setAttribute('placeholder', 'Last Name');
         document.getElementById("dob").setAttribute('placeholder', 'Date of Birth');
@@ -37,9 +38,8 @@ class CreateProfile extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
-        document.getElementById('submit-btn').addEventListener('click', this.showConfirmationModal);
-        // document.getElementById('cancel-Btn').addEventListener('click', this.closeModal);
-        // document.getElementById('confirm-Btn').addEventListener('click', this.submitFormData);
+        document.getElementById('confirm').addEventListener('click', this.submitFormData);
+        document.getElementById('submited').addEventListener('click', this.modalPop());
 
         // this.header.addHeaderToPage();
 
@@ -67,33 +67,31 @@ class CreateProfile extends BindingClass {
         if (profile.profileModel.gender) {
             document.getElementById('gender').setAttribute('placeholder',profile.profileModel.gender);
         }
-
+        document.getElementById("loading").remove();
     }
 
-    async  showConfirmationModal() {
-        console.log('called');
+    async modalPop(){
         const firstName = document.getElementById('fname').value;
+        console.log(firstName, "HEERRREE");
         const lastName = document.getElementById('lname').value;
         const dob = document.getElementById('dob').value;
-        const location = document.getElementById('location').value;
+        const location = document.getElementById('lo').value;
         const gender = document.getElementById('gender').value;
-      
-        // create the confirmation message with the form data
-        const confirmationMessage = `Please confirm the following details: \n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nDate of Birth: ${dob}\nLocation: ${location}\nGender: ${gender}`;
-        const message = document.getElementById('confirmation-message');
-        message.textContent = confirmationMessage;
-        const modalShow = document.getElementById('confirmation-modal');
-        // modalShow.setAttribute()
+        document.getElementById('fnameC').innerText = firstName;
+        document.getElementById('lnameC').innerText = lastName;
+        document.getElementById('dobC').innerText = dob;
+        document.getElementById('loC').innerText = location;
+        document.getElementById('genderC').innerText = gender;
 
     }
 
     async submitFormData(evt){
         evt.preventDefault();
-        const firstName = document.getElementById('fname').value;
-        const lastName = document.getElementById('lname').value;
-        const dob = document.getElementById('dob').value;
-        const location = document.getElementById('location').value;
-        const gender = document.getElementById('gender').value;
+        const firstName = document.getElementById('fnameC').value;
+        const lastName = document.getElementById('lnameC').value;
+        const dob = document.getElementById('dobC').value;
+        const location = document.getElementById('loC').value;
+        const gender = document.getElementById('genderC').value;
 
         const profile = await this.client.createProfile(firstName, lastName, dob, location, gender, (error) => {
             errorMessageDisplay.innerText = `Error: ${error.message}`;
@@ -102,13 +100,6 @@ class CreateProfile extends BindingClass {
         this.dataStore.set('profile', profile);
         window.location.href = '/viewProfile.html';
     }
-
-    async closeModal() {
-        const modal = document.querySelector('.modal.is-active'); // get the active modal element
-        if (modal) {
-          modal.classList.remove('is-active'); // remove the "is-active" class to close the modal
-        }
-      }
 
     redirectEditProfile(){
         window.location.href = '/profile.html';
@@ -124,7 +115,6 @@ class CreateProfile extends BindingClass {
     }
     logout(){
         this.client.logout();
-        window.location.href ='/landingPage.html';
     }
 }
 /**
