@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -57,25 +58,20 @@ public class ProfileDao {
 
     public Profile saveProfile(boolean isNew, String id, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
         Profile saveProfile = new Profile();
-        //needed either for update or save bc its the hashkey
         saveProfile.setId(id);
-        //if this is a new profile we are saving just save the info we are given we know this bc we passed true
         if(isNew) {
             saveProfile.setFirstName(firstName);
             saveProfile.setLastName(lastName);
             saveProfile.setLocation(location);
             saveProfile.setGender(gender);
-            //this needs to be a zoned datetime object to check for valid birthday but stored as a string
-            //so you would need to make a function that does that
+
             if(isValidBirthday(dateOfBirth)) {
                 saveProfile.setDateOfBirth(dateOfBirth.toString());
             } else {
                 throw new InvalidBirthdateException("You are probably less than 120 years old and born before today.");
             }
-            //they couldn't possibly have values so we need to set them here so the field exists
             this.dynamoDbMapper.save(saveProfile);
 
-        //if the boolean is false it means we are updating and need to check each field to see if it needs updating
         } else {
             Profile oldProfile = this.getProfile(id);
             saveProfile.setFollowing(oldProfile.getFollowing());
@@ -148,5 +144,15 @@ public class ProfileDao {
         profileToAddEventTo.setEvents(eventsStoredAlready);
         this.dynamoDbMapper.save( profileToAddEventTo);
         return eventsStoredAlready;
+    }
+
+    public Set<String> removeProfileFromEvent(String id, String profileIdToRemove) {
+        Profile profile = this.getProfile(id);
+        Set<String> events = profile.getEvents();
+        events.remove(profileIdToRemove);
+        profile.setEvents(events);
+        this.dynamoDbMapper.save(profile);
+        System.out.println(this.getProfile(id));
+        return events;
     }
 }

@@ -2,9 +2,6 @@ package com.nashss.se.musicplaylistservice.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.nashss.se.musicplaylistservice.activity.results.GetProfileResult;
-
-import java.util.Set;
 
 @JsonDeserialize(builder = GetProfileRequest.Builder.class)
 public class GetProfileRequest {
