@@ -46,7 +46,7 @@ public class ProfileDao {
     public Profile getProfile(String id){
 
         Profile profile = this.dynamoDbMapper.load(Profile.class, id);
-
+        
         if(profile == null){
             metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 1);
             throw new ProfileNotFoundException("Could not find profile with profileId " + id);

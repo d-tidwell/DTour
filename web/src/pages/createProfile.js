@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class CreateProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','confirmRedirect','submitFormData', 'redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
+        this.bindClassMethods(['clientLoaded', 'redirectProfile','mount','confirmRedirect','submitFormData','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -33,7 +33,7 @@ class CreateProfile extends BindingClass {
 
     mount() {
   
-        document.getElementById('profilePic').addEventListener('click', this.redirectEditProfile);
+        document.getElementById('profilePic').addEventListener('click', this.redirectProfile);
         document.getElementById('allEvents').addEventListener('click', this.redirectAllEvents);
         document.getElementById('createEvents').addEventListener('click', this.redirectCreateEvents);
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
@@ -104,8 +104,8 @@ class CreateProfile extends BindingClass {
     confirmRedirect() {
         window.location.href = '/profile.html';
     }
-    redirectEditProfile(){
-        window.location.href = '/createProfile.html';
+    redirectProfile(){
+        window.location.href = '/profile.html';
     }
     redirectAllEvents(){
         window.location.href = '/viewAllEvents.html';
@@ -116,8 +116,12 @@ class CreateProfile extends BindingClass {
     redirectAllFollowing(){
         window.location.href = '/allFollowing.html';
     }
-    logout(){
-        this.client.logout();
+    async logout(){
+        await this.client.logout(); 
+        if(!this.client.isLoggedIn()){
+            window.location.href ='/landingPage.html';
+        }
+        
     }
 }
 /**
