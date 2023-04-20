@@ -16,6 +16,16 @@ public class CreateProfileRequest {
     private final String gender;
     private final String dateOfBirth;
 
+    private CreateProfileRequest(String firstName, String lastName, String id, String location,
+                                 String gender, String dateOfBirth){
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+        this.location = location;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -54,20 +64,10 @@ public class CreateProfileRequest {
                 '}';
     }
 
-    private CreateProfileRequest(String firstName, String lastName, String id, String location,
-                                 String gender, String dateOfBirth){
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.id = id;
-        this.location = location;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-    }
     public static Builder builder() {
         return new Builder();
     }
-@JsonPOJOBuilder
+    @JsonPOJOBuilder
     public static class Builder{
 
     private  String id;
@@ -106,5 +106,5 @@ public class CreateProfileRequest {
     public CreateProfileRequest build(){
         return new CreateProfileRequest(firstName,lastName,id,location,gender,dateOfBirth);
     }
-}
+    }
 }

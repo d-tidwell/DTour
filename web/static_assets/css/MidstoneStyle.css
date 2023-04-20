@@ -132,6 +132,11 @@ color:white;
     color: var(--textColor);
     font-size: 2rem;
 }
+.nav-profile-icon-sm:hover {
+    color: var(--navbarColor);
+    font-size: 3rem;
+}
+
 .nav-link .nav-profile-icon:hover {
     color:var(--hoverColor);
 }
@@ -154,6 +159,10 @@ color:white;
 }
 h3#names.names.text-following {
     color: var(--textColor)
+}
+h3#names.names.text-following:hover {
+    color: var(--navbarColor);
+    font-size: 2.4rem;
 }
 .modal {
     text-align: center;

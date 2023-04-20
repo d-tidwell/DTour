@@ -12,9 +12,11 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -40,25 +42,23 @@ public class EventDao {
         this.metricsPublisher = metricsPublisher;
     }
 
-    /**
-     * Returns the {@link Event} corresponding to the specified eventId.
-     *
-     * @param eventId the Event ID
-     * @return the stored Event, or null if none was found.
+     /**
+     * Get a chronologically sorted list of {@link Event} by most recent
+     * @return Sorted List of Events
      */
-
-    public Event getEvent(String eventId) {
-
-        Event event = this.dynamoDbMapper.load(Event.class, eventId);
-
-
-        if (event == null) {
-            metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 1);
-            throw new EventNotFoundException("Could not find event with id " + eventId);
-        }
-
-        metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 0);
-        return event;
+    public List<Event> getAllEvents() {
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        List<Event> unsortedEventList = dynamoDbMapper.scan(Event.class, scanExpression);
+        List<Event> sortedEventList = new ArrayList<>(unsortedEventList);
+        Collections.sort(sortedEventList, new Comparator<Event>() {
+            @Override
+            public int compare(Event e1, Event e2) {
+                ZonedDateTime zonedDateTime1 = ZonedDateTime.parse(e1.getDateTime());
+                ZonedDateTime zonedDateTime2 = ZonedDateTime.parse(e2.getDateTime());
+                return zonedDateTime1.compareTo(zonedDateTime2);
+            }
+        });
+        return sortedEventList;
     }
 
     /**
@@ -67,18 +67,15 @@ public class EventDao {
      * @param eventTime The event to save
      * @return The Event object that was saved
      */
-    //create vs save: choose one but not both save should probably be the name since that is what we are doing on the
-    // backend so since this is just checking the datetime issue lets call this that and the other save
 
     public boolean checkEventDateTime(String eventTime) {
         ZonedDateTime eventDate = ZonedDateTime.parse(eventTime);
         ZonedDateTime now = ZonedDateTime.now(eventDate.getZone());
 
-        //just make sure this gets tested between now and Friday so we are sure 100% its effective
         if(eventDate.isAfter(now)){
             return true;
         } else {
-            //create this exception handling I just put this here as an example
+
             throw new EventTimeIsInvalidException("Events must be for future dates");
         }
     }
@@ -92,7 +89,6 @@ public class EventDao {
                              String dateTime, Set<String> category) {
         Event event = new Event();
 
-        //if this is new and this event is after the date time of now
         if(isNew && checkEventDateTime(dateTime)){
             event.setEventId(event.generateId());
             event.setName(name);
@@ -104,7 +100,6 @@ public class EventDao {
             event.setCategory(new HashSet<>(category));
             event.setAttendees(new HashSet<>(Collections.singleton(eventCreator)));
 
-        //if it's not a new event, this must an update
         } else {
             if(name != null && !name.isEmpty()){
                 event.setName(name);
@@ -130,58 +125,30 @@ public class EventDao {
                 event.setCategory(categories);
             }
         }
-        System.out.println(event);
+
         this.dynamoDbMapper.save(event);
 
         return event;
     }
 
     /**
-     * Perform a search (via a "scan") of the events table for events matching the given criteria.
+     * Returns the {@link Event} corresponding to the specified eventId.
      *
-     * Both "name" and "category" attributes are searched.
-     * The criteria are an array of Strings. Each element of the array is search individually.
-     * ALL elements of the criteria array must appear in the eventName or the categories (or both).
-     * Searches are CASE SENSITIVE.
-     *
-     * @param criteria an array of String containing search criteria.
-     * @return a List of Event objects that match the search criteria.
+     * @param id the Event ID
+     * @return the stored Event, or null if none was found.
      */
-    public List<Event> searchEvents(String[] criteria) {
-        DynamoDBScanExpression dynamoDBScanExpression = new DynamoDBScanExpression();
 
-        if (criteria.length > 0) {
-            Map<String, AttributeValue> valueMap = new HashMap<>();
-            String valueMapNamePrefix = ":c";
+    public Event getEvent(String id) {
 
-            StringBuilder nameFilterExpression = new StringBuilder();
-            StringBuilder categoryFilterExpression = new StringBuilder();
+        Event event = this.dynamoDbMapper.load(Event.class, id);
 
-            for (int i = 0; i < criteria.length; i++) {
-                valueMap.put(valueMapNamePrefix + i,
-                        new AttributeValue().withS(criteria[i]));
-                nameFilterExpression.append(
-                        filterExpressionPart("name", valueMapNamePrefix, i));
-                categoryFilterExpression.append(
-                        filterExpressionPart("category", valueMapNamePrefix, i));
-            }
-
-            dynamoDBScanExpression.setExpressionAttributeValues(valueMap);
-            dynamoDBScanExpression.setFilterExpression(
-                    "(" + nameFilterExpression + ") or (" + categoryFilterExpression + ")");
+        if (Objects.isNull(event)) {
+            metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 1);
+            throw new EventNotFoundException("Could not find event with id " + id);
         }
 
-        return this.dynamoDbMapper.scan(Event.class, dynamoDBScanExpression);
+        metricsPublisher.addCount(MetricsConstants.GETEVENT_EVENTNOTFOUND_COUNT, 0);
+        return event;
     }
 
-    private StringBuilder filterExpressionPart(String target, String valueMapNamePrefix, int position) {
-        String possiblyAnd = position == 0 ? "" : "and ";
-        return new StringBuilder()
-                .append(possiblyAnd)
-                .append("contains(")
-                .append(target)
-                .append(", ")
-                .append(valueMapNamePrefix).append(position)
-                .append(") ");
-    }
 }
