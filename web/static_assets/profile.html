@@ -14,6 +14,8 @@
         <link rel="shortcut icon" href="icons/balloon-heart.svg">
         <title>@DANNA</title>
         <script type="text/javascript" src="assets/viewProfile.js"></script>
+       
+        
     </head>
         <header class="header" id="header">
             <a href="#" class="logo">
@@ -55,15 +57,42 @@
                         <hr>
                     </div>
                 </div>
+                <script>
+                    function sortTable(columnIndex) {
+                        const table = document.querySelector('.table');
+                        const tbody = table.querySelector('tbody');
+                        const rows = Array.from(tbody.rows);
+                      
+                        rows.sort((a, b) => {
+                          const cellA = a.cells[columnIndex].textContent.trim();
+                          const cellB = b.cells[columnIndex].textContent.trim();
+                          
+                          if (columnIndex === 2) { // Date column
+                            const dateA = new Date(cellA);
+                            const dateB = new Date(cellB);
+                            return dateA - dateB;
+                          } else if (columnIndex === 3) { // Time column
+                            const timeA = cellA.split(':').map(parseFloat);
+                            const timeB = cellB.split(':').map(parseFloat);
+                            return timeA[0] - timeB[0] || timeA[1] - timeB[1];
+                          }
+                          
+                          return 0;
+                        });
+                      
+                        rows.forEach(row => tbody.appendChild(row));
+                      }
+                    </script>
                 <div class="col py-3 page-body-background">
                     <h3 class="text-center">Your Upcoming Events</h3>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="Toptable">
                             <thead>
                               <tr>
                                 <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">Event Name</th>
-                                <th scope="col" class="text-center">Date</th>
-                                <th scope="col" class="text-center">Time</th>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Event</th>
+                                <th scope="col" class="text-center" onclick="sortTable(2)">Date</th>
+                                <th scope="col" class="text-center" onclick="sortTable(3)">Time</th>
                                 <th scope="col" class="text-center">Location</th>
                                 <th scope="col" class="text-center">Organizer</th>
                                 <th scope="col" class="text-center">RSVP</th>
@@ -78,7 +107,7 @@
                             <thead>
                               <tr>
                                 <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">Event Name</th>
+                                <th scope="col" class="text-center">Event Id</th>
                                 <th scope="col" class="text-center">Date</th>
                                 <th scope="col" class="text-center">Time</th>
                                 <th scope="col" class="text-center">Location</th>
@@ -87,7 +116,7 @@
                               </tr>
                             </thead>
                             <tbody id="created-event-list">
-                                <p id="personalEventResults"></p>
+                                <p class="text-center" id="personalEventResults"></p>
                             </tbody>
                           </table>
                           <hr>
