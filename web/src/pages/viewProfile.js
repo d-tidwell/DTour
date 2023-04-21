@@ -99,10 +99,10 @@ class ViewProfile extends BindingClass {
                     removeBtn.id = eventResult + "btn";
                     removeBtn.addEventListener('click', (function(result) {
                         return function() {
-                          this.thisPageRemoveFrom(result);
+                            this.thisPageRemoveFrom(result);
                         };
-                      })(eventResult).bind(this));
-                      removeBtn.id = eventResult + "btn";
+                        })(eventResult).bind(this));
+                        removeBtn.id = eventResult + "btn";
                     eventCancel.appendChild(removeBtn);
                     anchor.appendChild(th);
                     anchor.appendChild(eventId);
@@ -112,7 +112,7 @@ class ViewProfile extends BindingClass {
                     anchor.appendChild(eventLocation);
                     anchor.appendChild(eventOrg);
                     anchor.appendChild(eventCancel);
-                    document.getElementById("event-list").appendChild(anchor);
+                    document.getElementById("event-list").appendChild(anchor);  
                     
                 } catch (error) {
                     console.error("Error adding events");
@@ -122,7 +122,6 @@ class ViewProfile extends BindingClass {
             }
         }
     }
-
 
     async thisPageRemoveFrom(result){
         await this.client.removeEventFromProfile(result);
