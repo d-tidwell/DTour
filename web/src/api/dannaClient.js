@@ -377,6 +377,7 @@ export default class DannaClient extends BindingClass {
         }
 
         if (errorCallback) {
+            console.log(errorFromApi)
             errorCallback(error);
         }
     }

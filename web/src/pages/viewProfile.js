@@ -6,8 +6,8 @@ import DataStore from "../util/DataStore";
 class ViewProfile extends BindingClass {
     constructor() {+
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents',
-        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing'], this);
+        this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents','delay',
+        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -44,13 +44,33 @@ class ViewProfile extends BindingClass {
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
         document.getElementById('names').innerText = "Loading Profile ...";
-        document.getElementById("allFollowingListText").innerText = "Loading People You Follow...";
-        //this.header.addHeaderToPage();
 
         this.client = new dannaClient();
         this.clientLoaded();
     }
-
+    async delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    async getEventWithRetry(result, maxRetries = 3, delayMs = 1000) {
+        let retries = 0;
+        let getEvent;
+    
+        while (retries < maxRetries) {
+            try {
+                getEvent = await this.client.getEventDetails(result);
+                if (getEvent && getEvent.eventModel) {
+                    return getEvent;
+                }
+            } catch (error) {
+                console.error(`Error while fetching profile for ID ${result}:`, error);
+            }
+    
+            retries++;
+            await this.delay(delayMs);
+        }
+    
+        throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
+    }
     async addEvents(){
         const events = this.dataStore.get("events");
         if (events == null) {
@@ -59,7 +79,7 @@ class ViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
-                const resulting =  await this.client.getEventDetails(eventResult);
+                const resulting =  await this.getEventWithRetry(eventResult);
                 counter += 1
                 const anchor = document.createElement('tr');
                 const th = document.createElement('th');

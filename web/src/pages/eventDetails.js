@@ -75,7 +75,7 @@ class EventDetails extends BindingClass {
                 
     }
     async orgName(find){
-        const orgProf = await this.client.getProfile(find);
+        const orgProf = await this.getProfileWithRetry(find);
         const first = orgProf.profileModel.firstName;
         const last = orgProf.profileModel.firstName
         return { first,last }
