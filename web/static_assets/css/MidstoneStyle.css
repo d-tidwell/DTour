@@ -21,7 +21,7 @@
     background: var(--pageBackgroundColor);
 	background-size: 400% 400%;
 	animation: gradient 45s ease infinite;
-	height: 100vh;    
+	/* height: 100vh;     */
 }
 .page-body-background-landing {
     position:relative;
@@ -132,6 +132,11 @@ color:white;
     color: var(--textColor);
     font-size: 2rem;
 }
+.nav-profile-icon-sm:hover {
+    color: var(--navbarColor);
+    font-size: 3rem;
+}
+
 .nav-link .nav-profile-icon:hover {
     color:var(--hoverColor);
 }
@@ -155,6 +160,10 @@ color:white;
 h3#names.names.text-following {
     color: var(--textColor)
 }
+h3#names.names.text-following:hover {
+    color: var(--navbarColor);
+    font-size: 2.4rem;
+}
 .modal {
     text-align: center;
     padding: 0!important;
@@ -174,7 +183,19 @@ h3#names.names.text-following {
 .modal-content {
     background: var(--pageBackgroundColor);
 }
-
+.description-text {
+    border: 1px solid var(--navbarColor);
+    padding: 10px;
+}
+.description-text{
+    padding: 10px;
+    margin: 0 auto;
+}
+.location-text{
+    padding: 10px;
+    max-width: 150px;
+    margin: 0 auto;
+}
 /* mobile compatibility settings */
 @media (max-width: 767px) {
     /* Styles for smaller screens */

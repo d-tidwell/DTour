@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="css/MidstoneStyle.css">
         <link rel="shortcut icon" href="icons/balloon-heart.svg">
         <title>@DANNA</title>
-        <script type="text/javascript" src="assets/viewProfile.js"></script>
+        <script type="text/javascript" src="assets/viewAllEvents.js"></script>
        
         
     </head>
@@ -107,10 +107,10 @@
                         <tr>
                           <th scope="col" class="text-center">#</th>
                           <th scope="col" class="text-center">ID</th>
-                          <th scope="col" class="text-center">Event</th>
+                          <th scope="col" class="text-center">Event Name</th>
                           <th scope="col" class="text-center" onclick="sortTable(event)">Date</th>
                           <th scope="col" class="text-center" onclick="sortTable(event)">Time</th>
-                          <th scope="col" class="text-center">Location</th>
+                          <th scope="col" class="text-center">Type</th>
                           <th scope="col" class="text-center">Organizer</th>
                           <th scope="col" class="text-center">RSVP</th>
                         </tr>
@@ -118,33 +118,7 @@
                       <tbody id="event-list">
                       </tbody>
                     </table>
-                        <h3 class="text-center">Personal Events</h3>
-                        
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">Event Id</th>
-                                <th scope="col" class="text-center">Date</th>
-                                <th scope="col" class="text-center">Time</th>
-                                <th scope="col" class="text-center">Location</th>
-                                <th scope="col" class="text-center">Organizer</th>
-                                <th scope="col" class="text-center">Cancel</th>
-                              </tr>
-                            </thead>
-                            <tbody id="created-event-list">
-                                <p class="text-center" id="personalEventResults"></p>
-                            </tbody>
-                          </table>
-                          <hr>
-                        <div class="row py-3">
-                            <h3 class="text-center pb-5">Following</h3>
-                            <div>
-                                <p class="text-center" id="allFollowingListText"></p>
-                                <div class="container d-flex flex-wrap justify-content-center" id="allFollowingList"></div>
-                            </div>
-                        </div>
-                </div>
+                  </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

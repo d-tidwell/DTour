@@ -18,15 +18,12 @@ class LandingPage extends BindingClass {
 
     async mount() {
         const loggedIn = await this.client.isLoggedIn();
-        console.log("HERE", loggedIn);
         if(loggedIn){
             window.location.href= "/profile.html";
         }
         document.getElementById('logout').addEventListener('click', this.login);
         document.getElementById('logout-2').addEventListener('click', this.login);
         document.getElementById('sign-up').addEventListener('click', this.login);
-
-        // this.header.addHeaderToPage();
 
     }
 

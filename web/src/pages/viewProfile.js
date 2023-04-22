@@ -6,8 +6,8 @@ import DataStore from "../util/DataStore";
 class ViewProfile extends BindingClass {
     constructor() {+
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents',
-        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing'], this);
+        this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents','delay',
+        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -20,8 +20,8 @@ class ViewProfile extends BindingClass {
         // const urlParams = new URLSearchParams(window.location.search);
         const identity = await this.client.getIdentity();
         const profile = await this.client.getProfile(identity.email);
+        this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
-
         this.dataStore.set('events', profile.profileModel.events);
         this.dataStore.set('firstName', profile.profileModel.firstName);
         this.dataStore.set('lastName', profile.profileModel.lastName);
@@ -44,14 +44,33 @@ class ViewProfile extends BindingClass {
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
         document.getElementById('names').innerText = "Loading Profile ...";
-        document.getElementById('personalEventResults').innerText = "Loading Personal Events...";
-        document.getElementById("allFollowingListText").innerText = "Loading People You Follow...";
-        //this.header.addHeaderToPage();
 
         this.client = new dannaClient();
         this.clientLoaded();
     }
-
+    async delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    async getEventWithRetry(result, maxRetries = 3, delayMs = 1000) {
+        let retries = 0;
+        let getEvent;
+    
+        while (retries < maxRetries) {
+            try {
+                getEvent = await this.client.getEventDetails(result);
+                if (getEvent && getEvent.eventModel) {
+                    return getEvent;
+                }
+            } catch (error) {
+                console.error(`Error while fetching profile for ID ${result}:`, error);
+            }
+    
+            retries++;
+            await this.delay(delayMs);
+        }
+    
+        throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
+    }
     async addEvents(){
         const events = this.dataStore.get("events");
         if (events == null) {
@@ -60,14 +79,16 @@ class ViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
-                const resulting = await this.client.getEventDetails(eventResult);
+                const resulting =  await this.getEventWithRetry(eventResult);
                 counter += 1
                 const anchor = document.createElement('tr');
                 const th = document.createElement('th');
                 th.setAttribute("scope", "row");
                 th.innerText = counter;
+                const eventId = document.createElement('td');
+                eventId.innerText = eventResult;
                 const eventName = document.createElement('td');
-                eventName.innerText = eventResult;
+                eventName.innerText = resulting.eventModel.name;
                 const rawDate = resulting.eventModel.dateTime;
                 try {
                     const inputStringDate = new Date(rawDate.split("[")[0]);
@@ -77,7 +98,7 @@ class ViewProfile extends BindingClass {
                     }
                 
                     const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                    const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+                    const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
                     const date = dateFormatter.format(inputStringDate);
                     const time = timeFormatter.format(inputStringDate);
                     const eventDate = document.createElement('td');
@@ -98,19 +119,20 @@ class ViewProfile extends BindingClass {
                     removeBtn.id = eventResult + "btn";
                     removeBtn.addEventListener('click', (function(result) {
                         return function() {
-                          this.thisPageRemoveFrom(result);
+                            this.thisPageRemoveFrom(result);
                         };
-                      })(eventResult).bind(this));
-                      removeBtn.id = eventResult + "btn";
+                        })(eventResult).bind(this));
+                        removeBtn.id = eventResult + "btn";
                     eventCancel.appendChild(removeBtn);
                     anchor.appendChild(th);
+                    anchor.appendChild(eventId);
                     anchor.appendChild(eventName);
                     anchor.appendChild(eventDate);
                     anchor.appendChild(eventTime);
                     anchor.appendChild(eventLocation);
                     anchor.appendChild(eventOrg);
                     anchor.appendChild(eventCancel);
-                    document.getElementById("event-list").appendChild(anchor);
+                    document.getElementById("event-list").appendChild(anchor);  
                     
                 } catch (error) {
                     console.error("Error adding events");
@@ -121,17 +143,90 @@ class ViewProfile extends BindingClass {
         }
     }
 
-
     async thisPageRemoveFrom(result){
-        this.client.removeEventFromProfile(result);
+        await this.client.removeEventFromProfile(result);
+        window.location.href = "/profile.html";
     }
     
     async addPersonalEvents(){
+        let checkArray = [];
         const events = this.dataStore.get("events");
         if (events == null) {
             document.getElementById("created-event-list").innerText = "No Events created by you in your Profile";
-        }
-        document.getElementById("created-event-list").innerText = events;
+        } else {
+            let eventResult;
+            let counter = 0;
+            for (eventResult of events) {
+                const resulting = await this.client.getEventDetails(eventResult);
+                if(resulting){
+                    if( resulting.eventModel.eventCreator == this.dataStore.get('email')){
+                        counter += 1
+                        checkArray.push(eventResult);
+                        const anchor = document.createElement('tr');
+                        const th = document.createElement('th');
+                        th.setAttribute("scope", "row");
+                        th.innerText = counter;
+                        const eventName = document.createElement('td');
+                        eventName.innerText = eventResult;
+                        const rawDate = resulting.eventModel.dateTime;
+                        try {
+                            const inputStringDate = new Date(rawDate.split("[")[0]);
+    
+                            if (isNaN(inputStringDate.getTime())) {
+                                throw new Error('Invalid date value');
+                            }
+                        
+                            const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                            const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                            const date = dateFormatter.format(inputStringDate);
+                            const time = timeFormatter.format(inputStringDate);
+                            const eventDate = document.createElement('td');
+                            eventDate.innerText = date;
+                            const eventTime = document.createElement('td');
+                            eventTime.innerText = time;
+                            const eventLocation = document.createElement('td');
+                            eventLocation.innerText = resulting.eventModel.eventAddress;
+                            const eventOrg = document.createElement('td');
+                            const foriegnProfile = resulting.eventModel.eventCreator;
+                            const realName = await this.client.getProfile(foriegnProfile);
+                            eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
+                            const eventCancel = document.createElement('td');
+                            // eventCancel.innerText = "NEED button to cancel here";
+                            const removeBtn = document.createElement('button');
+                            removeBtn.innerText = "Cancel";
+                            removeBtn.className= "btn btn-dark";
+                            removeBtn.id = eventResult + "btn";
+                            removeBtn.addEventListener('click', (function(result) {
+                                return function() {
+                                this.thisPageRemoveFrom(result);
+                                };
+                            })(eventResult).bind(this));
+                            removeBtn.id = eventResult + "btn";
+                            eventCancel.appendChild(removeBtn);
+                            anchor.appendChild(th);
+                            anchor.appendChild(eventName);
+                            anchor.appendChild(eventDate);
+                            anchor.appendChild(eventTime);
+                            anchor.appendChild(eventLocation);
+                            anchor.appendChild(eventOrg);
+                            anchor.appendChild(eventCancel);
+                            document.getElementById("event-list").appendChild(anchor);
+                            
+                        } catch (error) {
+                            console.error("Error adding events");
+                        }
+                    }
+                }
+                if(checkArray.length == 0){
+                    document.getElementById("personalEventResults").innerText = "You Should Try Creating an Event!!";
+                }
+           
+            }
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("personalEventResults").remove();
+              });
+                }
+               
     }
 
     async addName(){
@@ -149,14 +244,14 @@ class ViewProfile extends BindingClass {
             document.getElementById("allFollowingListText").remove()
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
         } else {
-            let profileFollowing;
+        let profileFollowing;
         for (profileFollowing of following) {
             const getName = await this.client.getProfile(profileFollowing);
             // Create an anchor element
             const anchor = document.createElement('a');
-            anchor.setAttribute('href', '#');
-            anchor.className = 'nav-link px-4 d-flex flex-column align-items-center';
-            anchor.id = 'foreignPic' + getName.profileModel.getName;
+            anchor.setAttribute('href', 'foriegnView.html?id=${encodeURIComponent('+getName.profileModel.profileId+')}');
+            anchor.className = 'nav-link px-4 d-flex flex-column align-items-center smprofile';
+            anchor.id = 'foreignPic' + getName.profileModel.profileId;
     
             // Create an icon element
             const icon = document.createElement('i');

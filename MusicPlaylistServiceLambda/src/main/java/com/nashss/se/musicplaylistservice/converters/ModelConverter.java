@@ -24,6 +24,7 @@ public class ModelConverter {
     private final Logger log = LogManager.getLogger();
 
     public ProfileModel toProfileModel(Profile profile){
+        
         return ProfileModel.builder()
                 .withProfileId(profile.getId())
                 .withFirstName(profile.getFirstName())
