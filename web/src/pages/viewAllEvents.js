@@ -77,7 +77,10 @@ class ViewAllEvents extends BindingClass {
         th.setAttribute("scope", "row");
         th.innerText = counter;
         const eventId = document.createElement('td');
-        eventId.innerText = eventResult.eventId;
+        const idlink = document.createElement('a');
+        idlink.setAttribute('href', 'eventDetails.html?id='+eventResult.eventId); 
+        idlink.style.color ="#212524";
+        idlink.innerText = eventResult.eventId;
         const eventName = document.createElement('td');
         eventName.innerText = resulting.eventModel.name;
         const rawDate = resulting.eventModel.dateTime;
@@ -96,8 +99,8 @@ class ViewAllEvents extends BindingClass {
             eventDate.innerText = date;
             const eventTime = document.createElement('td');
             eventTime.innerText = time;
-            const eventLocation = document.createElement('td');
-            eventLocation.innerText = resulting.eventModel.eventAddress;
+            const eventType = document.createElement('td');
+            eventType.innerText = resulting.eventModel.category;
             const eventOrg = document.createElement('td');
             const foriegnProfile = resulting.eventModel.eventCreator;
             const realName = await this.client.getProfile(foriegnProfile);
@@ -123,13 +126,14 @@ class ViewAllEvents extends BindingClass {
                         this.thisPageAddFrom.call(this, eventResult.eventId);
                     });
                 }
+                eventId.appendChild(idlink);
                 eventCancel.appendChild(removeBtn);
                 anchor.appendChild(th);
                 anchor.appendChild(eventId);
                 anchor.appendChild(eventName);
                 anchor.appendChild(eventDate);
                 anchor.appendChild(eventTime);
-                anchor.appendChild(eventLocation);
+                anchor.appendChild(eventType);
                 anchor.appendChild(eventOrg);
                 anchor.appendChild(eventCancel);
                 document.getElementById("event-list").appendChild(anchor);
