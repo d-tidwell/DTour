@@ -73,6 +73,7 @@ class ViewProfile extends BindingClass {
     }
     async addEvents(){
         const events = this.dataStore.get("events");
+        console.log(events,"HERE");
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -81,63 +82,66 @@ class ViewProfile extends BindingClass {
             for (eventResult of events) {
                 const resulting =  await this.getEventWithRetry(eventResult);
                 counter += 1
-                const anchor = document.createElement('tr');
-                const th = document.createElement('th');
-                th.setAttribute("scope", "row");
-                th.innerText = counter;
-                const eventId = document.createElement('td');
-                eventId.innerText = eventResult;
-                const eventName = document.createElement('td');
-                eventName.innerText = resulting.eventModel.name;
-                const rawDate = resulting.eventModel.dateTime;
-                try {
-                    const inputStringDate = new Date(rawDate.split("[")[0]);
+                if((resulting.eventModel.eventCreator !== this.dataStore.get('email')) == true){
+                    const anchor = document.createElement('tr');
+                    const th = document.createElement('th');
+                    th.setAttribute("scope", "row");
+                    th.innerText = counter;
+                    const eventId = document.createElement('td');
+                    eventId.innerText = eventResult;
+                    const eventName = document.createElement('td');
+                    eventName.innerText = resulting.eventModel.name;
+                    const rawDate = resulting.eventModel.dateTime;
+                    try {
+                        const inputStringDate = new Date(rawDate.split("[")[0]);
 
-                    if (isNaN(inputStringDate.getTime())) {
-                        throw new Error('Invalid date value');
-                    }
-                
-                    const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                    const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    const date = dateFormatter.format(inputStringDate);
-                    const time = timeFormatter.format(inputStringDate);
-                    const eventDate = document.createElement('td');
-                    eventDate.innerText = date;
-                    const eventTime = document.createElement('td');
-                    eventTime.innerText = time;
-                    const eventLocation = document.createElement('td');
-                    eventLocation.innerText = resulting.eventModel.eventAddress;
-                    const eventOrg = document.createElement('td');
-                    const foriegnProfile = resulting.eventModel.eventCreator;
-                    const realName = await this.client.getProfile(foriegnProfile);
-                    eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
-                    const eventCancel = document.createElement('td');
-                    // eventCancel.innerText = "NEED button to cancel here";
-                    const removeBtn = document.createElement('button');
-                    removeBtn.innerText = "Cancel";
-                    removeBtn.className= "btn btn-dark";
-                    removeBtn.id = eventResult + "btn";
-                    removeBtn.addEventListener('click', (function(result) {
-                        return function() {
-                            this.thisPageRemoveFrom(result);
-                        };
-                        })(eventResult).bind(this));
-                        removeBtn.id = eventResult + "btn";
-                    eventCancel.appendChild(removeBtn);
-                    anchor.appendChild(th);
-                    anchor.appendChild(eventId);
-                    anchor.appendChild(eventName);
-                    anchor.appendChild(eventDate);
-                    anchor.appendChild(eventTime);
-                    anchor.appendChild(eventLocation);
-                    anchor.appendChild(eventOrg);
-                    anchor.appendChild(eventCancel);
-                    document.getElementById("event-list").appendChild(anchor);  
+                        if (isNaN(inputStringDate.getTime())) {
+                            throw new Error('Invalid date value');
+                        }
                     
-                } catch (error) {
-                    console.error("Error adding events");
+                        const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const date = dateFormatter.format(inputStringDate);
+                        const time = timeFormatter.format(inputStringDate);
+                        const eventDate = document.createElement('td');
+                        eventDate.innerText = date;
+                        const eventTime = document.createElement('td');
+                        eventTime.innerText = time;
+                        const eventLocation = document.createElement('td');
+                        eventLocation.innerText = resulting.eventModel.eventAddress;
+                        const eventOrg = document.createElement('td');
+                        const foriegnProfile = resulting.eventModel.eventCreator;
+                        console.log('email',foriegnProfile !== this.dataStore.get('email'))
+                        const realName = await this.client.getProfile(foriegnProfile);
+                        eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
+                        const eventCancel = document.createElement('td');
+                        // eventCancel.innerText = "NEED button to cancel here";
+                        const removeBtn = document.createElement('button');
+                        removeBtn.innerText = "Cancel";
+                        removeBtn.className= "btn btn-dark";
+                        removeBtn.id = eventResult + "btn";
+                        removeBtn.addEventListener('click', (function(result) {
+                            return function() {
+                                this.thisPageRemoveFrom(result);
+                            };
+                            })(eventResult).bind(this));
+                            removeBtn.id = eventResult + "btn";
+                        eventCancel.appendChild(removeBtn);
+                        anchor.appendChild(th);
+                        anchor.appendChild(eventId);
+                        anchor.appendChild(eventName);
+                        anchor.appendChild(eventDate);
+                        anchor.appendChild(eventTime);
+                        anchor.appendChild(eventLocation);
+                        anchor.appendChild(eventOrg);
+                        anchor.appendChild(eventCancel);
+                        document.getElementById("event-list").appendChild(anchor);  
+                    
+                    } catch (error) {
+                        console.error("Error adding events");
+                    }
+
                 }
-                
                 
             }
         }
@@ -157,76 +161,78 @@ class ViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
-                const resulting = await this.client.getEventDetails(eventResult);
-                if(resulting){
-                    if( resulting.eventModel.eventCreator == this.dataStore.get('email')){
-                        counter += 1
-                        checkArray.push(eventResult);
-                        const anchor = document.createElement('tr');
-                        const th = document.createElement('th');
-                        th.setAttribute("scope", "row");
-                        th.innerText = counter;
-                        const eventName = document.createElement('td');
-                        eventName.innerText = eventResult;
-                        const rawDate = resulting.eventModel.dateTime;
-                        try {
-                            const inputStringDate = new Date(rawDate.split("[")[0]);
-    
-                            if (isNaN(inputStringDate.getTime())) {
-                                throw new Error('Invalid date value');
-                            }
-                        
-                            const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                            const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                            const date = dateFormatter.format(inputStringDate);
-                            const time = timeFormatter.format(inputStringDate);
-                            const eventDate = document.createElement('td');
-                            eventDate.innerText = date;
-                            const eventTime = document.createElement('td');
-                            eventTime.innerText = time;
-                            const eventLocation = document.createElement('td');
-                            eventLocation.innerText = resulting.eventModel.eventAddress;
-                            const eventOrg = document.createElement('td');
-                            const foriegnProfile = resulting.eventModel.eventCreator;
-                            const realName = await this.client.getProfile(foriegnProfile);
-                            eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
-                            const eventCancel = document.createElement('td');
-                            // eventCancel.innerText = "NEED button to cancel here";
-                            const removeBtn = document.createElement('button');
-                            removeBtn.innerText = "Cancel";
-                            removeBtn.className= "btn btn-dark";
-                            removeBtn.id = eventResult + "btn";
-                            removeBtn.addEventListener('click', (function(result) {
-                                return function() {
+                const resulting = await this.getEventWithRetry(eventResult);
+                if(( resulting.eventModel.eventCreator === this.dataStore.get('email')) == true){
+                    counter += 1
+                    checkArray.push(eventResult);
+                    const anchor = document.createElement('tr');
+                    const th = document.createElement('th');
+                    th.setAttribute("scope", "row");
+                    th.innerText = counter;
+                    const eventId = document.createElement('td');
+                    eventId.innerText = eventResult;
+                    const eventName = document.createElement('td');
+                    eventName.innerText = resulting.eventModel.name;
+                    const rawDate = resulting.eventModel.dateTime;
+                    try {
+                        const inputStringDate = new Date(rawDate.split("[")[0]);
+
+                        if (isNaN(inputStringDate.getTime())) {
+                            throw new Error('Invalid date value');
+                        }
+                    
+                        const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const date = dateFormatter.format(inputStringDate);
+                        const time = timeFormatter.format(inputStringDate);
+                        const eventDate = document.createElement('td');
+                        eventDate.innerText = date;
+                        const eventTime = document.createElement('td');
+                        eventTime.innerText = time;
+                        const eventLocation = document.createElement('td');
+                        eventLocation.innerText = resulting.eventModel.eventAddress;
+                        const eventOrg = document.createElement('td');
+                        const foriegnProfile = resulting.eventModel.eventCreator;
+                        console.log('email',foriegnProfile !== this.dataStore.get('email'))
+                        const realName = await this.client.getProfile(foriegnProfile);
+                        eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
+                        const eventCancel = document.createElement('td');
+                        // eventCancel.innerText = "NEED button to cancel here";
+                        const removeBtn = document.createElement('button');
+                        removeBtn.innerText = "Cancel";
+                        removeBtn.className= "btn btn-dark";
+                        removeBtn.id = eventResult + "btn";
+                        removeBtn.addEventListener('click', (function(result) {
+                            return function() {
                                 this.thisPageRemoveFrom(result);
-                                };
+                            };
                             })(eventResult).bind(this));
                             removeBtn.id = eventResult + "btn";
-                            eventCancel.appendChild(removeBtn);
-                            anchor.appendChild(th);
-                            anchor.appendChild(eventName);
-                            anchor.appendChild(eventDate);
-                            anchor.appendChild(eventTime);
-                            anchor.appendChild(eventLocation);
-                            anchor.appendChild(eventOrg);
-                            anchor.appendChild(eventCancel);
-                            document.getElementById("event-list").appendChild(anchor);
-                            
+                        eventCancel.appendChild(removeBtn);
+                        anchor.appendChild(th);
+                        anchor.appendChild(eventId);
+                        anchor.appendChild(eventName);
+                        anchor.appendChild(eventDate);
+                        anchor.appendChild(eventTime);
+                        anchor.appendChild(eventLocation);
+                        anchor.appendChild(eventOrg);
+                        anchor.appendChild(eventCancel);
+                        document.getElementById("created-event-list").appendChild(anchor);  
+                        
                         } catch (error) {
                             console.error("Error adding events");
                         }
                     }
-                }
-                if(checkArray.length == 0){
-                    document.getElementById("personalEventResults").innerText = "You Should Try Creating an Event!!";
-                }
+                
            
             }
             document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("personalEventResults").remove();
               });
                 }
-               
+        if(checkArray.length == 0){
+            document.getElementById("personalEventResults").innerText = "You Should Try Creating an Event!!";
+        }      
     }
 
     async addName(){

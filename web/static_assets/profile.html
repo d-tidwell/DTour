@@ -101,12 +101,13 @@
                   </script>
                   
                   <div class="col py-3 page-body-background">
-                    <h3 class="text-center">Upcoming Events</h3>
+                    <div class="row">
+                      <h3 class="text-center">Upcoming Events</h3>
                     <table class="table table-bordered table-striped" id="Toptable">
                       <thead>
                         <tr>
                           <th scope="col" class="text-center">#</th>
-                          <th scope="col" class="text-center">ID</th>
+                          <th scope="col" class="text-center">Id</th>
                           <th scope="col" class="text-center">Event</th>
                           <th scope="col" class="text-center" onclick="sortTable(event)">Date</th>
                           <th scope="col" class="text-center" onclick="sortTable(event)">Time</th>
@@ -118,25 +119,28 @@
                       <tbody id="event-list">
                       </tbody>
                     </table>
-                        <h3 class="text-center">Personal Events</h3>
-                        
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">Event Id</th>
-                                <th scope="col" class="text-center">Date</th>
-                                <th scope="col" class="text-center">Time</th>
-                                <th scope="col" class="text-center">Location</th>
-                                <th scope="col" class="text-center">Organizer</th>
-                                <th scope="col" class="text-center">Cancel</th>
-                              </tr>
-                            </thead>
-                            <tbody id="created-event-list">
-                                <p class="text-center" id="personalEventResults"></p>
-                            </tbody>
-                          </table>
-                          <hr>
+                    </div>
+                    <div class="row">
+                      <h3 class="text-center">Personal Events</h3>
+                      <p class="text-center" id="personalEventResults"></p>
+                      <table class="table table-bordered table-striped" id="Bottomtable">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="text-center">#</th>
+                              <th scope="col" class="text-center">Id</th>
+                              <th scope="col" class="text-center">Event</th>
+                              <th scope="col" class="text-center">Date</th>
+                              <th scope="col" class="text-center">Time</th>
+                              <th scope="col" class="text-center">Location</th>
+                              <th scope="col" class="text-center">Organizer</th>
+                              <th scope="col" class="text-center">Cancel</th>
+                            </tr>
+                          </thead>
+                          <tbody id="created-event-list">
+                          </tbody>
+                        </table>
+                        <hr>
+                    </div>
                         <div class="row py-3">
                             <h3 class="text-center pb-5">Following</h3>
                             <div>
