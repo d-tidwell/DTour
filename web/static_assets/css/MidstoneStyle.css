@@ -128,6 +128,12 @@ color:white;
     color: var(--textColor);
     font-size: 10rem;
 }
+#thistheirProfilePic:hover{
+    color: var(--navbarColor);
+}
+.theirNames:hover{
+    color: var(--navbarColor);
+}
 .nav-profile-icon-sm {
     color: var(--textColor);
     font-size: 2rem;
@@ -226,6 +232,14 @@ h3#names.names.text-following:hover {
     .nav-link .nav-profile-icon {
         color: var(--textColor);
         font-size: 1.5rem;
+        display: block;
+        margin: 0 auto;
+    }
+    .names {
+        text-align: center;
+    }
+    .theirNames {
+        text-align: center;
     }
     .nav-link .nav-custom-icon {
         color: var(--textColor);

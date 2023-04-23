@@ -1,0 +1,157 @@
+<!DOCTYPE html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-control" content="public">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/MidstoneStyle.css">
+        <link rel="shortcut icon" href="icons/balloon-heart.svg">
+        <title>@DANNA</title>
+        <script type="text/javascript" src="assets/foriegnView.js"></script>
+       
+        
+    </head>
+        <header class="header" id="header">
+            <a href="#" class="logo">
+              <H1 class="logoDANNA text-center">@DANNA</H1>           
+            </a>
+            <button  type="button" class="btn btn-light-custom" id="logout">Logout</button>
+            <span>!!!</span>
+        </header>
+        <body>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link align-middle px-0" id="profilePic">
+                                    <i class="bi bi-person-circle nav-profile-icon"></i>
+                                    <span class="ms-1 d-none d-sm-inline"><H3 class="names" id="names">First& LastName</H3></span>
+                                </a>
+                                
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-4 py-4 align-middle" id="allEvents">
+                                    <i class="bi bi-calendar3 px-4 nav-custom-icon"></i>  <span class="tooltip">Browse Events</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-4 py-4 align-middle" id="createEvents">
+                                    <i class="bi bi-pencil-square px-4 nav-custom-icon"></i> <span class="tooltip">Create Events</span> </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-4 py-4 align-middle"id="allFollowing">
+                                    <i class="bi bi-people px-4 nav-custom-icon"></i><span class="tooltip">You Are Following</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-4 py-4 align-middle"id="door">
+                                    <i class="bi bi-door-open px-4 nav-custom-icon"></i><span class="tooltip">Ok.Fine.Just Leave</span></a>
+                            </li>
+                        </ul>
+                        <hr>
+                    </div>
+                </div>
+                <script>
+                  let sortOrder = {
+                    columnIndex: null,
+                    ascending: true
+                  };
+                  
+                  function sortTable(event) {
+                    const table = document.querySelector('.table');
+                    const tbody = table.querySelector('tbody');
+                    const rows = Array.from(tbody.rows);
+                    const columnIndex = event.target.cellIndex;
+                  
+                    if (sortOrder.columnIndex === columnIndex) {
+                      sortOrder.ascending = !sortOrder.ascending;
+                    } else {
+                      sortOrder.columnIndex = columnIndex;
+                      sortOrder.ascending = true;
+                    }
+                  
+                    const compare = (a, b) => {
+                      const cellA = a.cells[columnIndex].textContent.trim();
+                      const cellB = b.cells[columnIndex].textContent.trim();
+                  
+                      if (columnIndex === 3) { // Date column
+                        const dateA = new Date(cellA);
+                        const dateB = new Date(cellB);
+                        return sortOrder.ascending ? dateA - dateB : dateB - dateA;
+                      } else if (columnIndex === 4) { // Time column
+                        const timeA = cellA.split(':').map(parseFloat);
+                        const timeB = cellB.split(':').map(parseFloat);
+                        const cmp = timeA[0] - timeB[0] || timeA[1] - timeB[1];
+                        return sortOrder.ascending ? cmp : -cmp;
+                      }
+                  
+                      return 0;
+                    };
+                  
+                    rows.sort(compare);
+                  
+                    rows.forEach(row => tbody.appendChild(row));
+                  }
+                  </script>
+                  
+                  <div class="col py-3 page-body-background">
+                    <div class="row py-3">
+                        <div class="container d-flex flex-wrap justify-content-center" id="theirProfile">
+                            <a href="#" class="nav-link align-middle px-0" id="theirProfilePic">
+                                <i class="bi bi-person-circle nav-profile-icon" id="thistheirProfilePic"></i>
+                                <span class="ms-1 d-none d-sm-inline"><H3 class="theirNames" id="theirNames">First& LastName</H3></span>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-center">They RSVP'd</h3>
+                    <table class="table table-bordered table-striped" id="Toptable">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-center">#</th>
+                          <th scope="col" class="text-center">ID</th>
+                          <th scope="col" class="text-center">Event</th>
+                          <th scope="col" class="text-center" onclick="sortTable(event)">Date</th>
+                          <th scope="col" class="text-center" onclick="sortTable(event)">Time</th>
+                          <th scope="col" class="text-center">Location</th>
+                          <th scope="col" class="text-center">Organizer</th>
+                        </tr>
+                      </thead>
+                      <tbody id="event-list">
+                      </tbody>
+                    </table>
+                        <h3 class="text-center">They Want You To Come To</h3>
+                        
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Event Id</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Time</th>
+                                <th scope="col" class="text-center">Location</th>
+                              </tr>
+                            </thead>
+                            <tbody id="created-event-list">
+                                <p class="text-center" id="personalEventResults"></p>
+                            </tbody>
+                          </table>
+                          <hr>
+                        <div class="row py-3">
+                            <h3 class="text-center pb-5">Who they Follow</h3>
+                            <div>
+                                <p class="text-center" id="allFollowingListText"></p>
+                                <div class="container d-flex flex-wrap justify-content-center" id="allFollowingList"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        </body>
+</html>

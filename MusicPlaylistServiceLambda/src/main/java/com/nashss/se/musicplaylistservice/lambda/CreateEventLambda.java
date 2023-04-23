@@ -17,7 +17,7 @@ public class CreateEventLambda
                     return input.fromUserClaims(claims ->
                             CreateEventRequest.builder()
                                     .withName(unauthenticatedRequest.getName())
-                                    .withEventCreator(unauthenticatedRequest.getEventCreator())
+                                    .withEventCreator(claims.get("email"))
                                     .withAddress(unauthenticatedRequest.getAddress())
                                     .withDescription(unauthenticatedRequest.getDescription())
                                     .withDateTime(unauthenticatedRequest.getDateTime())

@@ -99,6 +99,8 @@ public class EventDao {
             event.setAttendees(new HashSet<>(Collections.singleton(eventCreator)));
 
         } else {
+            Event oldEvent = this.getEvent(eventId);
+            event.setEventId(eventId);
             if(name != null && !name.isEmpty()){
                 event.setName(name);
             }
@@ -112,16 +114,15 @@ public class EventDao {
                 event.setDescription(description);
             }
             if(dateTime != null && !dateTime.isEmpty()){
-                if(checkEventDateTime(dateTime)) {
-                    event.setDateTime(dateTime);
-                }
+                event.setDateTime(dateTime);
             }
+            
             if(!category.isEmpty()){
-                Event oldEvent = this.getEvent(eventId);
                 Set<String> categories = oldEvent.getCategory();
                 categories.addAll(category);
                 event.setCategory(categories);
             }
+            event.setAttendees(oldEvent.getAttendees());
         }
 
         this.dynamoDbMapper.save(event);
