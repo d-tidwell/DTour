@@ -118,7 +118,7 @@ public class ProfileDao {
         profile.setFollowing(following);
         this.dynamoDbMapper.save(profile);
 
-        return new HashSet<>(following);
+        return following;
     }
 
 
