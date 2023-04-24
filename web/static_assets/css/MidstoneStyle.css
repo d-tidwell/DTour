@@ -104,6 +104,13 @@
     top: 25px;
     right: 10px;
   }
+.btn-light-custom-table {
+background-color: var(--textColor);
+color: var(--headerbarColor);
+}
+.btn-light-custom-table:hover{
+    color:white;
+}
 .btn-light-custom:hover{
 color:white;
 }
