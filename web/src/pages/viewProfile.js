@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class ViewProfile extends BindingClass {
     constructor() {+
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents','delay',
+        this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','thisPageDeleteFrom','redirectEditProfile','redirectAllEvents','delay',
         'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
@@ -215,7 +215,7 @@ class ViewProfile extends BindingClass {
                         removeBtn.id = eventResult + "btn";
                         removeBtn.addEventListener('click', (function(result) {
                             return function() {
-                                this.thisPageRemoveFrom(result);
+                                this.thisPageDeleteFrom(result);
                             };
                             })(eventResult).bind(this));
                             removeBtn.id = eventResult + "btn";
