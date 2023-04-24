@@ -276,7 +276,6 @@ class ViewProfile extends BindingClass {
     async addFollowing(){
         const following = this.dataStore.get("following");
         if (following == null) {
-            document.getElementById("allFollowingListText").remove()
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
         } else {
         let profileFollowing;
