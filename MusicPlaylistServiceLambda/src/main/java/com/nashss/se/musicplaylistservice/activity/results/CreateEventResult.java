@@ -17,7 +17,7 @@ public class CreateEventResult {
     @Override
     public String toString() {
         return "CreateEventResult{" +
-                "event=" + event +
+                "eventModel=" + event +
                 '}';
     }
 

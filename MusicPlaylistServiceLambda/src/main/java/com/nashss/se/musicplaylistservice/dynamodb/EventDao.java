@@ -13,6 +13,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -26,6 +28,7 @@ public class EventDao {
     private final DynamoDBMapper dynamoDbMapper;
     private final MetricsPublisher metricsPublisher;
     private final ProfileDao profileDao;
+    private final Logger log = LogManager.getLogger();
 
 
     /**
@@ -70,8 +73,10 @@ public class EventDao {
     public boolean checkEventDateTime(String eventTime) {
         ZonedDateTime eventDate = ZonedDateTime.parse(eventTime);
         ZonedDateTime now = ZonedDateTime.now(eventDate.getZone());
-
+        log.info("NOW {}",now);
+        log.info("eventDate {}", eventDate);
         if(eventDate.isAfter(now)){
+            log.info("dates are after each other-TRUE");
             return true;
         } else {
 
@@ -89,6 +94,7 @@ public class EventDao {
         Event event = new Event();
         Profile profileEvent = profileDao.getProfile(eventCreator);
         Set<String> eventsAttending = profileEvent.getEvents();
+        log.info("Save Event TOUCHED");
         if(isNew == true && checkEventDateTime(dateTime) == true){
             event.setEventId(event.generateId());
             event.setName(name);
@@ -97,12 +103,16 @@ public class EventDao {
             event.setDescription(description);
             event.setDateTime(dateTime);
 
-            event.setCategory(new HashSet<>(category));
+            event.setCategory(new HashSet<String>(category));
+            log.info("Category {}",category);
+            log.info("Get Category {}",event.getCategory());
             event.setAttendees(new HashSet<>(Collections.singleton(eventCreator)));
             this.dynamoDbMapper.save(event);
-            eventsAttending.add(eventId);
+            eventsAttending.add(event.getEventId());
+            log.info("eventsAttending {}", eventsAttending);
             this.dynamoDbMapper.save(profileEvent);
-
+            log.info("Save new event", event);
+            log.info("EVENT RETURNED FROM DAO {}", event);
             return event;
 
         } else {

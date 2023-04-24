@@ -136,6 +136,8 @@ class CreateEvent extends BindingClass {
             const categories = categoriesString.split(',').map(item => item.trim());
             const description = document.getElementById('description').value;
             const dateTime = await this.convertToDateTime(date, time);
+            console.log(dateTime);
+            console.log(name, address, dateTime, categories, description);
             event = await this.client.createEvent(name, address, dateTime, categories, description, (error) => {
                   console.log(error.message);
             });

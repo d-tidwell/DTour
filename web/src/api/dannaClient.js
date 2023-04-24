@@ -228,6 +228,7 @@ export default class DannaClient extends BindingClass {
 
                 }
             });
+            console.log(response.data,"CLIENT CALL");
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)

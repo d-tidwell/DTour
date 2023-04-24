@@ -54,6 +54,7 @@ public class CreateEventActivity {
                 createEventRequest.getDateTime(), createEventRequest.getCategory());
 
         EventModel eventModel = new ModelConverter().toEventModel(newEvent);
+        log.info("event MODEL return", eventModel);
         return CreateEventResult.builder()
                 .withEvent(eventModel)
                 .build();
