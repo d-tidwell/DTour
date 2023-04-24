@@ -31,6 +31,7 @@ class FViewProfile extends BindingClass {
         } else {
           console.error('id not found in the URL');
         }
+
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
         this.dataStore.set('firstName', profile.profileModel.firstName);
@@ -106,6 +107,8 @@ class FViewProfile extends BindingClass {
 
     async addEvents(){
         const events = await this.dataStore.get("events");
+        const fprof = await this.dataStore.get('foriegn');
+        const email = fprof.profileModel.profileId;
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -113,7 +116,7 @@ class FViewProfile extends BindingClass {
             let counter = 0;
             for (eventResult of events) {
                 const resulting =  await this.getEventWithRetry(eventResult);
-                if((resulting.eventModel.eventCreator === await this.dataStore.get('email')) == true){
+                if((resulting.eventModel.eventCreator !== email )){
 
                     counter += 1
                     const anchor = document.createElement('tr');
@@ -177,6 +180,8 @@ class FViewProfile extends BindingClass {
     async addPersonalEvents(){
         let checkArray = [];
         const events = await this.dataStore.get("events");
+        const fprof = await this.dataStore.get('foriegn');
+        const email = fprof.profileModel.profileId;
         if (events == null) {
             document.getElementById("created-event-list").innerText = "No Events created by you in your Profile";
         } else {
@@ -185,7 +190,7 @@ class FViewProfile extends BindingClass {
             for (eventResult of events) {
                 const resulting = await this.getEventWithRetry(eventResult);
                 if(resulting){
-                    if(( resulting.eventModel.eventCreator === await this.dataStore.get('email')) == true){
+                    if(( resulting.eventModel.eventCreator === email)){
                         counter += 1
                         checkArray.push(eventResult);
                         const anchor = document.createElement('tr');
