@@ -137,8 +137,18 @@ class CreateEvent extends BindingClass {
             const description = document.getElementById('description').value;
             const dateTime = await this.convertToDateTime(date, time);
             event = await this.client.createEvent(name, address, dateTime, categories, description, (error) => {
-                console.log(error.message);
+                  console.log(error.message);
             });
+            this.dataStore.set('event', event);
+            console.log(event,"here afater create")
+            document.getElementById('fname').innerText = event.eventModel.name;
+            document.getElementById('faddress').innerText = event.eventModel.eventAddress;
+            const newDateTime = await this.dateAndTimeExtractor(event.eventModel.dateTime);
+            document.getElementById('fdate').innerText = newDateTime.date;
+            document.getElementById('ftime').innerText = newDateTime.time;
+            document.getElementById('fcategories').innerText = event.eventModel.category;
+            document.getElementById('fdescription').innerText =event.eventModel.description;
+            document.getElementById('loading-modal').remove();
         } else {
   
             const id = oldEvent.eventModel.eventId;
@@ -153,19 +163,20 @@ class CreateEvent extends BindingClass {
             event = await this.client.updateEvent(id, name, address, dateTime, categories, description, (error) => {
                 console.log(error.message);
             });
+            this.dataStore.set('event', event);
+            console.log(event,"here afater update")
+            document.getElementById('fname').innerText = event.eventModel.name;
+            document.getElementById('faddress').innerText = event.eventModel.eventAddress;
+            const newDateTime = await this.dateAndTimeExtractor(event.eventModel.dateTime);
+            document.getElementById('fdate').innerText = newDateTime.date;
+            document.getElementById('ftime').innerText = newDateTime.time;
+            document.getElementById('fcategories').innerText = event.eventModel.category;
+            document.getElementById('fdescription').innerText =event.eventModel.description;
+            document.getElementById('loading-modal').remove();
         }
         
 
-        this.dataStore.set('event', event);
-        console.log(event.eventModel,"here")
-        document.getElementById('fname').innerText = event.eventModel.name;
-        document.getElementById('faddress').innerText = event.eventModel.eventAddress;
-        const newDateTime = await this.dateAndTimeExtractor(event.eventModel.dateTime);
-        document.getElementById('fdate').innerText = newDateTime.date;
-        document.getElementById('ftime').innerText = newDateTime.time;
-        document.getElementById('fcategories').innerText = event.eventModel.category;
-        document.getElementById('fdescription').innerText =event.eventModel.description;
-        document.getElementById('loading-modal').remove();
+        
         
     }
     confirmRedirect() {

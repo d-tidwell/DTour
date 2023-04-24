@@ -27,6 +27,7 @@ public class EventDao {
     private final MetricsPublisher metricsPublisher;
     private final ProfileDao profileDao;
 
+
     /**
      * Instantiates an EventDao object.
      *
@@ -88,7 +89,7 @@ public class EventDao {
         Event event = new Event();
         Profile profileEvent = profileDao.getProfile(eventCreator);
         Set<String> eventsAttending = profileEvent.getEvents();
-        if(isNew && checkEventDateTime(dateTime)){
+        if(isNew == true && checkEventDateTime(dateTime) == true){
             event.setEventId(event.generateId());
             event.setName(name);
             event.setEventCreator(eventCreator);
@@ -98,6 +99,11 @@ public class EventDao {
 
             event.setCategory(new HashSet<>(category));
             event.setAttendees(new HashSet<>(Collections.singleton(eventCreator)));
+            this.dynamoDbMapper.save(event);
+            eventsAttending.add(eventId);
+            this.dynamoDbMapper.save(profileEvent);
+
+            return event;
 
         } else {
             Event oldEvent = this.getEvent(eventId);
@@ -124,13 +130,11 @@ public class EventDao {
                 event.setCategory(categories);
             }
             event.setAttendees(oldEvent.getAttendees());
+            this.dynamoDbMapper.save(event);
+            return event;
         }
 
-        this.dynamoDbMapper.save(event);
-        eventsAttending.add(eventId);
-        this.dynamoDbMapper.save(profileEvent);
-
-        return event;
+       
     }
     /**
      * Iterates over all the attendees and removes the {@link Event} from their list.

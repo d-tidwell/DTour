@@ -217,8 +217,8 @@ export default class DannaClient extends BindingClass {
             const token = await this.getTokenOrThrow("Only authenticated users can create an event.");
             const response = await this.axiosClient.post(`events/create`, {
                 name: name,
-                dateTime: dateTime,
                 address: address,
+                dateTime: dateTime,
                 category: category,
                 description: description,
             }, {

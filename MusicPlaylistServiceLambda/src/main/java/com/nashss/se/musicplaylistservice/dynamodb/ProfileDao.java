@@ -59,7 +59,7 @@ public class ProfileDao {
     public Profile saveProfile(boolean isNew, String id, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
         Profile saveProfile = new Profile();
         saveProfile.setId(id);
-        if(isNew) {
+        if(isNew == true) {
             saveProfile.setFirstName(firstName);
             saveProfile.setLastName(lastName);
             saveProfile.setLocation(location);
