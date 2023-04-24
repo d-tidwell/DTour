@@ -89,7 +89,7 @@ class CreateEvent extends BindingClass {
       
         // Create a Date object using the parsed values
         const date = new Date(year, month - 1, day, hours, minutes);
-      
+        console.log(date,"date");
         // Convert date object to an ISO string
         const isoString = date.toISOString();
       
@@ -126,7 +126,7 @@ class CreateEvent extends BindingClass {
         evt.preventDefault();
         const oldEvent = await this.dataStore.get("event");
         let event;
-        if(typeof old  === 'undefined'){
+        if(typeof oldEvent  === 'undefined'){
             console.log("here");
             const name = document.getElementById('name').value;
             const address = document.getElementById('address').value;
@@ -143,25 +143,27 @@ class CreateEvent extends BindingClass {
             });
             this.dataStore.set('event', event);
             console.log(event,"here afater create")
-            document.getElementById('fname').innerText = event.eventModel.name;
-            document.getElementById('faddress').innerText = event.eventModel.eventAddress;
-            const newDateTime = await this.dateAndTimeExtractor(event.eventModel.dateTime);
+            document.getElementById('fname').innerText = event.event.name;
+            document.getElementById('faddress').innerText = event.event.eventAddress;
+            const newDateTime = await this.dateAndTimeExtractor(event.event.dateTime);
             document.getElementById('fdate').innerText = newDateTime.date;
             document.getElementById('ftime').innerText = newDateTime.time;
-            document.getElementById('fcategories').innerText = event.eventModel.category;
-            document.getElementById('fdescription').innerText =event.eventModel.description;
-            document.getElementById('loading-modal').remove();
+            document.getElementById('fcategories').innerText = event.event.category;
+            document.getElementById('fdescription').innerText =event.event.description;
+          
         } else {
   
             const id = oldEvent.eventModel.eventId;
             const name = document.getElementById('name').value || document.getElementById("name").getAttribute('placeholder');
-            const address = document.getElementById('address').value || document.getElementById("address").getAttribute('placeholder')
-            const date = document.getElementById('date').value || document.getElementById("date").getAttribute('placeholder')
-            const time = document.getElementById('time').value || document.getElementById("time").getAttribute('placeholder')
-            const categoriesString = document.getElementById('categories').value|| document.getElementById("categories").getAttribute('placeholder')
+            const address = document.getElementById('address').value || document.getElementById("address").getAttribute('placeholder');
+            const date = document.getElementById('date').value || document.getElementById("date").getAttribute('placeholder');
+            const time = document.getElementById('time').value || document.getElementById("time").getAttribute('placeholder');
+            const categoriesString = document.getElementById('categories').value|| document.getElementById("categories").getAttribute('placeholder');
             const categories = categoriesString.split(',').map(item => item.trim());
-            const description = document.getElementById('description').value || document.getElementById("description").getAttribute('placeholder')
+            const description = document.getElementById('description').value || document.getElementById("description").getAttribute('placeholder');
+            console.log(name, address, date, time, categories, description, "PLACEHOLDERS");
             const dateTime = await this.convertToDateTime(date, time);
+            console.log(dateTime,"placeholder");
             event = await this.client.updateEvent(id, name, address, dateTime, categories, description, (error) => {
                 console.log(error.message);
             });
@@ -174,7 +176,7 @@ class CreateEvent extends BindingClass {
             document.getElementById('ftime').innerText = newDateTime.time;
             document.getElementById('fcategories').innerText = event.eventModel.category;
             document.getElementById('fdescription').innerText =event.eventModel.description;
-            document.getElementById('loading-modal').remove();
+          
         }
         
 
