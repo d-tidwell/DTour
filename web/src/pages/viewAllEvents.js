@@ -108,7 +108,7 @@ class ViewAllEvents extends BindingClass {
                 const eventCancel = document.createElement('td');
                 const removeBtn = document.createElement('button');
             
-                if (profile.profileModel.events.includes(eventResult.eventId)) {
+                if (realName.profileModel.events.includes(eventResult.eventId)) {
                     removeBtn.innerText = "Cancel";
                     removeBtn.className = "btn btn-dark";
                     removeBtn.addEventListener('click', (e) => {
