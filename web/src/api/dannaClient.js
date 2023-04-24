@@ -357,11 +357,11 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async removeFromFollowing(profileId, errorCallback) {
+    async removeFromFollowing(profileIdToRemove, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can remove a profile.");
             const response = await this.axiosClient.put(`profiles/removeFollowing`, {
-                profileId: profileId
+                profileIdToRemove: profileIdToRemove
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
