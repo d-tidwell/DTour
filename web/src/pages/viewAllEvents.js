@@ -7,7 +7,7 @@ class ViewAllEvents extends BindingClass {
     constructor() {+
         super();
         this.bindClassMethods(['clientLoaded', 'mount','redirectProfile','thisPageAddFrom','thisPageRemoveFrom','redirectAllEvents',
-        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addName','createTableRow'], this);
+        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addName','createTableRow','getProfileWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
    
@@ -48,6 +48,32 @@ class ViewAllEvents extends BindingClass {
         this.clientLoaded();
     }
 
+    async delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async getProfileWithRetry(result, maxRetries = 3, delayMs = 1000) {
+        let retries = 0;
+        let getName;
+    
+        while (retries < maxRetries) {
+            try {
+                getName = await this.client.getProfile(result);
+    
+                if (getName && getName.profileModel) {
+                    return getName;
+                }
+            } catch (error) {
+                console.error(`Error while fetching profile for ID ${result}:`, error);
+            }
+    
+            retries++;
+            await this.delay(delayMs);
+        }
+    
+        throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
+    }
+
     async addEvents(){
         const events = this.dataStore.get("events");
         const profile = this.dataStore.get("profile")
@@ -65,7 +91,7 @@ class ViewAllEvents extends BindingClass {
         }
     }
 
-    async createTableRow(eventResult, counter, profile){
+    async createTableRow(eventResult, counter){
         const resulting = await this.client.getEventDetails(eventResult.eventId);
 
         const anchor = document.createElement('tr');
@@ -102,13 +128,14 @@ class ViewAllEvents extends BindingClass {
             eventType.innerText = resulting.eventModel.category;
             const eventOrg = document.createElement('td');
             const foriegnProfile = resulting.eventModel.eventCreator;
-            const realName = await this.client.getProfile(foriegnProfile);
+            const realName = await this.getProfileWithRetry(foriegnProfile);
             eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
 
                 const eventCancel = document.createElement('td');
                 const removeBtn = document.createElement('button');
             
                 if (realName.profileModel.events.includes(eventResult.eventId)) {
+                    console.log(realName.profileModel.events,"here");
                     removeBtn.innerText = "Cancel";
                     removeBtn.className = "btn btn-dark";
                     removeBtn.addEventListener('click', (e) => {
