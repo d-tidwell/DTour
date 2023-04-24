@@ -20,7 +20,7 @@ public class UpdateEventLambda
                                 .withProfileId(claims.get("email"))
                                 .withEventId(eventIdFromPath)
                                 .withName(unauthenticatedRequest.getName())
-                                .withEventCreator(unauthenticatedRequest.getEventCreator())
+                                .withEventCreator(claims.get("email"))
                                 .withAddress(unauthenticatedRequest.getAddress())
                                 .withDescription(unauthenticatedRequest.getDescription())
                                 .withDateTime(unauthenticatedRequest.getDateTime())

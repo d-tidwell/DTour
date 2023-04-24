@@ -2,7 +2,6 @@ package com.nashss.se.musicplaylistservice.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.nashss.se.musicplaylistservice.utils.UniqueIdGenerator;
 
@@ -94,7 +93,7 @@ public class Event {
 
     @DynamoDBAttribute(attributeName = "attendees")
     public Set<String> getAttendees() {
-        return new HashSet<>(attendees);
+       return attendees;
     }
 
     public void setAttendees(Set<String> attendees) {

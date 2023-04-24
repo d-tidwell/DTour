@@ -214,16 +214,15 @@ export default class DannaClient extends BindingClass {
      * @param  errorCallback 
      * @returns the event
      */
-    async createEvent(name, date, time, address, category, description, errorCallback) {
+    async createEvent(name, address, dateTime, category, description, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create an event.");
             const response = await this.axiosClient.post(`events/create`, {
                 name: name,
-                date: date,
-                time: time,
+                dateTime: dateTime,
                 address: address,
                 category: category,
-                description: description
+                description: description,
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -248,13 +247,13 @@ export default class DannaClient extends BindingClass {
      * @param  errorCallback 
      * @returns the event
      */
-    async updateEvent(name, date, time, address, category, description, errorCallback) {
+    async updateEvent(id, name, address,dateTime, category, description, errorCallback) {
         try {
+            console.log(address,'clientaddress');
             const token = await this.getTokenOrThrow("Only authenticated users can update events.");
             const response = await this.axiosClient.put(`events/${id}`, {
                 name: name,
-                date: date,
-                time: time,
+                dateTime: dateTime,
                 address: address,
                 category: category,
                 description: description,
@@ -304,6 +303,21 @@ export default class DannaClient extends BindingClass {
             const token = await this.getTokenOrThrow("Only authenticated users can remove an event from a profile.");
             const response = await this.axiosClient.put(`profiles/removeEvent`, {
                 eventId: eventId
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+    async deleteEventFromProfile(id,errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete an event.");
+            const response = await this.axiosClient.put(`events/deleteEvent/${id}`, {
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,

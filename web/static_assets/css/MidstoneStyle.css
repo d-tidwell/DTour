@@ -128,6 +128,12 @@ color:white;
     color: var(--textColor);
     font-size: 10rem;
 }
+#thistheirProfilePic:hover{
+    color: var(--navbarColor);
+}
+.theirNames:hover{
+    color: var(--navbarColor);
+}
 .nav-profile-icon-sm {
     color: var(--textColor);
     font-size: 2rem;
@@ -206,26 +212,26 @@ h3#names.names.text-following:hover {
     }
 
     html, body {
-        overflow: visible;
+        /* overflow: visible; */
         height: 100%;
         width: 100%;
         margin:0;
     }
 
-    .page-body-background-landing .overlayBox {
-        position: absolute;
-        top: 65%;
-        left: 0;
-        right: 0;
-        z-index: 1;
-        text-align: center;
-    }
     .nav-item {
         height: 20%; /* Adjust this value to change the height of the nav items */
     }
     .nav-link .nav-profile-icon {
         color: var(--textColor);
         font-size: 1.5rem;
+        display: block;
+        margin: 0 auto;
+    }
+    .names {
+        text-align: center;
+    }
+    .theirNames {
+        text-align: center;
     }
     .nav-link .nav-custom-icon {
         color: var(--textColor);

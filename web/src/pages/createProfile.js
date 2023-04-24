@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class CreateProfile extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'redirectProfile','mount','confirmRedirect','submitFormData','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
+        this.bindClassMethods(['clientLoaded', 'redirectProfile','mount','convertToDateTime','confirmRedirect','submitFormData','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout','setPlaceholders'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -71,12 +71,51 @@ class CreateProfile extends BindingClass {
         document.getElementById("loading").remove();
     }
 
+    async convertToDateTime(dateString, timeString) {
+        // Get the current timezone
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      
+        // Parse the date string
+        const [month, day, year] = dateString.split('/').map(part => parseInt(part, 10));
+      
+        // Parse the time string and convert to 24-hour format
+        const [timeValue, timePeriod] = timeString.split(' ');
+        let [hours, minutes] = timeValue.split(':').map(part => parseInt(part, 10));
+        if (timePeriod === 'PM' && hours !== 12) {
+          hours += 12;
+        } else if (timePeriod === 'AM' && hours === 12) {
+          hours = 0;
+        }
+      
+        // Create a Date object using the parsed values
+        const date = new Date(year, month - 1, day, hours, minutes);
+      
+        // Convert date object to an ISO string
+        const isoString = date.toISOString();
+      
+        // Get the offset in minutes and convert it to hours and minutes
+        const offset = -date.getTimezoneOffset();
+        const offsetSign = offset >= 0 ? "+" : "-";
+        const offsetHours = Math.floor(Math.abs(offset) / 60);
+        const offsetMinutes = Math.abs(offset) % 60;
+        const formattedOffset = `${offsetSign}${String(offsetHours).padStart(2, "0")}:${String(offsetMinutes).padStart(2, "0")}`;
+      
+        // Get the date and time parts from the ISO string
+        const [datePart, timePart] = isoString.split("T");
+        const timeWithoutMillis = timePart.split(".")[0];
+      
+        // Assemble the final ZonedDateTime string
+        const zonedDateTimeString = `${datePart}T${timeWithoutMillis}${formattedOffset}[${timezone}]`;
+      
+        return zonedDateTimeString;
+    }
 
     async submitFormData(evt){
         evt.preventDefault();
         const firstName = document.getElementById('fname').value || document.getElementById('fname').getAttribute('placeholder');
         const lastName = document.getElementById('lname').value ||  document.getElementById('lname').getAttribute('placeholder');
-        const dob = document.getElementById('dob').value ||  document.getElementById('dob').getAttribute('placeholder');
+        const dobraw = document.getElementById('dob').value ||  document.getElementById('dob').getAttribute('placeholder');
+        const dob = await this.convertToDateTime(dobraw, '12:01 AM')
         const location = document.getElementById('location').value ||  document.getElementById('location').getAttribute('placeholder');
         const gender = document.getElementById('gender').value || document.getElementById('gender').getAttribute('placeholder');
         console.log(firstName, lastName, dob, location, gender);

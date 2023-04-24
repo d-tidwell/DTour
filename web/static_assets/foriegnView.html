@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="css/MidstoneStyle.css">
         <link rel="shortcut icon" href="icons/balloon-heart.svg">
         <title>@DANNA</title>
-        <script type="text/javascript" src="assets/viewProfile.js"></script>
+        <script type="text/javascript" src="assets/foriegnView.js"></script>
        
         
     </head>
@@ -101,8 +101,15 @@
                   </script>
                   
                   <div class="col py-3 page-body-background">
-                    <div class="row table-responsive ">
-                      <h3 class="text-center">Upcoming Events</h3>
+                    <div class="row py-3">
+                        <div class="container d-flex flex-wrap justify-content-center" id="theirProfile">
+                            <a href="#" class="nav-link align-middle px-0" id="theirProfilePic">
+                                <i class="bi bi-person-circle nav-profile-icon" id="thistheirProfilePic"></i>
+                                <span class="ms-1 d-none d-sm-inline"><H3 class="theirNames" id="theirNames">First& LastName</H3></span>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="text-center">They RSVP'd</h3>
                     <table class="table table-bordered table-striped" id="Toptable">
                       <thead>
                         <tr>
@@ -113,36 +120,31 @@
                           <th scope="col" class="text-center" onclick="sortTable(event)">Time</th>
                           <th scope="col" class="text-center">Location</th>
                           <th scope="col" class="text-center">Organizer</th>
-                          <th scope="col" class="text-center">RSVP</th>
                         </tr>
                       </thead>
                       <tbody id="event-list">
                       </tbody>
                     </table>
-                    </div>
-                    <div class="row table-responsive ">
-                      <h3 class="text-center">Personal Events</h3>
-                      <p class="text-center" id="personalEventResults"></p>
-                      <table class="table  table-bordered table-striped" id="Bottomtable">
-                          <thead>
-                            <tr>
-                              <th scope="col" class="text-center">#</th>
-                              <th scope="col" class="text-center">Id</th>
-                              <th scope="col" class="text-center">Event</th>
-                              <th scope="col" class="text-center">Date</th>
-                              <th scope="col" class="text-center">Time</th>
-                              <th scope="col" class="text-center">Location</th>
-                              <th scope="col" class="text-center">Organizer</th>
-                              <th scope="col" class="text-center">Cancel</th>
-                            </tr>
-                          </thead>
-                          <tbody id="created-event-list">
-                          </tbody>
-                        </table>
-                        <hr>
-                    </div>
+                        <h3 class="text-center">They Are Hosting These Events</h3>
+                        
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Id</th>
+                                <th scope="col" class="text-center">Event</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Time</th>
+                                <th scope="col" class="text-center">Location</th>
+                              </tr>
+                            </thead>
+                            <tbody id="created-event-list">
+                                <p class="text-center" id="personalEventResults"></p>
+                            </tbody>
+                          </table>
+                          <hr>
                         <div class="row py-3">
-                            <h3 class="text-center pb-5">Following</h3>
+                            <h3 class="text-center pb-5">Who they Follow</h3>
                             <div>
                                 <p class="text-center" id="allFollowingListText"></p>
                                 <div class="container d-flex flex-wrap justify-content-center" id="allFollowingList"></div>

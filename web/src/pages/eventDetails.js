@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class EventDetails extends BindingClass {
     constructor() {+
         super();
-        this.bindClassMethods(['clientLoaded', 'mount','addName','orgName','attending','delay','getProfileWithRetry','createAttendingIcons','convertDateTimeToBrowserTimeZone','redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout'], this);
+        this.bindClassMethods(['clientLoaded', 'mount','addName','orgName','attending','delay','redirectEditEvent','getProfileWithRetry','createAttendingIcons','convertDateTimeToBrowserTimeZone','redirectEditProfile','redirectAllEvents','redirectCreateEvents','redirectAllFollowing','logout'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
 
@@ -16,15 +16,19 @@ class EventDetails extends BindingClass {
      * Once the client is loaded, get the profile metadata.
      */
     async clientLoaded() {
+        const identity = await this.client.getIdentity();
         const urlParams = new URLSearchParams(window.location.search);
         const eventId = urlParams.get("id");
         if (eventId) {
           const event = await this.client.getEventDetails(eventId);
           this.dataStore.set("event", event);
+          this.dataStore.set("eventId", event.eventModel.eventId);
+          if(identity.email !== event.eventModel.eventCreator){
+            document.getElementById('edit-btn').remove()
+            }
         } else {
           console.error('id not found in the URL');
         }
-        const identity = await this.client.getIdentity();
         const profile = await this.client.getProfile(identity.email);
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
@@ -45,6 +49,7 @@ class EventDetails extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
+        document.getElementById('edit-btn').addEventListener('click', this.redirectEditEvent);
 
         this.client = new dannaClient();
         this.clientLoaded();
@@ -77,12 +82,12 @@ class EventDetails extends BindingClass {
     async orgName(find){
         const orgProf = await this.getProfileWithRetry(find);
         const first = orgProf.profileModel.firstName;
-        const last = orgProf.profileModel.firstName
+        const last = orgProf.profileModel.lastName
         return { first,last }
     }
     async populateDetails(){
         const details = this.dataStore.get("event");
-        document.getElementById("name").textContent = details.eventModel.name;
+        document.getElementById("name").textContent = details.eventModel.name +"             ";
         const dateTime = await this.convertDateTimeToBrowserTimeZone(details.eventModel.dateTime);
         document.getElementById("date").textContent = dateTime.date;
         document.getElementById("time").textContent = dateTime.time;
@@ -96,16 +101,6 @@ class EventDetails extends BindingClass {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async attending(){
-        const attendees = this.dataStore.get("event")
-        console.log(attendees.eventModel.attendees);
-        let id;
-        for(id of attendees.eventModel.attendees){
-            console.log(id);
-            await this.createAttendingIcons(id);
-            await this.delay(1000); 
-        }
-    }
 
     async getProfileWithRetry(result, maxRetries = 3, delayMs = 1000) {
         let retries = 0;
@@ -128,6 +123,16 @@ class EventDetails extends BindingClass {
     
         throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
     }
+    async attending(){
+        const attendees = this.dataStore.get("event")
+        console.log(attendees.eventModel.attendees);
+        let id;
+        for(id of attendees.eventModel.attendees){
+            console.log(id);
+            await this.createAttendingIcons(id);
+            await this.delay(1000); 
+        }
+    }
 
     async createAttendingIcons(result){
     
@@ -135,7 +140,7 @@ class EventDetails extends BindingClass {
             const getName = await this.getProfileWithRetry(result);
             const profileId = getName.profileModel.profileId;
             const profileFName = getName.profileModel.firstName;
-            const profileLName = getName.profileModel.firstName;
+            const profileLName = getName.profileModel.lastName;
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', 'foriegnView.html?id='+profileId);
@@ -166,6 +171,12 @@ class EventDetails extends BindingClass {
             console.error(`Error while fetching profile for ID ${result}:`, error);
         }
         
+
+    }
+    redirectEditEvent(){
+        const eventId = this.dataStore.get("eventId");
+        window.location.href ='/createEvents.html?id=' + eventId;
+      
 
     }
     redirectEditProfile(){
