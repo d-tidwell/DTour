@@ -334,11 +334,11 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async addToFollowing(profileId, errorCallback) {
+    async addToFollowing(idToAdd, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can add to a profile.");
             const response = await this.axiosClient.put(`profiles/addFollowing`, {
-                profileId: profileId
+                idToAdd: idToAdd
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -55,10 +55,8 @@ public class AddFollowingToProfileActivity {
 
         Set<String> updatedListProfiles = profileDao.addProfileToFollowersList(id, idToAdd);
 
-        List<String> list = new ArrayList<>(updatedListProfiles);
-
         return AddFollowingToProfileResult.builder()
-                .withProfileList(list)
+                .withProfileList(new ArrayList<String>(updatedListProfiles))
                 .build();
     }
 }
