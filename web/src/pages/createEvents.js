@@ -157,13 +157,14 @@ class CreateEvent extends BindingClass {
         
 
         this.dataStore.set('event', event);
-        document.getElementById('fname').innerText = event.event.name;
-        document.getElementById('faddress').innerText = event.event.eventAddress;
-        const newDateTime = await this.dateAndTimeExtractor(event.event.dateTime);
+        console.log(event.eventModel,"here")
+        document.getElementById('fname').innerText = event.eventModel.name;
+        document.getElementById('faddress').innerText = event.eventModel.eventAddress;
+        const newDateTime = await this.dateAndTimeExtractor(event.eventModel.dateTime);
         document.getElementById('fdate').innerText = newDateTime.date;
         document.getElementById('ftime').innerText = newDateTime.time;
-        document.getElementById('fcategories').innerText = event.event.category;
-        document.getElementById('fdescription').innerText =event.event.description;
+        document.getElementById('fcategories').innerText = event.eventModel.category;
+        document.getElementById('fdescription').innerText =event.eventModel.description;
         document.getElementById('loading-modal').remove();
         
     }
