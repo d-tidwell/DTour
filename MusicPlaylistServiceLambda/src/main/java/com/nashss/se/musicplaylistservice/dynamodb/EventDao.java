@@ -127,7 +127,6 @@ public class EventDao {
         }
 
         this.dynamoDbMapper.save(event);
-        //add the new event to the profiles list of attending events
         eventsAttending.add(eventId);
         this.dynamoDbMapper.save(profileEvent);
 
