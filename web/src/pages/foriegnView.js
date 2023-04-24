@@ -31,7 +31,9 @@ class FViewProfile extends BindingClass {
         } else {
           console.error('id not found in the URL');
         }
-
+        if(profile.profileModel.following.includes(foriegnId)){
+            document.getElementById('follow-btn').innerText = "remove";
+        }
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
         this.dataStore.set('firstName', profile.profileModel.firstName);
@@ -107,8 +109,15 @@ class FViewProfile extends BindingClass {
     }
     async addToFollowing(){
         const profAdd = this.dataStore.get("foriegn");
-        await this.client.addToFollowing(profAdd.profileModel.profileId);
+        if(document.getElementById("follow-btn").innerText === 'remove'){
+            await this.client.removeFromFollowing(profAdd.profileModel.profileId);
+        } else {
+            await this.client.addToFollowing(profAdd.profileModel.profileId);
+            
+        }
         window.location.href = "/profile.html";
+     
+        
     }
     async addEvents(){
         const events = await this.dataStore.get("events");
