@@ -137,7 +137,7 @@ class CreateEvent extends BindingClass {
             const description = document.getElementById('description').value;
             const dateTime = await this.convertToDateTime(date, time);
             event = await this.client.createEvent(name, address, dateTime, categories, description, (error) => {
-                errorMessageDisplay.innerText = `Error: ${error.message}`;
+                console.log(error.message);
             });
         } else {
   
@@ -151,7 +151,7 @@ class CreateEvent extends BindingClass {
             const description = document.getElementById('description').value || document.getElementById("description").getAttribute('placeholder')
             const dateTime = await this.convertToDateTime(date, time);
             event = await this.client.updateEvent(id, name, address, dateTime, categories, description, (error) => {
-                errorMessageDisplay.innerText = `Error: ${error.message}`;
+                console.log(error.message);
             });
         }
         
