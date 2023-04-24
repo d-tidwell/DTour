@@ -49,7 +49,7 @@ class CreateProfile extends BindingClass {
     }
 
     async setPlaceholders(){
-        const profile = this.dataStore.get("profile");
+        const profile = await this.dataStore.get("profile");
         console.log("this one",profile)
         if (profile == null) {
             return;
@@ -125,7 +125,7 @@ class CreateProfile extends BindingClass {
                 errorMessageDisplay.innerText = `Error: ${error.message}`;
             });
         } else {
-            profile = await this.client.updateProfile(this.dataStore.get('id'),firstName, lastName, location, gender, dob, (error) => {
+            profile = await this.client.updateProfile(await this.dataStore.get('id'),firstName, lastName, location, gender, dob, (error) => {
                 errorMessageDisplay.innerText = `Error: ${error.message}`;
             });
         }

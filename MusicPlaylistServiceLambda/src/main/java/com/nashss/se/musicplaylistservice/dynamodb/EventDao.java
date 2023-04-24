@@ -86,7 +86,8 @@ public class EventDao {
     public Event saveEvent(boolean isNew, String eventId, String name, String eventCreator, String address, String description,
                              String dateTime, Set<String> category) {
         Event event = new Event();
-
+        Profile profileEvent = profileDao.getProfile(eventCreator);
+        Set<String> eventsAttending = profileEvent.getEvents();
         if(isNew && checkEventDateTime(dateTime)){
             event.setEventId(event.generateId());
             event.setName(name);
@@ -126,6 +127,8 @@ public class EventDao {
         }
 
         this.dynamoDbMapper.save(event);
+        eventsAttending.add(eventId);
+        this.dynamoDbMapper.save(profileEvent);
 
         return event;
     }
