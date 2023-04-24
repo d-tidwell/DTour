@@ -7,7 +7,7 @@ class ViewProfile extends BindingClass {
     constructor() {+
         super();
         this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','thisPageDeleteFrom','redirectEditProfile','redirectAllEvents','delay',
-        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry'], this);
+        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry','getProfileWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
     }
@@ -59,6 +59,27 @@ class ViewProfile extends BindingClass {
                 getEvent = await this.client.getEventDetails(result);
                 if (getEvent && getEvent.eventModel) {
                     return getEvent;
+                }
+            } catch (error) {
+                console.error(`Error while fetching profile for ID ${result}:`, error);
+            }
+    
+            retries++;
+            await this.delay(delayMs);
+        }
+    
+        throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
+    }
+    async getProfileWithRetry(result, maxRetries = 3, delayMs = 1000) {
+        let retries = 0;
+        let getName;
+    
+        while (retries < maxRetries) {
+            try {
+                getName = await this.client.getProfile(result);
+    
+                if (getName && getName.profileModel) {
+                    return getName;
                 }
             } catch (error) {
                 console.error(`Error while fetching profile for ID ${result}:`, error);
@@ -260,7 +281,7 @@ class ViewProfile extends BindingClass {
         } else {
         let profileFollowing;
         for (profileFollowing of following) {
-            const getName = await this.client.getProfile(profileFollowing);
+            const getName = await this.getProfileWithRetry(profileFollowing);
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', 'foriegnView.html?id='+getName.profileModel.profileId);
