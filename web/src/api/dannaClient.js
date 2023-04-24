@@ -314,6 +314,21 @@ export default class DannaClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+    async deleteEventFromProfile(id,errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can delete an event.");
+            const response = await this.axiosClient.put(`events/deleteEvent/${id}`, {
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
     /**
      * 
      * @param {*} id Unique identifyer of the profile

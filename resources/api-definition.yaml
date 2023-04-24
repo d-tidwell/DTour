@@ -323,7 +323,7 @@ paths:
                     uniqueItems: true
       responses:
         "200":
-          description: A profile object
+          description: An event object
           content:
             application/json:
               schema:
@@ -363,7 +363,7 @@ paths:
               type: string
         responses:
           "200":
-            description: A profile object
+            description: An event object
             content:
               application/json:
                 schema:
@@ -396,7 +396,7 @@ paths:
       parameters:
         - name: eventId
           in: path
-          description: ID of profile to retrieve
+          description: ID of event to update
           required: true
           schema:
             type: string
@@ -419,7 +419,7 @@ paths:
 
       responses:
         "200":
-          description: A profile object
+          description: An event object
           content:
             application/json:
               schema:
@@ -452,7 +452,7 @@ paths:
         summary: Get an existing event (GetEventLambda)
         responses:
           "200":
-            description: A profile object
+            description: A list of all events
             content:
               application/json:
                 schema:
@@ -466,3 +466,30 @@ paths:
           "500":
             description: "Invalid input parameters"
 
+/events/deleteEvent/${id}:
+    put:
+        tags:
+          - Events
+        summary: Get an existing event (GetEventLambda)
+        parameters:
+          - name: id
+            in: path
+            description: ID of event to delete
+            required: true
+            schema:
+              type: string
+       responses:
+          "200":
+            description: A List of events
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                  events:
+                    type: array
+                    items:
+                      type: string
+                    uniqueItems: true
+          "500":
+            description: "Invalid input parameters"

@@ -152,7 +152,6 @@ public class ProfileDao {
         events.remove(profileIdToRemove);
         profile.setEvents(events);
         this.dynamoDbMapper.save(profile);
-        System.out.println(this.getProfile(id));
         return events;
     }
 }

@@ -155,6 +155,10 @@ class ViewProfile extends BindingClass {
         await this.client.removeEventFromProfile(result);
         window.location.href = "/profile.html";
     }
+    async thisPageDeleteFrom(result){
+        await this.client.deleteEventFromProfile(result);
+        window.location.href = "/profile.html";
+    }
     
     async addPersonalEvents(){
         let checkArray = [];

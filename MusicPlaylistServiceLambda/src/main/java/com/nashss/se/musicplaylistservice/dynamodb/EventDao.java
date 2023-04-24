@@ -1,6 +1,7 @@
 package com.nashss.se.musicplaylistservice.dynamodb;
 
 import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Profile;
 import com.nashss.se.musicplaylistservice.exceptions.EventNotFoundException;
 import com.nashss.se.musicplaylistservice.exceptions.EventTimeIsInvalidException;
 import com.nashss.se.musicplaylistservice.metrics.MetricsConstants;
@@ -8,9 +9,6 @@ import com.nashss.se.musicplaylistservice.metrics.MetricsPublisher;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -24,9 +22,10 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class EventDao {
-    private final Logger log = LogManager.getLogger();
+
     private final DynamoDBMapper dynamoDbMapper;
     private final MetricsPublisher metricsPublisher;
+    private final ProfileDao profileDao;
 
     /**
      * Instantiates an EventDao object.
@@ -35,9 +34,10 @@ public class EventDao {
      * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
      */
     @Inject
-    public EventDao(DynamoDBMapper dynamoDbMapper, MetricsPublisher metricsPublisher) {
+    public EventDao(DynamoDBMapper dynamoDbMapper, MetricsPublisher metricsPublisher, ProfileDao profileDao) {
         this.dynamoDbMapper = dynamoDbMapper;
         this.metricsPublisher = metricsPublisher;
+        this.profileDao = profileDao;
     }
 
      /**
@@ -128,6 +128,32 @@ public class EventDao {
         this.dynamoDbMapper.save(event);
 
         return event;
+    }
+    /**
+     * Iterates over all the attendees and removes the {@link Event} from their list.
+     * Deletes the event from the database.
+     * @param eventId the id of the event to delete
+     * @param profileId the id of the {@link Profile} of the {@link Event} owner
+     * @return updated list of events the profile is attending
+     */
+
+    public Set<String> deleteEvent(String eventId, String profileId) {
+        Event event = this.getEvent(eventId);
+        Set<String> attending = event.getAttendees();
+        Set<String> returnSet = new HashSet<>();
+        for(String email: attending){
+            Profile working = profileDao.getProfile(email);
+            Set<String> listed = working.getEvents();
+            listed.remove(eventId);
+            if(email.equals(profileId)){
+                returnSet.addAll(listed);
+            }
+            working.setEvents(listed);
+            this.dynamoDbMapper.save(working);
+        }
+        this.dynamoDbMapper.delete(event);
+        return returnSet;
+
     }
 
     /**
