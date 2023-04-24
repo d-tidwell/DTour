@@ -28,7 +28,7 @@ class ViewProfile extends BindingClass {
         this.addEvents();
         this.addPersonalEvents();
         this.addName();
-        this.addFollowing();
+        this.addFollowing(identity.email);
         
 
     }
@@ -274,14 +274,14 @@ class ViewProfile extends BindingClass {
         document.getElementById("names").innerText = fname + " " + lname;
     }
 
-    async addFollowing(){
-        const following = await this.dataStore.get("following");
+    async addFollowing(email){
+        const following =  await this.getProfileWithRetry(email);
         console.log(following, "following");
-        if (following == null) {
+        if (following.profileModel.following == null) {
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
         } else {
         let profileFollowing;
-        for (profileFollowing of following) {
+        for (profileFollowing of following.profileModel.following) {
             const getName = await this.getProfileWithRetry(profileFollowing);
             console.log(getName.profileModel.profileId,"got Follower")
             // Create an anchor element

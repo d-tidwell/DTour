@@ -217,8 +217,8 @@ export default class DannaClient extends BindingClass {
             const token = await this.getTokenOrThrow("Only authenticated users can create an event.");
             const response = await this.axiosClient.post(`events/create`, {
                 name: name,
-                dateTime: dateTime,
                 address: address,
+                dateTime: dateTime,
                 category: category,
                 description: description,
             }, {
@@ -228,6 +228,7 @@ export default class DannaClient extends BindingClass {
 
                 }
             });
+            console.log(response.data,"CLIENT CALL");
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -333,11 +334,11 @@ export default class DannaClient extends BindingClass {
      * @param {*} errorCallback 
      * @returns 
      */
-    async addToFollowing(profileId, errorCallback) {
+    async addToFollowing(idToAdd, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can add to a profile.");
             const response = await this.axiosClient.put(`profiles/addFollowing`, {
-                profileId: profileId
+                idToAdd: idToAdd
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,

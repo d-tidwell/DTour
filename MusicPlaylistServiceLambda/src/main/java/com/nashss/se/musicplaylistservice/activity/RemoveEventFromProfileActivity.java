@@ -3,6 +3,8 @@ package com.nashss.se.musicplaylistservice.activity;
 import com.nashss.se.musicplaylistservice.activity.requests.RemoveEventFromProfileRequest;
 import com.nashss.se.musicplaylistservice.activity.results.RemoveEventFromProfileResult;
 import com.nashss.se.musicplaylistservice.dynamodb.ProfileDao;
+import com.nashss.se.musicplaylistservice.dynamodb.EventDao;
+import com.nashss.se.musicplaylistservice.dynamodb.models.Event;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,14 +16,16 @@ import java.util.Set;
 public class RemoveEventFromProfileActivity {
     private final Logger log = LogManager.getLogger();
     private final ProfileDao profileDao;
+    private final EventDao eventDao;
 
     /**
      * Instantiates a new RemoveFromEventActivity object.
      * @param profileDao profileDao to access the album_track table.
      */
     @Inject
-    public RemoveEventFromProfileActivity(ProfileDao profileDao) {
+    public RemoveEventFromProfileActivity(ProfileDao profileDao, EventDao eventDao) {
         this.profileDao = profileDao;
+        this.eventDao = eventDao;
     }
 
 
@@ -30,14 +34,22 @@ public class RemoveEventFromProfileActivity {
 
         String id = removeFromEventRequest.getProfileId();
         String profileIdToRemove = removeFromEventRequest.getEventId();
-
-        profileDao.getProfile(removeFromEventRequest.getProfileId());
-        System.out.println(id + " " + profileIdToRemove);
-        Set<String> updatedList = profileDao.removeProfileFromEvent(id, profileIdToRemove);
-        List<String> list = new ArrayList<>(updatedList);
-        return RemoveEventFromProfileResult.builder()
+        Event eventToRemove = eventDao.getEvent(profileIdToRemove);
+        if(eventToRemove.getEventCreator().equals(id)){
+            Set<String> remainderEvents = eventDao.deleteEvent(profileIdToRemove, id);
+            return RemoveEventFromProfileResult.builder()
+                .withEventList(new ArrayList<String>(remainderEvents))
+                .build();
+        } else {
+            profileDao.getProfile(removeFromEventRequest.getProfileId());
+            System.out.println(id + " " + profileIdToRemove);
+            Set<String> updatedList = profileDao.removeProfileFromEvent(id, profileIdToRemove);
+            List<String> list = new ArrayList<>(updatedList);
+            return RemoveEventFromProfileResult.builder()
                 .withEventList(list)
                 .build();
+        }
+        
 
 
     }

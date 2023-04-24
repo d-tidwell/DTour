@@ -61,7 +61,7 @@ public class LambdaResponse extends APIGatewayProxyResponseEvent {
      * @return A new LambdaResponse
      */
     public static LambdaResponse error(String message) {
-        log.info("error with message");
+        log.info("error with message {}", message);
         return new LambdaResponse(500,
                 String.format("{ \"error_message\": \"%s\" }", message));
     }
@@ -73,7 +73,7 @@ public class LambdaResponse extends APIGatewayProxyResponseEvent {
      * @return A new LambdaResponse
      */
     public static LambdaResponse error(Exception e) {
-        log.info("error with exception");
+        log.info("error with exception {}", e);
         return error(e.getMessage());
     }
 }

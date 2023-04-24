@@ -7,7 +7,7 @@ class FViewProfile extends BindingClass {
     constructor() {+
         super();
         this.bindClassMethods(['clientLoaded', 'mount','thisPageRemoveFrom','redirectEditProfile','redirectAllEvents','delay',
-        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry'], this);
+        'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','addToFollowing','getEventWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         // console.log("viewprofile constructor");
@@ -31,6 +31,7 @@ class FViewProfile extends BindingClass {
         } else {
           console.error('id not found in the URL');
         }
+
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
         this.dataStore.set('firstName', profile.profileModel.firstName);
@@ -53,6 +54,7 @@ class FViewProfile extends BindingClass {
         document.getElementById('allFollowing').addEventListener('click', this.redirectAllFollowing);
         document.getElementById('logout').addEventListener('click', this.logout);
         document.getElementById('door').addEventListener('click', this.logout);
+        document.getElementById('follow-btn').addEventListener('click', this.addToFollowing);
         document.getElementById('names').innerText = "Loading Profile ...";
 
         this.client = new dannaClient();
@@ -103,9 +105,15 @@ class FViewProfile extends BindingClass {
     
         throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
     }
-
+    async addToFollowing(){
+        const profAdd = this.dataStore.get("foriegn");
+        await this.client.addToFollowing(profAdd.profileModel.profileId);
+        window.location.href = "/profile.html";
+    }
     async addEvents(){
         const events = await this.dataStore.get("events");
+        const fprof = await this.dataStore.get('foriegn');
+        const email = fprof.profileModel.profileId;
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -113,7 +121,7 @@ class FViewProfile extends BindingClass {
             let counter = 0;
             for (eventResult of events) {
                 const resulting =  await this.getEventWithRetry(eventResult);
-                if((resulting.eventModel.eventCreator === await this.dataStore.get('email')) == true){
+                if((resulting.eventModel.eventCreator !== email )){
 
                     counter += 1
                     const anchor = document.createElement('tr');
@@ -177,6 +185,8 @@ class FViewProfile extends BindingClass {
     async addPersonalEvents(){
         let checkArray = [];
         const events = await this.dataStore.get("events");
+        const fprof = await this.dataStore.get('foriegn');
+        const email = fprof.profileModel.profileId;
         if (events == null) {
             document.getElementById("created-event-list").innerText = "No Events created by you in your Profile";
         } else {
@@ -185,7 +195,7 @@ class FViewProfile extends BindingClass {
             for (eventResult of events) {
                 const resulting = await this.getEventWithRetry(eventResult);
                 if(resulting){
-                    if(( resulting.eventModel.eventCreator === await this.dataStore.get('email')) == true){
+                    if(( resulting.eventModel.eventCreator === email)){
                         counter += 1
                         checkArray.push(eventResult);
                         const anchor = document.createElement('tr');
@@ -248,9 +258,6 @@ class FViewProfile extends BindingClass {
         const lname = await this.dataStore.get("lastName");
         const Tfname = await this.dataStore.get("TfirstName");
         const Tlname = await this.dataStore.get("TlastName");
-        if (fname == null) {
-            document.getElementById("names").innerText = "John Doh";
-        }
         document.getElementById("names").innerText = fname + " " + lname;
         document.getElementById("theirNames").innerText = Tfname + " " + Tlname;
     }

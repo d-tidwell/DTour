@@ -13,7 +13,6 @@ import javax.inject.Singleton;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -59,7 +58,7 @@ public class ProfileDao {
     public Profile saveProfile(boolean isNew, String id, String firstName, String lastName, String location, String gender, ZonedDateTime dateOfBirth) {
         Profile saveProfile = new Profile();
         saveProfile.setId(id);
-        if(isNew) {
+        if(isNew == true) {
             saveProfile.setFirstName(firstName);
             saveProfile.setLastName(lastName);
             saveProfile.setLocation(location);
@@ -100,25 +99,16 @@ public class ProfileDao {
         return saveProfile;
     }
     public Set<String>  addProfileToFollowersList(String id, String profileToAdd) {
-        if (id == null || id.isEmpty()) {
-            throw new InvalidAttributeException("The entered email address is invalid. Please try again.");
-        }
 
         Profile profile = getProfile(id);
 
-        if (profileToAdd == null || profileToAdd.isEmpty()) {
-            throw new InvalidAttributeException("The profile to add is invalid. Please try again.");
-        }
-
-        Profile profileToAddProfile = getProfile(profileToAdd);
-
         Set<String> following = profile.getFollowing();
 
-        following.add(profileToAddProfile.getId());
+        following.add(profileToAdd);
         profile.setFollowing(following);
         this.dynamoDbMapper.save(profile);
 
-        return new HashSet<>(following);
+        return following;
     }
 
 
