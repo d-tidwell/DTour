@@ -75,8 +75,8 @@ class ViewAllEvents extends BindingClass {
     }
 
     async addEvents(){
-        const events = this.dataStore.get("events");
-        const profile = this.dataStore.get("profile")
+        const events = await this.dataStore.get("events");
+        const profile = await this.dataStore.get("profile")
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -93,7 +93,7 @@ class ViewAllEvents extends BindingClass {
 
     async createTableRow(eventResult, counter){
         const resulting = await this.client.getEventDetails(eventResult.eventId);
-        const profId = this.dataStore.get("profile");
+        const profId = await this.dataStore.get("profile");
         const anchor = document.createElement('tr');
         // ... (all the other table cell creation code)
         const th = document.createElement('th');
@@ -128,8 +128,9 @@ class ViewAllEvents extends BindingClass {
             eventType.innerText = resulting.eventModel.category;
             const eventOrg = document.createElement('td');
             const foriegnProfile = resulting.eventModel.eventCreator;
+            const orgNameReal = await this.getProfileWithRetry(foriegnProfile);
             const realName = await this.getProfileWithRetry(profId.profileModel.profileId);
-            eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
+            eventOrg.innerText = orgNameReal.profileModel.firstName+ " "+ orgNameReal.profileModel.lastName;
 
                 const eventCancel = document.createElement('td');
                 const removeBtn = document.createElement('button');
@@ -182,8 +183,8 @@ class ViewAllEvents extends BindingClass {
    
 
     async addName(){
-        const fname = this.dataStore.get("firstName");
-        const lname = this.dataStore.get("lastName");
+        const fname = await this.dataStore.get("firstName");
+        const lname = await this.dataStore.get("lastName");
         if (fname == null) {
             document.getElementById("names").innerText = "John Doh";
         }

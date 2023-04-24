@@ -124,9 +124,9 @@ class CreateEvent extends BindingClass {
 
     async submitFormData(evt){
         evt.preventDefault();
-        const oldEvent = this.dataStore.get("event");
+        const oldEvent = await this.dataStore.get("event");
         let event;
-        if(typeof this.dataStore.get('event') === 'undefined'){
+        if(typeof old  === 'undefined'){
             console.log("here");
             const name = document.getElementById('name').value;
             const address = document.getElementById('address').value;

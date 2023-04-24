@@ -105,7 +105,7 @@ class FViewProfile extends BindingClass {
     }
 
     async addEvents(){
-        const events = this.dataStore.get("events");
+        const events = await this.dataStore.get("events");
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -113,7 +113,7 @@ class FViewProfile extends BindingClass {
             let counter = 0;
             for (eventResult of events) {
                 const resulting =  await this.getEventWithRetry(eventResult);
-                if((resulting.eventModel.eventCreator === this.dataStore.get('email')) == true){
+                if((resulting.eventModel.eventCreator === await this.dataStore.get('email')) == true){
 
                     counter += 1
                     const anchor = document.createElement('tr');
@@ -176,7 +176,7 @@ class FViewProfile extends BindingClass {
     
     async addPersonalEvents(){
         let checkArray = [];
-        const events = this.dataStore.get("events");
+        const events = await this.dataStore.get("events");
         if (events == null) {
             document.getElementById("created-event-list").innerText = "No Events created by you in your Profile";
         } else {
@@ -185,7 +185,7 @@ class FViewProfile extends BindingClass {
             for (eventResult of events) {
                 const resulting = await this.getEventWithRetry(eventResult);
                 if(resulting){
-                    if(( resulting.eventModel.eventCreator === this.dataStore.get('email')) == true){
+                    if(( resulting.eventModel.eventCreator === await this.dataStore.get('email')) == true){
                         counter += 1
                         checkArray.push(eventResult);
                         const anchor = document.createElement('tr');
@@ -244,10 +244,10 @@ class FViewProfile extends BindingClass {
     }
 
     async addName(){
-        const fname = this.dataStore.get("firstName");
-        const lname = this.dataStore.get("lastName");
-        const Tfname = this.dataStore.get("TfirstName");
-        const Tlname = this.dataStore.get("TlastName");
+        const fname = await this.dataStore.get("firstName");
+        const lname = await this.dataStore.get("lastName");
+        const Tfname = await this.dataStore.get("TfirstName");
+        const Tlname = await this.dataStore.get("TlastName");
         if (fname == null) {
             document.getElementById("names").innerText = "John Doh";
         }
@@ -256,7 +256,7 @@ class FViewProfile extends BindingClass {
     }
 
     async addFollowing(){
-        const following = this.dataStore.get("following");
+        const following = await this.dataStore.get("following");
         if (following == null) {
             document.getElementById("allFollowingListText").remove()
             document.getElementById("allFollowingList").innerText = "You are not following anyone";

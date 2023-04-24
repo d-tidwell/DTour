@@ -56,8 +56,8 @@ class EventDetails extends BindingClass {
     }
      
     async addName(){
-        const fname = this.dataStore.get("firstName");
-        const lname = this.dataStore.get("lastName");
+        const fname = await this.dataStore.get("firstName");
+        const lname = await this.dataStore.get("lastName");
         if (fname == null) {
             document.getElementById("names").innerText = "John Doh";
         }
@@ -86,7 +86,7 @@ class EventDetails extends BindingClass {
         return { first,last }
     }
     async populateDetails(){
-        const details = this.dataStore.get("event");
+        const details = await this.dataStore.get("event");
         document.getElementById("name").textContent = details.eventModel.name +"             ";
         const dateTime = await this.convertDateTimeToBrowserTimeZone(details.eventModel.dateTime);
         document.getElementById("date").textContent = dateTime.date;
@@ -124,7 +124,7 @@ class EventDetails extends BindingClass {
         throw new Error(`Failed to get profile for ID ${result} after ${maxRetries} retries.`);
     }
     async attending(){
-        const attendees = this.dataStore.get("event")
+        const attendees = await this.dataStore.get("event")
         console.log(attendees.eventModel.attendees);
         let id;
         for(id of attendees.eventModel.attendees){
@@ -173,8 +173,8 @@ class EventDetails extends BindingClass {
         
 
     }
-    redirectEditEvent(){
-        const eventId = this.dataStore.get("eventId");
+    async redirectEditEvent(){
+        const eventId = await this.dataStore.get("eventId");
         window.location.href ='/createEvents.html?id=' + eventId;
       
 
