@@ -119,7 +119,7 @@ class ViewAllEvents extends BindingClass {
                     });
                 } else {
                     removeBtn.innerText = "RSVP";
-                    removeBtn.className = "btn btn-light";
+                    removeBtn.className = "btn btn-light-custom-table";
                     removeBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         console.log("clickedAdd", eventResult.eventId);
