@@ -10,7 +10,7 @@ class ViewAllEvents extends BindingClass {
         'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addName','createTableRow'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
-        // console.log("viewprofile constructor");
+   
     }
 
     /**
@@ -51,7 +51,6 @@ class ViewAllEvents extends BindingClass {
     async addEvents(){
         const events = this.dataStore.get("events");
         const profile = this.dataStore.get("profile")
-        console.log(profile.profileModel.events);
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -139,18 +138,16 @@ class ViewAllEvents extends BindingClass {
                 document.getElementById("event-list").appendChild(anchor);
 
             } catch (error) {
-                console.error("Error adding events");
+                console.error(error);
             }
     }
 
     async thisPageRemoveFrom(result){
         const remaining = await this.client.removeEventFromProfile(result);
-        console.log(remaining);
         window.location.href = "/viewAllEvents.html";
     }
     async thisPageAddFrom(result){
         const newList = await this.client.addEventToProfile(result);
-        console.log(newList);
         window.location.href = "/viewAllEvents.html";
     }
     

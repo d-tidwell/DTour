@@ -110,7 +110,6 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -164,7 +163,6 @@ export default class DannaClient extends BindingClass {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
             return response.data;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -249,7 +247,6 @@ export default class DannaClient extends BindingClass {
      */
     async updateEvent(id, name, address,dateTime, category, description, errorCallback) {
         try {
-            console.log(address,'clientaddress');
             const token = await this.getTokenOrThrow("Only authenticated users can update events.");
             const response = await this.axiosClient.put(`events/${id}`, {
                 name: name,

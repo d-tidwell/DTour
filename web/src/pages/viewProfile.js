@@ -10,7 +10,6 @@ class ViewProfile extends BindingClass {
         'redirectCreateEvents','redirectAllFollowing','logout','addEvents','addPersonalEvents','addName','addFollowing','getEventWithRetry'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
-        // console.log("viewprofile constructor");
     }
 
     /**
@@ -73,7 +72,6 @@ class ViewProfile extends BindingClass {
     }
     async addEvents(){
         const events = this.dataStore.get("events");
-        console.log(events,"HERE");
         if (events == null) {
             document.getElementById("event-list").innerText = "No Events added in your Profile";
         } else {
@@ -114,7 +112,6 @@ class ViewProfile extends BindingClass {
                         eventLocation.innerText = resulting.eventModel.eventAddress;
                         const eventOrg = document.createElement('td');
                         const foriegnProfile = resulting.eventModel.eventCreator;
-                        console.log('email',foriegnProfile !== this.dataStore.get('email'))
                         const realName = await this.client.getProfile(foriegnProfile);
                         eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
                         const eventCancel = document.createElement('td');
@@ -204,7 +201,6 @@ class ViewProfile extends BindingClass {
                         eventLocation.innerText = resulting.eventModel.eventAddress;
                         const eventOrg = document.createElement('td');
                         const foriegnProfile = resulting.eventModel.eventCreator;
-                        console.log('email',foriegnProfile !== this.dataStore.get('email'))
                         const realName = await this.client.getProfile(foriegnProfile);
                         eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
                         const eventCancel = document.createElement('td');
