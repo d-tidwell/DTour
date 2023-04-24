@@ -88,7 +88,10 @@ class ViewProfile extends BindingClass {
                     th.setAttribute("scope", "row");
                     th.innerText = counter;
                     const eventId = document.createElement('td');
-                    eventId.innerText = eventResult;
+                    const idlink = document.createElement('a');
+                    idlink.setAttribute('href', 'eventDetails.html?id='+resulting.eventModel.eventId); 
+                    idlink.style.color ="#212524";
+                    idlink.innerText = resulting.eventModel.eventId;
                     const eventName = document.createElement('td');
                     eventName.innerText = resulting.eventModel.name;
                     const rawDate = resulting.eventModel.dateTime;
@@ -126,6 +129,7 @@ class ViewProfile extends BindingClass {
                             };
                             })(eventResult).bind(this));
                             removeBtn.id = eventResult + "btn";
+                        eventId.appendChild(idlink);
                         eventCancel.appendChild(removeBtn);
                         anchor.appendChild(th);
                         anchor.appendChild(eventId);
@@ -170,7 +174,10 @@ class ViewProfile extends BindingClass {
                     th.setAttribute("scope", "row");
                     th.innerText = counter;
                     const eventId = document.createElement('td');
-                    eventId.innerText = eventResult;
+                    const idlink = document.createElement('a');
+                    idlink.setAttribute('href', 'eventDetails.html?id='+resulting.eventModel.eventId); 
+                    idlink.style.color ="#212524";
+                    idlink.innerText = resulting.eventModel.eventId;
                     const eventName = document.createElement('td');
                     eventName.innerText = resulting.eventModel.name;
                     const rawDate = resulting.eventModel.dateTime;
@@ -208,6 +215,7 @@ class ViewProfile extends BindingClass {
                             };
                             })(eventResult).bind(this));
                             removeBtn.id = eventResult + "btn";
+                        eventId.appendChild(idlink);
                         eventCancel.appendChild(removeBtn);
                         anchor.appendChild(th);
                         anchor.appendChild(eventId);

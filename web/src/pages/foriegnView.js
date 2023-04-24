@@ -113,52 +113,55 @@ class FViewProfile extends BindingClass {
             let counter = 0;
             for (eventResult of events) {
                 const resulting =  await this.getEventWithRetry(eventResult);
-                counter += 1
-                const anchor = document.createElement('tr');
-                const th = document.createElement('th');
-                th.setAttribute("scope", "row");
-                th.innerText = counter;
-                const eventId = document.createElement('td');
-                const idlink = document.createElement('a');
-                idlink.setAttribute('href', 'eventDetails.html?id='+resulting.eventModel.eventId); 
-                idlink.style.color ="#212524";
-                idlink.innerText = resulting.eventModel.eventId;
-                const eventName = document.createElement('td');
-                eventName.innerText = resulting.eventModel.name;
-                const rawDate = resulting.eventModel.dateTime;
-                try {
-                    const inputStringDate = new Date(rawDate.split("[")[0]);
+                if((resulting.eventModel.eventCreator === this.dataStore.get('email')) == true){
 
-                    if (isNaN(inputStringDate.getTime())) {
-                        throw new Error('Invalid date value');
-                    }
-                
-                    const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                    const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    const date = dateFormatter.format(inputStringDate);
-                    const time = timeFormatter.format(inputStringDate);
-                    const eventDate = document.createElement('td');
-                    eventDate.innerText = date;
-                    const eventTime = document.createElement('td');
-                    eventTime.innerText = time;
-                    const eventLocation = document.createElement('td');
-                    eventLocation.innerText = resulting.eventModel.eventAddress;
-                    const eventOrg = document.createElement('td');
-                    const foriegnProfile = resulting.eventModel.eventCreator;
-                    const realName = await this.client.getProfile(foriegnProfile);
-                    eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
-                    eventId.appendChild(idlink);
-                    anchor.appendChild(th);
-                    anchor.appendChild(eventId);
-                    anchor.appendChild(eventName);
-                    anchor.appendChild(eventDate);
-                    anchor.appendChild(eventTime);
-                    anchor.appendChild(eventLocation);
-                    anchor.appendChild(eventOrg);
-                    document.getElementById("event-list").appendChild(anchor);  
+                    counter += 1
+                    const anchor = document.createElement('tr');
+                    const th = document.createElement('th');
+                    th.setAttribute("scope", "row");
+                    th.innerText = counter;
+                    const eventId = document.createElement('td');
+                    const idlink = document.createElement('a');
+                    idlink.setAttribute('href', 'eventDetails.html?id='+resulting.eventModel.eventId); 
+                    idlink.style.color ="#212524";
+                    idlink.innerText = resulting.eventModel.eventId;
+                    const eventName = document.createElement('td');
+                    eventName.innerText = resulting.eventModel.name;
+                    const rawDate = resulting.eventModel.dateTime;
+                    try {
+                        const inputStringDate = new Date(rawDate.split("[")[0]);
+
+                        if (isNaN(inputStringDate.getTime())) {
+                            throw new Error('Invalid date value');
+                        }
                     
-                } catch (error) {
-                    console.error("Error adding events");
+                        const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const date = dateFormatter.format(inputStringDate);
+                        const time = timeFormatter.format(inputStringDate);
+                        const eventDate = document.createElement('td');
+                        eventDate.innerText = date;
+                        const eventTime = document.createElement('td');
+                        eventTime.innerText = time;
+                        const eventLocation = document.createElement('td');
+                        eventLocation.innerText = resulting.eventModel.eventAddress;
+                        const eventOrg = document.createElement('td');
+                        const foriegnProfile = resulting.eventModel.eventCreator;
+                        const realName = await this.client.getProfile(foriegnProfile);
+                        eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
+                        eventId.appendChild(idlink);
+                        anchor.appendChild(th);
+                        anchor.appendChild(eventId);
+                        anchor.appendChild(eventName);
+                        anchor.appendChild(eventDate);
+                        anchor.appendChild(eventTime);
+                        anchor.appendChild(eventLocation);
+                        anchor.appendChild(eventOrg);
+                        document.getElementById("event-list").appendChild(anchor);  
+                        
+                    } catch (error) {
+                        console.error("Error adding events");
+                    }
                 }
                 
                 
@@ -180,17 +183,22 @@ class FViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
-                const resulting = await this.client.getEventDetails(eventResult);
+                const resulting = await this.getEventWithRetry(eventResult);
                 if(resulting){
-                    if( resulting.eventModel.eventCreator == this.dataStore.get('email')){
+                    if(( resulting.eventModel.eventCreator === this.dataStore.get('email')) == true){
                         counter += 1
                         checkArray.push(eventResult);
                         const anchor = document.createElement('tr');
                         const th = document.createElement('th');
                         th.setAttribute("scope", "row");
                         th.innerText = counter;
+                        const eventId = document.createElement('td');
+                        const idlink = document.createElement('a');
+                        idlink.setAttribute('href', 'eventDetails.html?id='+resulting.eventModel.eventId); 
+                        idlink.style.color ="#212524";
+                        idlink.innerText = resulting.eventModel.eventId;
                         const eventName = document.createElement('td');
-                        eventName.innerText = eventResult;
+                        eventName.innerText = resulting.eventModel.name;
                         const rawDate = resulting.eventModel.dateTime;
                         try {
                             const inputStringDate = new Date(rawDate.split("[")[0]);
@@ -209,28 +217,30 @@ class FViewProfile extends BindingClass {
                             eventTime.innerText = time;
                             const eventLocation = document.createElement('td');
                             eventLocation.innerText = resulting.eventModel.eventAddress;
+                            eventId.appendChild(idlink);
                             anchor.appendChild(th);
+                            anchor.appendChild(eventId);
                             anchor.appendChild(eventName);
                             anchor.appendChild(eventDate);
                             anchor.appendChild(eventTime);
                             anchor.appendChild(eventLocation);
-                            document.getElementById("event-list").appendChild(anchor);
+                            document.getElementById("created-event-list").appendChild(anchor);  
                             
-                        } catch (error) {
-                            console.error("Error adding events");
+                            } catch (error) {
+                                console.error("Error adding events");
+                            }
                         }
-                    }
-                }
-                if(checkArray.length == 0){
-                    document.getElementById("personalEventResults").innerText = "They Created No Events ...Reach Out and CoHost!";
-                }
-           
-            }
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById("personalEventResults").remove();
-              });
-                }
+                    
                
+                }
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.getElementById("personalEventResults").remove();
+                  });
+                    }
+            if(checkArray.length == 0){
+                document.getElementById("personalEventResults").innerText = "You Should Try Creating an Event!!";
+            }      
+        }
     }
 
     async addName(){
@@ -289,7 +299,7 @@ class FViewProfile extends BindingClass {
     }
 
     redirectEditProfile(){
-        window.location.href = '/createProfile.html';
+        window.location.href = '/profile.html';
         console.log("createEvent button clicked");
     }
     redirectAllEvents(){

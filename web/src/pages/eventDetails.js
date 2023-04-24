@@ -16,16 +16,19 @@ class EventDetails extends BindingClass {
      * Once the client is loaded, get the profile metadata.
      */
     async clientLoaded() {
+        const identity = await this.client.getIdentity();
         const urlParams = new URLSearchParams(window.location.search);
         const eventId = urlParams.get("id");
         if (eventId) {
           const event = await this.client.getEventDetails(eventId);
           this.dataStore.set("event", event);
           this.dataStore.set("eventId", event.eventModel.eventId);
+          if(identity.email !== event.eventModel.eventCreator){
+            document.getElementById('edit-btn').remove()
+            }
         } else {
           console.error('id not found in the URL');
         }
-        const identity = await this.client.getIdentity();
         const profile = await this.client.getProfile(identity.email);
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
@@ -79,7 +82,7 @@ class EventDetails extends BindingClass {
     async orgName(find){
         const orgProf = await this.getProfileWithRetry(find);
         const first = orgProf.profileModel.firstName;
-        const last = orgProf.profileModel.firstName
+        const last = orgProf.profileModel.lastName
         return { first,last }
     }
     async populateDetails(){
@@ -137,7 +140,7 @@ class EventDetails extends BindingClass {
             const getName = await this.getProfileWithRetry(result);
             const profileId = getName.profileModel.profileId;
             const profileFName = getName.profileModel.firstName;
-            const profileLName = getName.profileModel.firstName;
+            const profileLName = getName.profileModel.lastName;
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', 'foriegnView.html?id='+profileId);
