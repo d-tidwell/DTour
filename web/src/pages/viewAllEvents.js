@@ -142,7 +142,7 @@ class ViewAllEvents extends BindingClass {
                     removeBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         console.log("clickedRemove", eventResult.eventId);
-                        this.thisPageRemoveFrom.call(this, eventResult.eventId);
+                        this.thisPageRemoveFrom.call(this, eventResult.eventId, eventOrg.innerText);
                     });
                 } else {
                     console.log(realName.profileModel.events,eventResult.eventId,"RSVP");
@@ -171,8 +171,15 @@ class ViewAllEvents extends BindingClass {
             }
     }
 
-    async thisPageRemoveFrom(result){
-        const remaining = await this.client.removeEventFromProfile(result);
+    async thisPageRemoveFrom(result, innerId){
+        const calling = this.dataStore.get('firstName') + " "+this.dataStore.get('lastName');
+        if(calling === innerId){
+            console.log(calling === innerId, "is it?????????");
+            const deleting = await this.client.deleteEventFromProfile(result);
+        } else {
+            const remaining = await this.client.removeEventFromProfile(result);
+        }
+        
         window.location.href = "/viewAllEvents.html";
     }
     async thisPageAddFrom(result){

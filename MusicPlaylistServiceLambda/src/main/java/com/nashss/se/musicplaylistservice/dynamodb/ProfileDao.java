@@ -113,17 +113,13 @@ public class ProfileDao {
 
 
     public Set<String> removeProfileFromFollowing(String id, String profileIdToRemove) {
-        if (id == null || id.isEmpty()) {
-            throw new InvalidAttributeException("The entered email address is invalid. Please try again.");
-        }
         Profile profile = getProfile(id);
         getProfile(profileIdToRemove);
         Set<String> following = profile.getFollowing();
         following.remove(profileIdToRemove);
         profile.setFollowing(following);
         this.dynamoDbMapper.save(profile);
-        Set<String> updatedList = new HashSet<>(following);
-        return updatedList;
+        return following;
 
     }
 

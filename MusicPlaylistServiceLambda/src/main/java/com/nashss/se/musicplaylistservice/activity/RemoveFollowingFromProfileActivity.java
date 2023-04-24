@@ -39,15 +39,12 @@ public class RemoveFollowingFromProfileActivity {
     public RemoveFollowingFromProfileResult handleRequest(final RemoveFollowingFromProfileRequest removeFromFollowingRequest) {
         log.info("Received RemoveFromFollowingRequest {} ", removeFromFollowingRequest);
 
-        String id = removeFromFollowingRequest.getId();
-        String profileIdToRemove = removeFromFollowingRequest.getProfileIdToRemove();
-
         profileDao.getProfile(removeFromFollowingRequest.getId());
 
-        Set<String> updatedList = profileDao.removeProfileFromFollowing(id, profileIdToRemove);
-        List<String> list = new ArrayList<>(updatedList);
+        Set<String> updatedList = profileDao.removeProfileFromFollowing(removeFromFollowingRequest.getId(), removeFromFollowingRequest.getProfileIdToRemove());
+
         return RemoveFollowingFromProfileResult.builder()
-                .withProfileList(list)
+                .withProfileList(new ArrayList<>(updatedList))
                 .build();
 
 
