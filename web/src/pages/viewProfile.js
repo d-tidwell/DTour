@@ -99,6 +99,7 @@ class ViewProfile extends BindingClass {
             let eventResult;
             let counter = 0;
             for (eventResult of events) {
+                console.log(eventResult);
                 const resulting =  await this.getEventWithRetry(eventResult);
                 counter += 1
                 if((resulting.eventModel.eventCreator !== this.dataStore.get('email')) == true){
@@ -275,12 +276,14 @@ class ViewProfile extends BindingClass {
 
     async addFollowing(){
         const following = this.dataStore.get("following");
+        console.log(following, "following");
         if (following == null) {
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
         } else {
         let profileFollowing;
         for (profileFollowing of following) {
             const getName = await this.getProfileWithRetry(profileFollowing);
+            console.log(getName.profileModel.profileId,"got Follower")
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', 'foriegnView.html?id='+getName.profileModel.profileId);

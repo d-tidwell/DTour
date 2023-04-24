@@ -93,7 +93,7 @@ class ViewAllEvents extends BindingClass {
 
     async createTableRow(eventResult, counter){
         const resulting = await this.client.getEventDetails(eventResult.eventId);
-
+        const profId = this.dataStore.get("profile");
         const anchor = document.createElement('tr');
         // ... (all the other table cell creation code)
         const th = document.createElement('th');
@@ -128,14 +128,14 @@ class ViewAllEvents extends BindingClass {
             eventType.innerText = resulting.eventModel.category;
             const eventOrg = document.createElement('td');
             const foriegnProfile = resulting.eventModel.eventCreator;
-            const realName = await this.getProfileWithRetry(foriegnProfile);
+            const realName = await this.getProfileWithRetry(profId.profileModel.profileId);
             eventOrg.innerText = realName.profileModel.firstName + " "+ realName.profileModel.lastName;
 
                 const eventCancel = document.createElement('td');
                 const removeBtn = document.createElement('button');
             
                 if (realName.profileModel.events.includes(eventResult.eventId)) {
-                    console.log(realName.profileModel.events,"here");
+                    console.log(realName.profileModel.events,eventResult.eventId,"CANCEL");
                     removeBtn.innerText = "Cancel";
                     removeBtn.className = "btn btn-dark";
                     removeBtn.addEventListener('click', (e) => {
@@ -144,6 +144,7 @@ class ViewAllEvents extends BindingClass {
                         this.thisPageRemoveFrom.call(this, eventResult.eventId);
                     });
                 } else {
+                    console.log(realName.profileModel.events,eventResult.eventId,"RSVP");
                     removeBtn.innerText = "RSVP";
                     removeBtn.className = "btn btn-light-custom-table";
                     removeBtn.addEventListener('click', (e) => {
