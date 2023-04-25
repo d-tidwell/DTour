@@ -15,6 +15,7 @@
             ]},
             "attendees": {
               "SS": [
+                "KypKremenskiyTestEmailAddress@gmail.com",
                 "MarinaMororzovaTestEmailAddress@gmail.com",
                 "SophiaPerezTestEmailAddress@gmail.com"
               ]
@@ -38,6 +39,7 @@
               ]},
             "attendees": {
               "SS": [
+                "SashaMersTestEmailAddress@gmail.com",
                 "CharlotteDavisTestEmailAddress@gmail.com",
                 "HillarryChampTestEmailAddress@gmail.com",
                 "IsabellaMartinezTestEmailAddress@gmail.com",
@@ -51,21 +53,214 @@
       {
         "PutRequest": {
           "Item": {
-            "eventId": {"S": "003NASH"},
-            "name": {"S": "Dino Discovery Day"},
-            "event_creator": {"S": "KolyaMaxTestEmailAddress@gmail.com"},
-            "address": {"S": "Cedars Of Lebanon State Park, 328 Cedar Forest Rd Lebanon, TN 37090"},
-            "description": {"S": "Dino Discovery Day is an exciting and educational event that takes visitors on a journey back in time to explore the world of dinosaurs. The event is designed to be interactive and engaging, allowing attendees of all ages to learn about these fascinating creatures through a range of activities and exhibits."},
-            "date_time": { "S": "2023-06-30T10:30:00-05:00[America/New_York]" },
+            "eventId": { "S": "003NASH" },
+            "name": { "S": "Summer Yoga in the Park" },
+            "event_creator": {"S": "YogaInstructorTestEmailAddress@gmail.com"},
+            "address": { "S": "Sevier Park, 3021 Lealand Ln, Nashville, TN 37204" },
+            "description": { "S": "Summer Yoga in the Park is an outdoor yoga event that encourages participants of all levels to join in and practice yoga in a serene and natural environment. The event is led by a certified yoga instructor and focuses on promoting relaxation, stress relief, and overall well-being."},
+            "date_time": { "S": "2023-07-10T09:00:00-05:00[America/New_York]" },
             "category": {
               "SS": [
-                "Educational"
+                "Health and Wellness"
               ]},
             "attendees": {
               "SS": [
-                "MarinaGoroshkoTestEmailAddress@gmail.com",
+                "YogaInstructorTestEmailAddress@gmail.com",
+                "AvaWilsonTestEmailAddress@gmail.com",
+                "IsabellaMartinezTestEmailAddress@gmail.com",
+                "SophiaGarciaTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "eventId": { "S": "004NASH" },
+            "name": { "S": "City Scavenger Hunt" },
+            "event_creator": {"S": "AdrianSmithTestEmailAddress@gmail.com"},
+            "address": { "S": "126 Gay St, Downtown Nashville, Nashville, TN 37040" },
+            "description": { "S": "City Scavenger Hunt is an adventurous and exciting event that challenges participants to explore the city and solve a series of clues to find hidden treasures. The event encourages teamwork, problem-solving, and creativity while allowing participants to discover the city's history, landmarks, and hidden gems."},
+            "date_time": { "S": "2023-05-20T14:00:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Children educational, Adventure"
+              ]},
+            "attendees": {
+              "SS": [
+                "AmandaJohnsonTestEmailAddress@gmail.com",
+                "OliviaWhiteTestEmailAddress@gmail.com",
+                "EmmaWilsonTestEmailAddress@gmail.com",
+                "AdrianSmithTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "eventId": { "S": "005NASH" },
+            "name": { "S": "Rooftop Yoga" },
+            "event_creator": {"S": "LeahSmithTestEmailAddress@gmail.com"},
+            "address": { "S": "Downtown Nashville, 100 Commerce St Nashville, TN 37201" },
+            "description": { "S": "Join us for a relaxing and invigorating rooftop yoga session with a stunning view of the city skyline. This event is suitable for all levels of experience and aims to promote mindfulness, flexibility, and overall well-being. Please bring your own yoga mat and water bottle."},
+            "date_time": { "S": "2023-07-10T18:30:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Fitness"
+              ]},
+            "attendees": {
+            "SS": [
+                "MarinaMororzovaTestEmailAddress@gmail.com",
+                "SophiaPerezTestEmailAddress@gmail.com",
+                "SashaMersTestEmailAddress@gmail.com",
+                "LeahSmithTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "eventId": { "S": "006NASH" },
+            "name": { "S": "Craft Beer Crawl" },
+            "event_creator": {"S": "MikeBrownTestEmailAddress@gmail.com"},
+            "address": { "S": "East Nashville, 1106 Gallatin Ave, Nashville, TN 37206" },
+            "description": { "S": "Join us for a fun and social craft beer crawl through the best breweries in East Nashville. Sample a variety of local brews, meet fellow beer enthusiasts, and learn about the brewing process from knowledgeable guides. This event is 21+ only, and the ticket includes all beer tastings."},
+            "date_time": { "S": "2023-08-20T15:00:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Bar Hop"
+              ]},
+            "attendees": {
+              "SS": [
+                  "MikeBrownTestEmailAddress@gmail.com",
+                  "SophiaGarciaTestEmailAddress@gmail.com",
+                  "MikeJohnsonTestEmailAddress@gmail.com",
+                  "JacksonTurnerTestEmailAddress@gmail.com"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "PutRequest": {
+            "Item": {
+            "eventId": { "S": "007NASH" },
+            "name": { "S": "Farmers' Market Sundays" },
+            "event_creator": {"S": "AnnGreenTestEmailAddress@gmail.com"},
+            "address": { "S": "Nashville Farmers' Market, 900 Rosa L Parks Blvd, Nashville, TN 37208" },
+            "description": { "S": "Join us every Sunday for the Farmers' Market at Nashville Farmers' Market. Shop for fresh, locally-grown produce, artisanal foods, and handcrafted items from local vendors. This family-friendly event also features live music, food trucks, and fun activities for kids."},
+            "date_time": { "S": "2023-05-07T09:00:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Market"
+              ]},
+            "attendees": {
+              "SS": [
+                "CharlotteDavisTestEmailAddress@gmail.com",
+                "HillarryChampTestEmailAddress@gmail.com",
+                "MikeJohnsonTestEmailAddress@gmail.com",
+                "AnnGreenTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "eventId": { "S": "008NASH" },
+            "name": { "S": "City Scavenger Hunt" },
+            "event_creator": {"S": "TaraWhiteTestEmailAddress@gmail.com"},
+            "address": { "S": "Downtown Nashville, 100 Commerce St Nashville, TN 37201" },
+            "description": { "S": "Discover the hidden gems of Nashville through our exciting City Scavenger Hunt. Participants will follow clues, solve riddles, and complete challenges as they explore the city's historical landmarks, unique attractions, and local hotspots. Great for team-building, family outings, or simply making new friends!" },
+            "date_time": { "S": "2023-09-23T14:00:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Outdoor Adventure"
+              ]},
+            "attendees": {
+              "SS": [
+                "MarinaMororzovaTestEmailAddress@gmail.com",
+                "SophiaPerezTestEmailAddress@gmail.com",
+                "MikeBrownTestEmailAddress@gmail.com",
+                "TaraWhiteTestEmailAddress@gmail.com",
+                "OliviaWhiteTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "eventId": { "S": "009NASH" },
+            "name": { "S": "Open Mic Night" },
+            "event_creator": {"S": "LukeTaylorTestEmailAddress@gmail.com"},
+            "address": { "S": "The Bluebird Cafe, 4104 Hillsboro Pike, Nashville, TN 37215" },
+            "description": { "S": "Show off your talents or just enjoy some local entertainment at our Open Mic Night at The Bluebird Cafe. Singers, songwriters, musicians, poets, and comedians are all welcome to take the stage and share their passion. Come and support local artists, or sign up and perform yourself!" },
+            "date_time": { "S": "2023-10-12T19:00:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Live Performance"
+              ]},
+            "attendees": {
+              "SS": [
+                "LukeTaylorTestEmailAddress@gmail.com",
                 "SophiaGarciaTestEmailAddress@gmail.com",
-                "SvetaLunevaTestEmailAddress@gmail.com"
+                "MikeJohnsonTestEmailAddress@gmail.com",
+                "AdrianSmithTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+      "PutRequest": {
+        "Item": {
+          "eventId": { "S": "010NASH" },
+          "name": { "S": "Outdoor Movie Night" },
+          "event_creator": {"S": "EmmaWilsonTestEmailAddress@gmail.com"},
+          "address": { "S": "Centennial Park, 2500 W End Ave Nashville, TN 37203 Midtown" },
+          "description": { "S": "Join us for a fun and relaxing Outdoor Movie Night at Centennial Park. Bring your blanket or lawn chair and enjoy a classic film under the stars with family and friends. The event also features food trucks and a popcorn stand for all your snacking needs. Don't miss out on this unique cinematic experience!" },
+          "date_time": { "S": "2023-11-04T19:30:00-05:00[America/New_York]" },
+          "category": {
+            "SS": [
+            "Movie Night"
+            ]},
+          "attendees": {
+          "SS": [
+              "EmmaWilsonTestEmailAddress@gmail.com",
+              "CharlotteDavisTestEmailAddress@gmail.com",
+              "HillarryChampTestEmailAddress@gmail.com",
+              "LukeTaylorTestEmailAddress@gmail.com"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "eventId": {"S": "011NASH"},
+            "name": {"S": "Local Art Showcase"},
+            "event_creator": {"S": "KolyaMaxTestEmailAddress@gmail.com"},
+            "address": {"S": "Nashville Art Museum, 1234 Main St, Nashville, TN 37208"},
+            "description": {"S": "Local Art Showcase is an event that highlights the creative talents of local artists from various disciplines. This event provides a platform for artists to exhibit their work, gain exposure, and engage with the community. Attendees can expect to see a wide range of artistic styles, including painting, sculpture, photography, and mixed media."},
+            "date_time": { "S": "2023-09-15T18:00:00-05:00[America/New_York]" },
+            "category": {
+              "SS": [
+                "Art Exhibition"
+              ]},
+            "attendees": {
+              "SS": [
+                "KolyaMaxTestEmailAddress@gmail.com",
+                "EthanBrownTestEmailAddress@gmail.com",
+                "SophiaPerezTestEmailAddress@gmail.com"
               ]
             }
           }

@@ -3,22 +3,24 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "NoahCainTestEmailAddress@gmail.com"},
-          "firstName": {"S": "Noah"},
-          "lastName": {"S": "Cain"},
-          "location": {"S": "Mount Juliet"},
+          "id": {"S": "KypKremenskiyTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Kyp"},
+          "lastName": {"S": "Kremenskiy"},
+          "location": {"S": "Franklin"},
           "gender": {"S": "male"},
-          "dateOfBirth": {"S": "1985-09-18T02:30:00-05:00[America/New_York]"},
+          "dateOfBirth": {"S": "1969-12-20T02:30:00-05:00[America/New_York]"},
           "following": {
             "SS": [
+              "NoahCainTestEmailAddress@gmail.com",
               "AndresATestEmailAddress@gmail.com",
-              "AshleyGildayTestEmailAddress@gmail.com"
+              "MarinaMororzovaTestEmailAddress@gmail.com",
+              "SophiaPerezTestEmailAddress@gmail.com" 
             ]
           },
           "events": {
             "SS": [
               "001NASH",
-              "002NASH"
+              "003NASH"
             ]
           }
         }
@@ -27,12 +29,147 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "AshleyGildayTestEmailAddress@gmail.com"},
-          "firstName": {"S": "Ashley"},
-          "lastName": {"S": "Gilday"},
+          "id": {"S": "MarinaMororzovaTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Marina"},
+          "lastName": {"S": "Mororzova"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1995-1-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "NoahCainTestEmailAddress@gmail.com",
+              "SophiaPerezTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "001NASH",
+              "002NASH",
+              "005NASH",
+              "008NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "SophiaPerezTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Sophia"},
+          "lastName": {"S": "Perez"},
+          "location": {"S": "Mount Juliet"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1998-02-15T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "NoahCainTestEmailAddress@gmail.com",
+              "AndresATestEmailAddress@gmail.com",
+              "CharlotteDavisTestEmailAddress@gmail.com",
+              "HillarryChampTestEmailAddress@gmail.com",
+              "IsabellaMartinezTestEmailAddress@gmail.com",
+              "MarinaMororzovaTestEmailAddress@gmail.com",
+              "SophiaGarciaTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "001NASH",
+              "005NASH",
+              "011NASH",
+              "008NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "SashaMersTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Sasha"},
+          "lastName": {"S": "Mers"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1980-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "HillarryChampTestEmailAddress@gmail.com",
+              "IsabellaMartinezTestEmailAddress@gmail.com",
+              "MarinaMororzovaTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "002NASH",
+              "005NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "CharlotteDavisTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Charlotte"},
+          "lastName": {"S": "Davis"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1969-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "HillarryChampTestEmailAddress@gmail.com",
+              "IsabellaMartinezTestEmailAddress@gmail.com",
+              "MarinaMororzovaTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "002NASH",
+              "007NASH",
+              "010NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "HillarryChampTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Hillarry"},
+          "lastName": {"S": "Champ"},
           "location": {"S": "Nashville"},
           "gender": {"S": "female"},
           "dateOfBirth": {"S": "1983-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AdrianSmithTestEmailAddress@gmail.com",
+              "AmandaJohnsonTestEmailAddress@gmail.com",
+              "JacksonTurnerTestEmailAddress@gmail.com",
+              "OliviaWhiteTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "002NASH",
+              "007NASH",
+              "010NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "IsabellaMartinezTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Isabella"},
+          "lastName": {"S": "Martinez"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1989-12-25T02:30:00-05:00[America/New_York]"},
           "following": {
             "SS": [
               "NoahCainTestEmailAddress@gmail.com",
@@ -51,22 +188,397 @@
     {
       "PutRequest": {
         "Item": {
-          "id": {"S": "AndresATestEmailAddress@gmail.com"},
-          "firstName": {"S": "Andres"},
-          "lastName": {"S": "A"},
-          "location": {"S": "Knoxville"},
-          "gender": {"S": "male"},
-          "dateOfBirth": {"S": "1990-04-05T01:30:00-05:00[America/New_York]"},
+          "id": {"S": "SophiaGarciaTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Sophia"},
+          "lastName": {"S": "Garcia"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1999-12-25T02:30:00-05:00[America/New_York]"},
           "following": {
             "SS": [
               "NoahCainTestEmailAddress@gmail.com",
-              "AshleyGildayTestEmailAddress@gmail.com"
+              "AndresATestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "002NASH",
+              "003NASH",
+              "006NASH",
+              "009NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "YogaInstructorTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Ratki"},
+          "lastName": {"S": "Gnuka"},
+          "location": {"S": "Bellvue"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1965-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AvaWilsonTestEmailAddress@gmail.com",
+              "IsabellaMartinezTestEmailAddress@gmail.com",
+              "SophiaGarciaTestEmailAddress@gmail.com"
             ]
           },
           "events": {
             "SS": [
               "003NASH",
-              "001NASH"
+              "011NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "AvaWilsonTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Ava"},
+          "lastName": {"S": "Wilson"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1987-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AdrianSmithTestEmailAddress@gmail.com",
+              "AmandaJohnsonTestEmailAddress@gmail.com",
+              "JacksonTurnerTestEmailAddress@gmail.com",
+              "OliviaWhiteTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "003NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "AdrianSmithTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Adrian"},
+          "lastName": {"S": "Smith"},
+          "location": {"S": "Clarksville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1993-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AmandaJohnsonTestEmailAddress@gmail.com",
+              "JacksonTurnerTestEmailAddress@gmail.com",
+              "OliviaWhiteTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "004NASH",
+              "009NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "AmandaJohnsonTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Amanda"},
+          "lastName": {"S": "Johnson"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "2001-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "SashaMersTestEmailAddress@gmail.com",
+              "CharlotteDavisTestEmailAddress@gmail.com",
+              "HillarryChampTestEmailAddress@gmail.com",
+              "IsabellaMartinezTestEmailAddress@gmail.com",
+              "SophiaGarciaTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "004NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "JacksonTurnerTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Jackson"},
+          "lastName": {"S": "Turner"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1983-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AdrianSmithTestEmailAddress@gmail.com",
+              "AmandaJohnsonTestEmailAddress@gmail.com",
+              "JacksonTurnerTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "006NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "LeahSmithTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Leah"},
+          "lastName": {"S": "Smith"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1983-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "NoahCainTestEmailAddress@gmail.com",
+              "AndresATestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "005NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "MikeBrownTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Mike"},
+          "lastName": {"S": "Brown"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1986-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "NoahCainTestEmailAddress@gmail.com",
+              "AndresATestEmailAddress@gmail.com",
+              "MikeJohnsonTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "006NASH",
+              "008NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "MikeJohnsonTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Micheal"},
+          "lastName": {"S": "Johnson"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "2004-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AnnGreenTestEmailAddress@gmail.com",
+              "CharlotteDavisTestEmailAddress@gmail.com",
+              "conversations.and.L@gmail.com",
+              "HillarryChampTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "006NASH",
+              "007NASH",
+              "009NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "AnnGreenTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Ann"},
+          "lastName": {"S": "Green"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1997-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "CharlotteDavisTestEmailAddress@gmail.com",
+              "conversations.and.L@gmail.com",
+              "HillarryChampTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "007NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "TaraWhiteTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Tara"},
+          "lastName": {"S": "White"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1985-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AdrianSmithTestEmailAddress@gmail.com",
+              "AmandaJohnsonTestEmailAddress@gmail.com",
+              "JacksonTurnerTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "008NASH",
+              "011NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "LukeTaylorTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Luke"},
+          "lastName": {"S": "Taylor"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1984-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "TaraWhiteTestEmailAddress@gmail.com",
+              "EmmaWilsonTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "009NASH",
+              "010NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "EmmaWilsonTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Emma"},
+          "lastName": {"S": "Wilson"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1992-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "MikeBrownTestEmailAddress@gmail.com",
+              "MikeJohnsonTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "010NASH",
+              "004NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "KolyaMaxTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Kolya"},
+          "lastName": {"S": "Max"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1998-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "KypKremenskiyTestEmailAddress@gmail.com",
+              "SophiaPerezTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "011NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "EthanBrownTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Ethan"},
+          "lastName": {"S": "Brown"},
+          "location": {"S": "Nashville"},
+          "gender": {"S": "male"},
+          "dateOfBirth": {"S": "1984-12-25T02:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "AdrianSmithTestEmailAddress@gmail.com",
+              "AmandaJohnsonTestEmailAddress@gmail.com",
+              "JacksonTurnerTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "011NASH"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "OliviaWhiteTestEmailAddress@gmail.com"},
+          "firstName": {"S": "Olivia"},
+          "lastName": {"S": "White"},
+          "location": {"S": "Knoxville"},
+          "gender": {"S": "female"},
+          "dateOfBirth": {"S": "1990-04-05T01:30:00-05:00[America/New_York]"},
+          "following": {
+            "SS": [
+              "CharlotteDavisTestEmailAddress@gmail.com",
+              "HillarryChampTestEmailAddress@gmail.com",
+              "LeahSmithTestEmailAddress@gmail.com",
+              "TaraWhiteTestEmailAddress@gmail.com",
+              "EmmaWilsonTestEmailAddress@gmail.com",
+              "AmandaJohnsonTestEmailAddress@gmail.com"
+            ]
+          },
+          "events": {
+            "SS": [
+              "004NASH",
+              "008NASH",
+              "011NASH"
             ]
           }
         }
