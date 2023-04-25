@@ -163,12 +163,8 @@ class EventDetails extends BindingClass {
             icon.style.position = 'absolute';
             icon.style.top = '-40px';
             // Set a fixed height for the anchor element
-            anchor.style.height = '80px';
+            anchor.style.height = '95px';
 
-            //Center the profilepic
-            anchor.style.position = 'relative';
-            anchor.style.textAlign = 'center';
-            icon.style.position = 'absolute';
             // Append elements
             anchor.appendChild(name);
             anchor.appendChild(icon);
