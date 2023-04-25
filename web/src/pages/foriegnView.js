@@ -31,8 +31,7 @@ class FViewProfile extends BindingClass {
         } else {
           console.error('id not found in the URL');
         }
-        const fols = profile.profileModel.following;
-        await this.checkFollowing(fols, foriegnId);
+        await this.checkFollowing(foriegnId);
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
         this.dataStore.set('firstName', profile.profileModel.firstName);
@@ -61,8 +60,14 @@ class FViewProfile extends BindingClass {
         this.client = new dannaClient();
         this.clientLoaded();
     }
-    async checkFollowing(fols, foriegnId){
-        if(fols.includes(foriegnId)){
+    async checkFollowing(foriegnId){
+        const us = await this.client.getIdentity();
+        const usProfile = await this.getProfileWithRetry(us.email);
+        const them  = await this.getProfileWithRetry(foriegnId);
+        const themId = them.profileModel.profileId;
+        const truthy = usProfile.profileModel.following.includes(themId);
+        console.log(truthy,"truth");
+        if(truthy){
             document.getElementById('follow-btn').innerText = "remove";
         }
     }

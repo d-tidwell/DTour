@@ -277,9 +277,6 @@ class ViewProfile extends BindingClass {
     async addFollowing(email){
         const following =  await this.getProfileWithRetry(email);
         console.log(following, "following");
-        if (following.profileModel.following == null) {
-            document.getElementById("allFollowingList").innerText = "You are not following anyone";
-        } else {
         let profileFollowing;
         const listFols = following.profileModel.following;
         for (profileFollowing of listFols) {
@@ -306,13 +303,13 @@ class ViewProfile extends BindingClass {
             anchor.style.textAlign = 'center';
             icon.style.position = 'absolute';
             icon.style.top = '-40px';
+            // Set a fixed height for the anchor element
+            anchor.style.height = '95px';
 
             // Append elements
             anchor.appendChild(name);
             anchor.appendChild(icon);
             document.getElementById("allFollowingList").appendChild(anchor);
-        }
-        document.getElementById("allFollowingListText").remove();
 
         }
     
