@@ -15,6 +15,7 @@
             ]},
             "attendees": {
               "SS": [
+                "KypKremenskiyTestEmailAddress@gmail.com",
                 "MarinaMororzovaTestEmailAddress@gmail.com",
                 "SophiaPerezTestEmailAddress@gmail.com"
               ]
@@ -38,6 +39,7 @@
               ]},
             "attendees": {
               "SS": [
+                "SashaMersTestEmailAddress@gmail.com",
                 "CharlotteDavisTestEmailAddress@gmail.com",
                 "HillarryChampTestEmailAddress@gmail.com",
                 "IsabellaMartinezTestEmailAddress@gmail.com",
@@ -63,6 +65,7 @@
               ]},
             "attendees": {
               "SS": [
+                "YogaInstructorTestEmailAddress@gmail.com",
                 "AvaWilsonTestEmailAddress@gmail.com",
                 "IsabellaMartinezTestEmailAddress@gmail.com",
                 "SophiaGarciaTestEmailAddress@gmail.com"
@@ -87,8 +90,9 @@
             "attendees": {
               "SS": [
                 "AmandaJohnsonTestEmailAddress@gmail.com",
-                "JacksonTurnerTestEmailAddress@gmail.com",
-                "OliviaWhiteTestEmailAddress@gmail.com"
+                "OliviaWhiteTestEmailAddress@gmail.com",
+                "EmmaWilsonTestEmailAddress@gmail.com",
+                "AdrianSmithTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -110,7 +114,9 @@
             "attendees": {
             "SS": [
                 "MarinaMororzovaTestEmailAddress@gmail.com",
-                "SophiaPerezTestEmailAddress@gmail.com"
+                "SophiaPerezTestEmailAddress@gmail.com",
+                "SashaMersTestEmailAddress@gmail.com",
+                "LeahSmithTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -131,8 +137,10 @@
               ]},
             "attendees": {
               "SS": [
+                  "MikeBrownTestEmailAddress@gmail.com",
                   "SophiaGarciaTestEmailAddress@gmail.com",
-                  "MikeJohnsonTestEmailAddress@gmail.com"
+                  "MikeJohnsonTestEmailAddress@gmail.com",
+                  "JacksonTurnerTestEmailAddress@gmail.com"
                 ]
               }
             }
@@ -154,8 +162,9 @@
             "attendees": {
               "SS": [
                 "CharlotteDavisTestEmailAddress@gmail.com",
-                "conversations.and.L@gmail.com",
-                "HillarryChampTestEmailAddress@gmail.com"
+                "HillarryChampTestEmailAddress@gmail.com",
+                "MikeJohnsonTestEmailAddress@gmail.com",
+                "AnnGreenTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -177,7 +186,10 @@
             "attendees": {
               "SS": [
                 "MarinaMororzovaTestEmailAddress@gmail.com",
-                "SophiaPerezTestEmailAddress@gmail.com"
+                "SophiaPerezTestEmailAddress@gmail.com",
+                "MikeBrownTestEmailAddress@gmail.com",
+                "TaraWhiteTestEmailAddress@gmail.com",
+                "OliviaWhiteTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -198,8 +210,10 @@
               ]},
             "attendees": {
               "SS": [
+                "LukeTaylorTestEmailAddress@gmail.com",
                 "SophiaGarciaTestEmailAddress@gmail.com",
-                "MikeJohnsonTestEmailAddress@gmail.com"
+                "MikeJohnsonTestEmailAddress@gmail.com",
+                "AdrianSmithTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -220,8 +234,10 @@
             ]},
           "attendees": {
           "SS": [
+              "EmmaWilsonTestEmailAddress@gmail.com",
               "CharlotteDavisTestEmailAddress@gmail.com",
-              "HillarryChampTestEmailAddress@gmail.com"
+              "HillarryChampTestEmailAddress@gmail.com",
+              "LukeTaylorTestEmailAddress@gmail.com"
               ]
             }
           }
@@ -242,8 +258,8 @@
               ]},
             "attendees": {
               "SS": [
+                "KolyaMaxTestEmailAddress@gmail.com",
                 "EthanBrownTestEmailAddress@gmail.com",
-                "MiaHarrisTestEmailAddress@gmail.com",
                 "SophiaPerezTestEmailAddress@gmail.com"
               ]
             }

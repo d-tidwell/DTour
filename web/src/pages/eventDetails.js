@@ -144,16 +144,16 @@ class EventDetails extends BindingClass {
             // Create an anchor element
             const anchor = document.createElement('a');
             anchor.setAttribute('href', 'foriegnView.html?id='+profileId);
-            anchor.className = 'nav-link px-4 d-flex flex-column align-items-center smprofile';
+            anchor.className = 'nav-link px-4 d-flex flex-column align-items-center smprofile pt-6';
             anchor.id = 'foreignPic' +profileId;
 
             // Create an icon element
             const icon = document.createElement('i');
-            icon.className = 'bi bi-person-circle nav-profile-icon-sm';
+            icon.className = 'bi bi-person-circle nav-profile-icon-sm pt-6';
 
             // Create an H3 element
             const name = document.createElement('H3');
-            name.className = 'names text-following';
+            name.className = 'names text-following pt-6';
             name.id = 'names';
             name.textContent = profileFName + " " + profileLName;
             
@@ -162,7 +162,13 @@ class EventDetails extends BindingClass {
             anchor.style.textAlign = 'center';
             icon.style.position = 'absolute';
             icon.style.top = '-40px';
+            // Set a fixed height for the anchor element
+            anchor.style.height = '80px';
 
+            //Center the profilepic
+            anchor.style.position = 'relative';
+            anchor.style.textAlign = 'center';
+            icon.style.position = 'absolute';
             // Append elements
             anchor.appendChild(name);
             anchor.appendChild(icon);
