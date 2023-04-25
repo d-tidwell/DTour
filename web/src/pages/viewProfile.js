@@ -274,12 +274,17 @@ class ViewProfile extends BindingClass {
         document.getElementById("names").innerText = fname + " " + lname;
     }
 
-    async addFollowing(email){
-        const following =  await this.getProfileWithRetry(email);
+    async addFollowing(email) {
+        const following = await this.getProfileWithRetry(email);
         console.log(following, "following");
-        let profileFollowing;
+    
+        if (!following || !following.profileModel || !Array.isArray(following.profileModel.following)) {
+            console.error('Invalid following data:', following);
+            return;
+        }
+    
         const listFols = following.profileModel.following;
-        for (profileFollowing of listFols) {
+        for (const profileFollowing of listFols) {
             const getName = await this.getProfileWithRetry(profileFollowing);
             console.log(getName.profileModel.profileId,"got Follower")
             // Create an anchor element

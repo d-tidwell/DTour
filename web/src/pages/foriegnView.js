@@ -60,15 +60,35 @@ class FViewProfile extends BindingClass {
         this.client = new dannaClient();
         this.clientLoaded();
     }
-    async checkFollowing(foriegnId){
-        const us = await this.client.getIdentity();
-        const usProfile = await this.getProfileWithRetry(us.email);
-        const them  = await this.getProfileWithRetry(foriegnId);
-        const themId = them.profileModel.profileId;
-        const truthy = usProfile.profileModel.following.includes(themId);
-        console.log(truthy,"truth");
-        if(truthy){
-            document.getElementById('follow-btn').innerText = "remove";
+    async checkFollowing(foreignId) {
+        try {
+            const us = await this.client.getIdentity();
+            const usProfile = await this.getProfileWithRetry(us.email);
+    
+            if (!usProfile || !usProfile.profileModel || !Array.isArray(usProfile.profileModel.following)) {
+                console.error('Invalid usProfile data:', usProfile);
+                return;
+            }
+    
+            const them = await this.getProfileWithRetry(foreignId);
+    
+            if (!them || !them.profileModel) {
+                console.error('Invalid them data:', them);
+                return;
+            }
+    
+            const themId = them.profileModel.profileId;
+            const isFollowing = usProfile.profileModel.following.includes(themId);
+            console.log(isFollowing, 'isFollowing');
+    
+            const followBtn = document.getElementById('follow-btn');
+            if (followBtn) {
+                followBtn.innerText = isFollowing ? 'remove' : 'follow';
+            } else {
+                console.error('Button with id "follow-btn" not found');
+            }
+        } catch (error) {
+            console.error('Error in checkFollowing:', error);
         }
     }
     async delay(ms) {
