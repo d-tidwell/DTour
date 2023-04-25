@@ -31,18 +31,17 @@ class FViewProfile extends BindingClass {
         } else {
           console.error('id not found in the URL');
         }
-        if(profile.profileModel.following.includes(foriegnId)){
-            document.getElementById('follow-btn').innerText = "remove";
-        }
+        const fols = profile.profileModel.following;
+        await this.checkFollowing(fols, foriegnId);
         this.dataStore.set("email", identity.email);
         this.dataStore.set('profile', profile);
         this.dataStore.set('firstName', profile.profileModel.firstName);
         this.dataStore.set('lastName', profile.profileModel.lastName);
 
-        this.addEvents();
-        this.addPersonalEvents();
-        this.addName();
-        this.addFollowing();
+        await this.addEvents();
+        await this.addPersonalEvents();
+        await this.addName();
+        await this.addFollowing();
         
 
     }
@@ -61,6 +60,11 @@ class FViewProfile extends BindingClass {
 
         this.client = new dannaClient();
         this.clientLoaded();
+    }
+    async checkFollowing(fols, foriegnId){
+        if(fols.includes(foriegnId)){
+            document.getElementById('follow-btn').innerText = "remove";
+        }
     }
     async delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

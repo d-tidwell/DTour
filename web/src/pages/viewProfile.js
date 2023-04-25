@@ -25,10 +25,10 @@ class ViewProfile extends BindingClass {
         this.dataStore.set('firstName', profile.profileModel.firstName);
         this.dataStore.set('lastName', profile.profileModel.lastName);
         this.dataStore.set('following', profile.profileModel.following);
-        this.addEvents();
-        this.addPersonalEvents();
-        this.addName();
-        this.addFollowing(identity.email);
+        await this.addEvents();
+        await this.addPersonalEvents();
+        await this.addName();
+        await this.addFollowing(identity.email);
         
 
     }
@@ -281,7 +281,8 @@ class ViewProfile extends BindingClass {
             document.getElementById("allFollowingList").innerText = "You are not following anyone";
         } else {
         let profileFollowing;
-        for (profileFollowing of following.profileModel.following) {
+        const listFols = following.profileModel.following;
+        for (profileFollowing of listFols) {
             const getName = await this.getProfileWithRetry(profileFollowing);
             console.log(getName.profileModel.profileId,"got Follower")
             // Create an anchor element
