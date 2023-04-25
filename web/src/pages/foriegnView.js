@@ -38,10 +38,10 @@ class FViewProfile extends BindingClass {
         this.dataStore.set('firstName', profile.profileModel.firstName);
         this.dataStore.set('lastName', profile.profileModel.lastName);
 
-        this.addEvents();
-        this.addPersonalEvents();
-        this.addName();
-        this.addFollowing();
+        await this.addEvents();
+        await this.addPersonalEvents();
+        await this.addName();
+        await this.addFollowing();
         
 
     }
