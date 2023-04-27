@@ -59,7 +59,7 @@ Backend API tied to FrontEnd interactivity includes:
 
 
 ### Create / Edit Profile / Modal Confirmation
-![Image: Deployed Edit Profile](https://github.com/d-tidwell/DTour/blob/main/resources/images/CreateProfile.png)
+![Image: Deployed Edit Profile](https://github.com/d-tidwell/DTour/blob/main/resources/images/updateProfileModal.png)
 ### Create / Edit Event / Modal Confirmation
 ![Image: Deployed Create Event](https://github.com/d-tidwell/DTour/blob/main/resources/images/createEvent.png)
 ### Foriegn Profile View
