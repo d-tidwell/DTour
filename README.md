@@ -23,17 +23,23 @@ Our concept was to deliver an event driven social media platform. Users would ma
 I created front end wire frames in [Moqup](https://moqups.com/) to outline the design aspect and page interactivity 
 ![Image: Profile View Wire Frame](https://github.com/d-tidwell/DTour/blob/main/resources/images/profileView.png)
 ![Image: All Events View Wire Frame](https://github.com/d-tidwell/DTour/blob/main/resources/images/allEventsView.png)
-Additional Wire Frames and planning resources can been found [here](https://github.com/d-tidwell/DTour/blob/main/resources/images/allEventsView.png)
 
-I defined the endpoint call structures and data shapes of inbound and outbound JSON of the API [Endpoint Definitions](https://github.com/d-tidwell/DTour/edit/main/resources/endpoints_needed.md)
 
-I created a team job board in the GitHub Projects ticketing style.
+- Additional Wire Frames and planning resources can been found [here](https://github.com/d-tidwell/DTour/blob/main/resources/images/allEventsView.png)
 
-We defined user stories together to further drill down from our conceptual expectations discussion.
+-I defined the endpoint call structures and data shapes of inbound and outbound JSON of the API [Endpoint Definitions](https://github.com/d-tidwell/DTour/edit/main/resources/endpoints_needed.md)
+
+- I created a team job board in the GitHub Projects ticketing style.
+
+- We defined user stories together to further drill down from our conceptual expectations discussion.
+
+### Personal Planning Contributions
 
 From these 'user stories' . The tasks were delegated and outlined by segregating tickets by endpoint to prevent overlap in development to reduce merge conflicts in two person teams of our group of 5. Each members ticket expressly noted the class naming convention, special considerations of each task, where to find more information and how a ticket would be considered completed (i.e. cUrl the endpoint to test its functionality) before moving on to the next task. 
 
-Each person developed there individual components and were to test them locally on their device using [SAM](https://aws.amazon.com/serverless/sam/) in conjunction with an AWS individual account deployment. Once a ticket or loop of an endpoint was completed the code was submitted via pull request and reviewed to be merged and deployed via the GitHub Pipeline to deployment on the remote AWS services.
+### Source Control
+
+Each person developed there individual components and were to test them locally on their device using [SAM](https://aws.amazon.com/serverless/sam/) in conjunction with an AWS individual account deployment in a dedicated branch to their ticket. Once a branch, ticket or loop of an endpoint was completed the code was submitted via pull request and reviewed to be merged and deployed via the GitHub Pipeline to deployment on the remote AWS services.
 
 ## Results
 
