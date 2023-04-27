@@ -1,15 +1,8 @@
-# Unit 5 Project Intro
+# NSS Midstone Group Project
 
-Welcome to the Unit 5 Project. This project is a starting point that you'll be making extensive changes to as you design and build your own application. The code provided here is a starting point meant to remind you of patterns that we've been using, as well as show you a few new patterns that you might find useful. This document has 2 main sections:
+This project was a culmination of a two week intensive group back & front end build with no prior instruction in Webpack, JavaScript, HTML or CSS. Our team was given three days of concept and endpoint design time followed by 10 days of build time, and one day of presentation preparation to accomplish the deliverables outlined below and have a functional cloud API deployed to a front end web application.
 
-- Deliverables
-- Infrastructure
-
-> **NOTE:** There's a lot to this project, so we've split out the more tactical "how to" guidance into a [separate README](./README-SETUP.md) that you'll want to review and follow the included instructions for after you read through this one.
-
-## Deliverables
-
-These are the required deliverables/reviews that you and your team will need to create during the project. _The status of each of these will be tracked in the GitHub project that your team is using._
+A powerpoint outlining the project mission can be found here [@DTour PowerPoint](https://docs.google.com/presentation/d/1UVmT7e1QBgVxmuxp4RD5vVlZVpYPvCqlumgTPxhtTDg/edit?usp=sharing)
 
 ### Team Deliverables
 
@@ -20,9 +13,6 @@ These are the required deliverables/reviews that you and your team will need to 
 * **Working Product:** Your project, as a working website deployed to AWS.
 * **Team Reflection:** A final retrospective with a few questions to answer as a team to reflect on what you have accomplished and learned throughout the project. Complete [this template](resources/team-reflection.md).
 
-### Individual Deliverables
-
-* **Accomplishment Tracking:** You'll be keeping a log of your individual accomplishments and lessons learned throughout this project week-by-week. Keeping a high level record of your accomplishments throughout your career is useful for your career growth and promotion. Use [this template](resources/individual-accomplishments-template.md) as a starting point, but you can keep this log in whatever tool/location you'd like.
 
 ## Technical Learning Objectives
 
