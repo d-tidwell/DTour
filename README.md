@@ -27,7 +27,7 @@ I created front end wire frames in [Moqup](https://moqups.com/) to outline the d
 
 - Additional Wire Frames and planning resources can been found [here](https://github.com/d-tidwell/DTour/blob/main/resources/images/allEventsView.png)
 
--I defined the endpoint call structures and data shapes of inbound and outbound JSON of the API [Endpoint Definitions](https://github.com/d-tidwell/DTour/edit/main/resources/endpoints_needed.md)
+- I defined the endpoint call structures and data shapes of inbound and outbound JSON of the API [Endpoint Definitions](https://github.com/d-tidwell/DTour/edit/main/resources/endpoints_needed.md)
 
 - I created a team job board in the GitHub Projects ticketing style.
 
@@ -43,16 +43,16 @@ Each person developed there individual components and were to test them locally 
 
 ## Results
 
-As you can see below all User stories were completed and the front end enhanced with hover animations, background animations, site wide styling and realtime page hydration. Furthermore, I was able to expand beyond the sprint objectives to incorporate header based sorting mechanisms for each table.
+As you can see below all user stories were completed and the front end enhanced with hover animations, background animations, site wide styling and realtime page hydration. Furthermore, I was able to expand beyond the sprint objectives to incorporate header based sorting mechanisms for each table.
 
 Backend API tied to FrontEnd interactivity includes:
--User can add person to following list and dynamically the button and its event listener on the foriegn profile will turn to remove
--User can RSVP to events or cancel RSVP from both profile and all events views
--User can create - edit there own events but do not have the ability to access the edit screen of events they are not the creator of
--User can see the event details of events as well as those other users who have RSVP'd
--User can delete an event they created and it will be removed from their events schedule as well as those of who had RSVP's previously
--User can update their profile information
--User can circumvent front end UI and make API calls direct with token as header
+- User can add person to following list and dynamically the button and its event listener on the foriegn profile will turn to remove
+- User can RSVP to events or cancel RSVP from both profile and all events views
+- User can create - edit there own events but do not have the ability to access the edit screen of events they are not the creator of
+- User can see the event details of events as well as those other users who have RSVP'd
+- User can delete an event they created and it will be removed from their events schedule as well as those of who had RSVP's previously
+- User can update their profile information
+- User can circumvent front end UI and make API calls direct with token as header
 
 ### Landing Page
 ![Image: Deployed LandingPage](https://github.com/d-tidwell/DTour/blob/main/resources/images/LandingPage.png)
