@@ -1,8 +1,8 @@
 # NSS Midstone Group Project
 
 ## Tech Stack 
-Backend: Java - AWS Cloudfront, Cognito, Cloudformation, Lambda, S3, Amplify, DynamoDB
-Frontend: JavaScript, WebPack, BootStrap5, HTML5, Animated CSS, Node Package Manager
+- Backend: Java - AWS Cloudfront, Cognito, Cloudformation, Lambda, S3, Amplify, DynamoDB
+- Frontend: JavaScript, WebPack, BootStrap5, HTML5, Animated CSS, Node Package Manager
 
 ## Project Infrastructure
 
@@ -49,9 +49,11 @@ Backend API tied to FrontEnd interactivity includes:
 - User can add person to following list and dynamically the button and its event listener on the foriegn profile will turn to remove
 - User can RSVP to events or cancel RSVP from both profile and all events views
 - User can create - edit there own events but do not have the ability to access the edit screen of events they are not the creator of
+- New Events must be created with future dates only or will not create the event and error out
 - User can see the event details of events as well as those other users who have RSVP'd
 - User can delete an event they created and it will be removed from their events schedule as well as those of who had RSVP's previously
 - User can update their profile information
+- User's birthdate is checked for validity based on being younger than 120 years old and must be a date in the past
 - User can circumvent front end UI and make API calls direct with token as header
 
 ### Landing Page
